@@ -19,24 +19,61 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
           child: Column(
             children: [
-              Text(
-                "Приложение MultiTask поможет вам отслеживать задачи и расписание на день.",
+              Text("Приложение MultiTask поможет вам отслеживать задачи и расписание на день.",
                 textAlign: TextAlign.center,
                 style: mainTextStyle(),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 60),
               Text("Пожалуйста, укажите номер своей группы.",
-                  textAlign: TextAlign.center, style: mainTextStyle()),
-              const SizedBox(height: 40),
+                textAlign: TextAlign.center, style: mainTextStyle()),
+              const SizedBox(height: 70),
               const dp.DropdownMenu(),
-              const SizedBox(height: 40),
-              const Row(
-                children: [],
-              )
+              const SizedBox(height: 150),
+              const Button()
+              // const Row(
+              //   children: [
+              //     OutlinedButton(
+              //       child: Text("Пропустить",
+              //         style: mainTextStyle()),
+              //       style: OutlinedButton.styleFrom(
+              //         side: BorderSide(
+              //           color: Colors.black,
+              //         ),
+              //       ),
+              //       onPressed: ,
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),
         //bottomNavigationBar: BottomNavigationBar()
       );
+  }
+}
+
+class Button extends StatefulWidget {
+  const Button({super.key});
+
+  @override
+  State<Button> createState() => _ButtonState();
+}
+
+class _ButtonState extends State<Button> {
+  String text = 'Пропустить';
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                    color: Colors.blue.shade900,
+                    width: 2
+                  )
+                ),
+                onPressed: () {},
+                child: Text(text ,
+                  style: smallTextStyle(),
+                ),
+              );
   }
 }

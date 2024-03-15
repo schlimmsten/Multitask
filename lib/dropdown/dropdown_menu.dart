@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../text_style.dart';
+import 'package:multitask/screens/home_screen.dart' as hs;
 
 List<String> items = [
   'О721Б',
@@ -30,11 +31,11 @@ class _DropdownMenuState extends State<DropdownMenu> {
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: const BorderSide(color: Colors.black, width: 2),
+                borderSide: BorderSide(color: Colors.blue.shade900, width: 2),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: const BorderSide(color: Colors.black, width: 2),
+                borderSide: BorderSide(color: Colors.blue.shade900, width: 2),
               ),
             ),
             value: selectedItem,
