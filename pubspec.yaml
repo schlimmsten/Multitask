@@ -23,6 +23,8 @@ flutter:
     - family: Montserrat
       fonts:
         - asset: fonts/Montserrat-Regular.ttf
+  assets:
+    - images/
 
 platforms:
   android:
