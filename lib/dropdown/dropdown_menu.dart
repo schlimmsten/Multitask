@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../text_style.dart';
-import 'package:multitask/screens/home_screen.dart' as hs;
 
 List<String> items = [
   'О721Б',
