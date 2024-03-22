@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:multitask/main_screen_components/main_screen_builder.dart';
 import 'package:multitask/text_style.dart';
 import 'package:multitask/main_screen_components/date_builder.dart';
+import '../screens/settings_screen.dart';
 
 var months = [
     'Январь',
@@ -39,11 +41,7 @@ class _NavigationState extends State<Navigation> {
     Text(
       'Index 1: Business',
       style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    ), SettingsScreen(), // Добавляем экран настроек в список
   ];
 
   void _onItemTapped(int index) {
@@ -51,6 +49,7 @@ class _NavigationState extends State<Navigation> {
       _selectedIndex = index;
     });
   }
+  
 
   //эта штука вызывается в body, а сами экраны должны быть в ней, она основной компонент
 
@@ -72,15 +71,17 @@ class _NavigationState extends State<Navigation> {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 35, 31, 240),
+                color: Colors.white,
               ),
               child: Text(
                 'Multitask',
-                style: headerTextStyle(),
+                style: TextStyle(color: Colors.blue.shade900, fontSize: 36, fontFamily: "Montserrat", fontWeight: FontWeight.bold),
                 ),
             ),
             ListTile(
-              title: const Text('Главное меню'),
+              title: const Text('Главное меню',
+              style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20, fontFamily: "Montserrat", ),
+              ),
               selected: _selectedIndex == 0,
               onTap: () {
                 _onItemTapped(0);
@@ -88,7 +89,7 @@ class _NavigationState extends State<Navigation> {
               },
             ),
             ListTile(
-              title: const Text('Расписание'),
+              title: const Text('Расписание', style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20, fontFamily: "Montserrat", ),),
               selected: _selectedIndex == 1,
               onTap: () {
                 _onItemTapped(1);
@@ -96,7 +97,7 @@ class _NavigationState extends State<Navigation> {
               },
             ),
             ListTile(
-              title: const Text('Настройки'),
+              title: const Text('Настройки', style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20, fontFamily: "Montserrat", ),),
               selected: _selectedIndex == 2,
               onTap: () {
                 _onItemTapped(2);

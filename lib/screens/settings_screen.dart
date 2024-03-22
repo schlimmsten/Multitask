@@ -3,7 +3,7 @@ import 'package:multitask/Themes/config.dart';
 import 'package:multitask/Themes/custom_theme.dart';
 import 'package:multitask/screens/main_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:multitask/settings/settings_switcher.dart';
+import 'package:multitask/settings_screen_components/settings_switcher.dart';
 import '../text_style.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -79,7 +79,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(width: 160),
               Switcher(
-                initialValue: currentTheme.isDarkTheme,
+                initialValue: CustomTheme().isDarkTheme,
                 onChanged: (value) {
                   customTheme.toggleTheme(value); // Используем метод экземпляра класса CustomTheme, предоставленного провайдером
                 },

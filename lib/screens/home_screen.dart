@@ -21,11 +21,11 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
         child: Column(
           children: [
-            Text(
-              "Приложение MultiTask поможет вам отслеживать задачи и расписание на день.",
-              textAlign: TextAlign.center,
-              style: mainTextStyle(),
-            ),
+            // Text(
+            //   "Приложение MultiTask поможет вам отслеживать задачи и расписание на день.",
+            //   textAlign: TextAlign.center,
+            //   style: mainTextStyle(),
+            // ),
             const SizedBox(height: 60),
             Text("Пожалуйста, укажите номер своей группы.",
                 textAlign: TextAlign.center, style: mainTextStyle()),
