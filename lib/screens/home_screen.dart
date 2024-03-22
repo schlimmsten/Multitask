@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multitask/screens/main_screen.dart';
 import 'package:multitask/text_style.dart';
 import '../dropdown/dropdown_menu.dart' as dp;
+import '../buttons/skip_button.dart';
+import '../buttons/continue_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,21 +32,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 70),
             const dp.DropdownMenu(),
             const SizedBox(height: 150),
-            const Button()
-            // const Row(
-            //   children: [
-            //     OutlinedButton(
-            //       child: Text("Пропустить",
-            //         style: mainTextStyle()),
-            //       style: OutlinedButton.styleFrom(
-            //         side: BorderSide(
-            //           color: Colors.black,
-            //         ),
-            //       ),
-            //       onPressed: ,
-            //     ),
-            //   ],
-            // )
+            const ContinueButton(),
+            const SkipButton()
           ],
         ),
       ),
@@ -54,28 +42,4 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class Button extends StatefulWidget {
-  const Button({super.key});
 
-  @override
-  State<Button> createState() => _ButtonState();
-}
-
-class _ButtonState extends State<Button> {
-  String text = 'Пропустить';
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.blue.shade900, width: 2)),
-      onPressed: () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const MainScreen()));
-      },
-      child: Text(
-        text,
-        style: smallTextStyle(),
-      ),
-    );
-  }
-}
