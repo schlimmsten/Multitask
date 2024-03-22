@@ -207,7 +207,7 @@ String currentMonth() {
 
 class DateOfWeek extends StatelessWidget {
   final String text;
-  const DateOfWeek({required this.text});
+  const DateOfWeek({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
