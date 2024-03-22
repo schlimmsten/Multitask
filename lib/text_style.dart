@@ -23,8 +23,8 @@ TextStyle smallTextStyle() => const TextStyle(
   fontFamily: "Montserrat",
 );
 
-// TextStyle buttonTextStyle() => const TextStyle(
-//   fontSize: 16, 
-//   color: Colors.black87,
-//   fontFamily: "Montserrat",
-// );
+TextStyle buttonTextStyle() => const TextStyle(
+  fontSize: 10, 
+  color: Colors.black87,
+  fontFamily: "Montserrat",
+);

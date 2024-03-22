@@ -57,16 +57,18 @@ class MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+      return Scaffold(
+        //backgroundColor: Colors.black,
         appBar: AppBar(
         //padding: const EdgeInsets.only(top:40, left:40),
-        title: Text(
-          currentMonth(),
-          style: headerTextStyle(),
+          title: Text(
+            currentMonth(),
+            style: headerTextStyle(),
+            ),
           ),
-        ),
-        body: const ListViewBuilder()
+        body: const SizedBox(
+          height: 85,
+          child: ListViewBuilder(),
         )
       );
     } 
@@ -82,42 +84,62 @@ class ListViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: weekNumbers.length,
-          itemBuilder: (context, index) {
+      return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: weekNumbers.length,
+        itemBuilder: (context, index) {
           return DateOfWeek(text: weekNumbers[index].toString());
-          }
-    )
-    );
+        }
+      );
+    }
   }
+
+//ошибка сидит тут
+
+class DateOfWeek extends StatefulWidget {
+  final String text;
+
+  const DateOfWeek({super.key, required this.text});
+
+  //хули тварь ругается / реши потом
+  @override
+  State<DateOfWeek> createState() => _DateOfWeekState(text);
 }
 
+class _DateOfWeekState extends State<DateOfWeek> {
 
-class DateOfWeek extends StatelessWidget {
   final String text;
-  const DateOfWeek({required this.text});
+
+  _DateOfWeekState(this.text);
 
   @override
   Widget build(BuildContext context) {
-      return SizedBox(
-          child: Align(
-          alignment: Alignment.topCenter,
-          child:  ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              //padding: const EdgeInsets.all(2),
-              shape: const CircleBorder()
-            ),
-              child: Text(
-                      text,
-                      style: smallTextStyle(),
-                      textAlign: TextAlign.center
-          ),
-        )
+    return Container(
+    padding: const EdgeInsets.only(left: 7),
+    width: 55,
+    child: TextButton(
+      onPressed: () {
+        setState(() {
+          //меняем цвет
+        });
+      },
+      style: TextButton.styleFrom(
+        shape: const CircleBorder()
+        ),
+      child: Text(
+        text,
+        style: smallTextStyle(),
+        textAlign: TextAlign.center
+        ),
       ),
     );
   }
 }
 
+// FloatingActionButton(
+//   onPressed: () {
+//     // Делаем что-то при нажатии кнопки.
+//   },
+//   child: Icon(Icons.add),
+//   backgroundColor: Colors.blue,
+// )
