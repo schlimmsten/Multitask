@@ -131,6 +131,7 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/text_style.dart';
 
+
 DateTime now = DateTime.now();
 
 class MainScreen extends StatefulWidget {
@@ -142,6 +143,7 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
   List<int> weekNumbers = [];
+  
 
   @override
   void initState() {
@@ -161,6 +163,33 @@ class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                // Обработка нажатия на пункт меню
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+                // Обработка нажатия на пункт меню
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
