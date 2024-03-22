@@ -129,7 +129,8 @@
 // //   }
 // // }
 import 'package:flutter/material.dart';
-import 'package:multitask/text_style.dart';
+//import 'package:multitask/text_style.dart';
+import '../navigation rail/nav_rail.dart';
 
 
 DateTime now = DateTime.now();
@@ -162,55 +163,29 @@ class MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Обработка нажатия на пункт меню
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Обработка нажатия на пункт меню
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top:40, left:40),
-            child: Text(
-              currentMonth(),
-              style: headerTextStyle(),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: weekNumbers.length,
-              itemBuilder: (context, index) {
-                return DateOfWeek(text: weekNumbers[index].toString());
-              },
-            ),
-          ),
-        ],
-      ),
+    return const Scaffold(
+      body: MyHomePage(),
+      // body: Column(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: [
+      //     Padding(
+      //       padding: const EdgeInsets.only(top:40, left:40),
+      //       child: Text(
+      //         currentMonth(),
+      //         style: headerTextStyle(),
+      //       ),
+      //     ),
+      //     Expanded(
+      //       child: ListView.builder(
+      //         scrollDirection: Axis.horizontal,
+      //         itemCount: weekNumbers.length,
+      //         itemBuilder: (context, index) {
+      //           return DateOfWeek(text: weekNumbers[index].toString());
+      //         },
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
