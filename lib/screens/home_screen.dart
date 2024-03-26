@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/text_style.dart';
 import '../dropdown/dropdown_menu.dart' as dp;
-import '../buttons/skip_button.dart';
-import '../buttons/continue_button.dart';
+import '../home_screen_components/skip_button.dart';
+import '../home_screen_components/continue_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -21,11 +21,11 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
         child: Column(
           children: [
-            // Text(
-            //   "Приложение MultiTask поможет вам отслеживать задачи и расписание на день.",
-            //   textAlign: TextAlign.center,
-            //   style: mainTextStyle(),
-            // ),
+            Text(
+              "Приложение MultiTask поможет вам отслеживать задачи и расписание на день.",
+              textAlign: TextAlign.center,
+              style: mainTextStyle(),
+            ),
             const SizedBox(height: 60),
             Text("Пожалуйста, укажите номер своей группы.",
                 textAlign: TextAlign.center, style: mainTextStyle()),

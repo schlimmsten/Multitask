@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multitask/Themes/config.dart';
-import 'package:multitask/Themes/custom_theme.dart';
+//import 'package:multitask/Themes/config.dart';
+import 'package:multitask/themes/custom_theme.dart';
 import 'package:multitask/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:multitask/settings_screen_components/settings_switcher.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:multitask/Themes/custom_theme.dart';
+import 'package:multitask/themes/custom_theme.dart';
 
 
 
