@@ -14,15 +14,16 @@ class SettingsScreen extends StatelessWidget {
     final customTheme = Provider.of<CustomTheme>(context); // Получаем экземпляр CustomTheme из провайдера
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Настройки",
-           style: headerTextStyle(), // Не забудьте восстановить этот стиль, если он у вас определен
-        ),
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text(
+      //     "Настройки",
+      //      style: headerTextStyle(), // Не забудьте восстановить этот стиль, если он у вас определен
+      //   ),
+      // ),
       body: Column(
         children: [
+          //верхняя полоса
           Center(
             child: Container(
               height: 2.0,
@@ -31,6 +32,7 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 40),
+          //можно выделить в отдельный класс? 3 раза одно и то же делаем
           Row(
             children: [
               Container(
@@ -87,6 +89,7 @@ class SettingsScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 400),
+          //нижняя полоса
           Center(
             child: Container(
               height: 2.0,

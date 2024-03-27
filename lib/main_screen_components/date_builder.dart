@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multitask/text_style.dart';
+import 'date_of_week.dart';
 
-List<int> weekNumbers = [];
+//это надо будет передалать когда дело дойдет до листания дат
+List<DateOfWeek> weekNumbersButtons = List.filled(7, const DateOfWeek(text: "0"));
 DateTime now = DateTime.now();
 
 class DateBuilder extends StatefulWidget {
@@ -26,7 +27,7 @@ class _DateBuilderState extends State<DateBuilder> {
     for (int i = 1; i <= 7; i++) {
       int dayDifference = i - currentDay;
       DateTime date = now.add(Duration(days: dayDifference));
-      weekNumbers.add(date.day);
+      weekNumbersButtons[i - 1] = DateOfWeek(text: date.day.toString());
     }
   }
 
@@ -36,53 +37,11 @@ class _DateBuilderState extends State<DateBuilder> {
         height: 65,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: weekNumbers.length,
+          itemCount: weekNumbersButtons.length,
           itemBuilder: (context, index) {
-            return DateOfWeek(text: weekNumbers[index].toString());
+            return weekNumbersButtons[index];
           }
         )
       );
     }
-}
-
-//ошибка сидит тут
-
-class DateOfWeek extends StatefulWidget {
-  final String text;
-
-  const DateOfWeek({super.key, required this.text});
-
-  //хули тварь ругается / реши потом
-  @override
-  State<DateOfWeek> createState() => _DateOfWeekState(text);
-}
-
-class _DateOfWeekState extends State<DateOfWeek> {
-
-  final String text;
-
-  _DateOfWeekState(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-    padding: const EdgeInsets.only(left: 7),
-    width: 55,
-    child: TextButton(
-      onPressed: () {
-        setState(() {
-          //меняем цвет
-        });
-      },
-      style: TextButton.styleFrom(
-        shape: const CircleBorder()
-        ),
-      child: Text(
-        text,
-        style: smallTextStyle(),
-        textAlign: TextAlign.center
-        ),
-      ),
-    );
-  }
 }

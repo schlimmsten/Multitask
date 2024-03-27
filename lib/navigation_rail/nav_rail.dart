@@ -32,15 +32,24 @@ class _NavigationState extends State<Navigation> {
 
   int _selectedIndex = 0;
 
+  //это удалить потом
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  final List<String> _appBarOptions = <String>[
+    currentMonthAndYear(),
+    "Расписание",
+    "Настройки"
+  ];
+
   static const List<Widget> _screenOptions = <Widget>[
     //первый вызов
     MainScreenBuilder(),
     Text(
       'Index 1: Business',
       style: optionStyle,
-    ), SettingsScreen(), // Добавляем экран настроек в список
+    ), 
+    SettingsScreen(), // Добавляем экран настроек в список
   ];
 
   void _onItemTapped(int index) {
@@ -48,7 +57,6 @@ class _NavigationState extends State<Navigation> {
       _selectedIndex = index;
     });
   }
-  
 
   //эта штука вызывается в body, а сами экраны должны быть в ней, она основной компонент
 
@@ -58,7 +66,7 @@ class _NavigationState extends State<Navigation> {
       //это должно менять на тап (в зависимости от окна)
       appBar: AppBar(
         title: Text(
-          currentMonthAndYear(),
+          _appBarOptions[_selectedIndex],
           style: headerTextStyle(),
           )
         ),
