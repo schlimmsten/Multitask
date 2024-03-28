@@ -2,27 +2,24 @@ import 'package:flutter/material.dart';
 //import 'date_builder.dart';
 
 class DateOfWeek extends StatefulWidget {
-  final String text;
 
-  const DateOfWeek({super.key, required this.text});
+  final String text;
+  final bool isSelected;
+
+  const DateOfWeek({super.key, required this.text, required this.isSelected});
+  //const DateOfWeek({Key? key, required this.text, required this.isSelected}) : super(key: key);
 
   //хули тварь ругается / реши потом
   @override
-  State<DateOfWeek> createState() => _DateOfWeekState(text);
+  State<DateOfWeek> createState() => _DateOfWeekState(text, isSelected);
 }
 
 class _DateOfWeekState extends State<DateOfWeek> {
 
-  late Color _buttonColor;
   final String text;
+  final bool isSelected;
 
-  _DateOfWeekState(this.text);
-
-  @override
-  void initState(){
-    _buttonColor = Colors.black;
-    super.initState();
-  }
+  _DateOfWeekState(this.text, this.isSelected);
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +28,7 @@ class _DateOfWeekState extends State<DateOfWeek> {
     width: 55,
     child: TextButton(
       onPressed: () {
-        setState(() {
-          if (_buttonColor == Colors.black) {
-            _buttonColor = Colors.blue.shade900;
-          } else {
-            _buttonColor = Colors.black;
-          }
-        });
+        //debugPrint("is pressed");
       },
       style: TextButton.styleFrom(
         shape: const CircleBorder(),
@@ -47,7 +38,9 @@ class _DateOfWeekState extends State<DateOfWeek> {
         style: TextStyle( 
           fontSize: 18,
           fontFamily: "Montserrat",
-          color: _buttonColor),
+          color: !isSelected ? Colors.black : Colors.blue.shade900,
+          fontWeight: !isSelected ? FontWeight.normal : FontWeight.bold,
+          ),
         textAlign: TextAlign.center
         ),
       ),

@@ -14,13 +14,6 @@ class SettingsScreen extends StatelessWidget {
     final customTheme = Provider.of<CustomTheme>(context); // Получаем экземпляр CustomTheme из провайдера
 
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: Text(
-      //     "Настройки",
-      //      style: headerTextStyle(), // Не забудьте восстановить этот стиль, если он у вас определен
-      //   ),
-      // ),
       body: Column(
         children: [
           //верхняя полоса
@@ -81,7 +74,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(width: 160),
               Switcher(
-                initialValue: CustomTheme().isDarkTheme,
+                initialValue: customTheme.isDarkTheme,
                 onChanged: (value) {
                   customTheme.toggleTheme(value); // Используем метод экземпляра класса CustomTheme, предоставленного провайдером
                 },

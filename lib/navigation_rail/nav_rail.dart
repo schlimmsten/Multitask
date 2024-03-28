@@ -65,6 +65,8 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       //это должно менять на тап (в зависимости от окна)
       appBar: AppBar(
+        //ЧЕ ЗА ХУЙНЯ
+        //backgroundColor: Colors.white,
         title: Text(
           _appBarOptions[_selectedIndex],
           style: headerTextStyle(),
