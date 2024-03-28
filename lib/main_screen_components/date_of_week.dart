@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'date_builder.dart';
+import 'date_builder.dart';
 
 class DateOfWeek extends StatefulWidget {
 
@@ -21,29 +21,68 @@ class _DateOfWeekState extends State<DateOfWeek> {
 
   _DateOfWeekState(this.text, this.isSelected);
 
+  //где надо хуйнуть setState
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-    padding: const EdgeInsets.only(left: 7),
-    width: 55,
-    child: TextButton(
-      onPressed: () {
-        //debugPrint("is pressed");
-      },
-      style: TextButton.styleFrom(
-        shape: const CircleBorder(),
-        ),
-      child: Text(
-        text,
-        style: TextStyle( 
-          fontSize: 18,
-          fontFamily: "Montserrat",
-          color: !isSelected ? Colors.black : Colors.blue.shade900,
-          fontWeight: !isSelected ? FontWeight.normal : FontWeight.bold,
+    //return IgnorePointer(
+      return Container(
+      padding: const EdgeInsets.only(left: 7),
+      width: 55,
+      // child: TextButton(
+      //   onPressed: () {
+      //     //debugPrint("is pressed");
+      //   },
+      //   style: TextButton.styleFrom(
+      //     shape: const CircleBorder(),
+      //     ),
+        child: Text(
+          text,
+          style: TextStyle( 
+            fontSize: 18,
+            fontFamily: "Montserrat",
+            color: !isSelected ? Colors.black : Colors.blue.shade900,
+            fontWeight: !isSelected ? FontWeight.normal : FontWeight.bold,
+            ),
+          textAlign: TextAlign.center
           ),
-        textAlign: TextAlign.center
-        ),
-      ),
+        
+      
     );
   }
 }
+
+// class _DateOfWeekState extends State<DateOfWeek> {
+  
+//   bool isSelected;
+//   final String text;
+
+//   _DateOfWeekState(this.text, this.isSelected);
+
+//   void _toggleSelected() {
+//     setState(() {
+//       isSelected = !isSelected;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) { 
+//     return Container( 
+//       padding: const EdgeInsets.only(left: 7), 
+//       width: 55, 
+//       child: GestureDetector(
+//         onTap: _toggleSelected,
+//         child: Text( 
+//           text, 
+//           style: TextStyle(  
+//             fontSize: 18, 
+//             fontFamily: "Montserrat", 
+//             color: !isSelected ? Colors.black : Colors.blue.shade900, 
+//             fontWeight: !isSelected ? FontWeight.normal : FontWeight.bold, 
+//           ), 
+//           textAlign: TextAlign.center 
+//         ), 
+//       ),       
+//     ); 
+//   } 
+// }

@@ -27,19 +27,21 @@ class _DateBuilderState extends State<DateBuilder> {
   }
 
   void _onItemTapped(int index){
-    setState(() {
+    
       _selectedIndex = index;
       _generateWeekNumbers();
-    });
+    
   }
 
-
+  //правильно работает 
   void _generateWeekNumbers() {
     int currentDay = now.weekday;
     for (int i = 1; i <= 7; i++) {
       int dayDifference = i - currentDay;
       DateTime date = now.add(Duration(days: dayDifference));
-      weekNumbersButtons[i - 1] = DateOfWeek(text: date.day.toString(), isSelected: i - 1 == _selectedIndex,);
+      bool selected = i - 1 == _selectedIndex;
+      debugPrint("$selected");
+      weekNumbersButtons[i - 1] = DateOfWeek(text: date.day.toString(), isSelected: selected,);
     }
   }
 
@@ -49,38 +51,30 @@ class _DateBuilderState extends State<DateBuilder> {
   @override
   Widget build(BuildContext context) {
       return SizedBox(
-        height: 65,
+        height: 32,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: weekNumbersButtons.length,
           itemBuilder: (context, index) {
-            return GestureDetector(
-              //не срабатывает onTap
-              onTap: (){
-                debugPrint("is pressed");
-                _onItemTapped(index);
-              },
-              child: weekNumbersButtons[index]
-            );
-          }
-        )
-      );
-//       return SizedBox(
-//   height: 65,
-//   child: Row(
-//     children: List.generate(weekNumbersButtons.length, (index) {
-//       return GestureDetector(
-//         onTap: () {
-//           debugPrint("is pressed");
-//           setState(() {
-//             _selectedIndex = index;
-//             _generateWeekNumbers();
-//           });
-//         },
-//         child: weekNumbersButtons[index],
-//       );
-//     }),
-//   ),
-// );
-    }
+            //индексы тапнутого выдаются корректно !!! ГДЕ ОШИБКА
+            //тут срабатывает нажатие, сделать что нибудь с размерностью? + добавить анимации
+            //расчленение, переделать почти все
+            return Container(
+              padding: const EdgeInsets.only(top: 7),
+              width: 55,
+              height: 25,
+              child: GestureDetector(
+                //не срабатывает onTap
+                onTap: (){
+                  _onItemTapped(index);
+                  debugPrint("is pressed");
+                  debugPrint("Chosen one $_selectedIndex");
+                },
+                child: weekNumbersButtons[index]
+                )
+              );
+            }
+          )
+        );
+      }
 }

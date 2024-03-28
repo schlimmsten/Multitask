@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/screens/add_screen.dart';
 
 class AddButton extends StatelessWidget {
   const AddButton({super.key});
@@ -9,7 +10,8 @@ class AddButton extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: FloatingActionButton(
         onPressed: () {
-        // момент добавления компонента
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const AddScreen()));
         },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add),
