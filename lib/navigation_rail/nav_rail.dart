@@ -78,13 +78,13 @@ class _NavigationState extends State<Navigation> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
+            const DrawerHeader(
+              decoration: BoxDecoration(
                 color: Colors.white,
               ),
               child: Text(
                 'Multitask',
-                style: TextStyle(color: Colors.blue.shade900, fontSize: 36, fontFamily: "Montserrat", fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color.fromARGB(255, 8, 4, 252), fontSize: 36, fontFamily: "Montserrat", fontWeight: FontWeight.bold),
                 ),
             ),
             ListTile(

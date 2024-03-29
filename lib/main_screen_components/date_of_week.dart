@@ -41,7 +41,7 @@ class _DateOfWeekState extends State<DateOfWeek> {
           style: TextStyle( 
             fontSize: 18,
             fontFamily: "Montserrat",
-            color: !isSelected ? Colors.black : Colors.blue.shade900,
+            color: !isSelected ? Colors.black : const Color.fromARGB(255, 8, 4, 252),
             fontWeight: !isSelected ? FontWeight.normal : FontWeight.bold,
             ),
           textAlign: TextAlign.center
