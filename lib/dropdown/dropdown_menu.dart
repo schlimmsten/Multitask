@@ -30,11 +30,11 @@ class _DropdownMenuState extends State<DropdownMenu> {
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Colors.blue.shade900, width: 2),
+                borderSide: const BorderSide(color:  Color.fromARGB(255, 8, 4, 252), width: 2),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Colors.blue.shade900, width: 2),
+                borderSide: const BorderSide(color: Color.fromARGB(255, 8, 4, 252), width: 2),
               ),
             ),
             value: selectedItem,

@@ -13,8 +13,8 @@ class AddButton extends StatelessWidget {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => const AddScreen()));
         },
-        backgroundColor: Colors.blue,
-        child: const Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(Icons.add, color: Theme.of(context).iconTheme.color),
       )
     );
   }

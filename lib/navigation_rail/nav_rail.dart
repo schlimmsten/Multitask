@@ -85,38 +85,15 @@ class _NavigationState extends State<Navigation> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            SizedBox(
-              height: 120,
-              child: DrawerHeader(
-              decoration: const BoxDecoration(
-                //color: Colors.white,
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.white,
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 0.0),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'images/MT_blue.png', // Путь к вашей .png иконке
-                      width: 73, // Установите желаемую ширину и высоту для иконки
-                      height: 73,
-                    ),
-                    const SizedBox(width: 30),
-                    const Text(
-                      'Multi\nTask',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 8, 4, 252),
-                        fontSize: 22,
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ],
+              child: Text(
+                'Multitask',
+                style: TextStyle(color: Color.fromARGB(255, 8, 4, 252), fontSize: 36, fontFamily: "Montserrat", fontWeight: FontWeight.bold),
                 ),
-              ),
-              ),
             ),
-            
             ListTile(
               title: Row(
                 children: <Widget>[

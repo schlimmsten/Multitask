@@ -9,7 +9,7 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.blue.shade900, width: 2)),
+          side: const BorderSide(color: Color.fromARGB(255, 8, 4, 252), width: 2)),
       onPressed: () {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => const MainScreen()));

@@ -11,7 +11,8 @@ class CustomTheme with ChangeNotifier {
     return ThemeData(
       scaffoldBackgroundColor: Colors.white,
       fontFamily: 'Montserrat',
-      primaryColor: Colors.blue.shade900,
+      primaryColor: const Color.fromARGB(255, 8, 4, 252),
+      iconTheme: const IconThemeData(color: Colors.white)
     );
   }
 
@@ -20,11 +21,12 @@ class CustomTheme with ChangeNotifier {
       scaffoldBackgroundColor: Colors.grey[800], 
       fontFamily: 'Montserrat',
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.grey[800], // устанавливаем цвет AppBar
+        backgroundColor: Colors.grey[800],
         titleTextStyle: const TextStyle(color: Colors.white),
       ),
       primaryColor: Colors.white,
       textTheme: ThemeData.dark().textTheme,
+      iconTheme: IconThemeData(color: Colors.grey[800]),
       
     );
   }

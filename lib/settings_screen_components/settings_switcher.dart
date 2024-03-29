@@ -29,6 +29,8 @@ class _SwitcherState extends State<Switcher> {
         });
         widget.onChanged(value); // вызов функции обратного вызова с новым значением
       },
+      activeColor: Theme.of(context).primaryColor, // Цвет включенного состояния
+      inactiveThumbColor: Theme.of(context).primaryColor.withOpacity(0.4), 
     );
   }
 }
