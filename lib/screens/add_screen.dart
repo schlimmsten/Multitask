@@ -3,7 +3,7 @@ import '../text_style.dart';
 import 'package:multitask/screens/main_screen.dart';
 
 class AddScreen extends StatelessWidget {
-  const AddScreen({Key? key});
+  const AddScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class AddScreen extends StatelessWidget {
                 
               ],
             ),
-
+            //ДОЛЖНА ИДТИ КАК ROW!!!
             ElevatedButton(
               onPressed: () {
                 showDatePicker(
@@ -130,7 +130,7 @@ class AddScreen extends StatelessWidget {
               ),
             ),
          
-            const SizedBox(height: 300),
+            const SizedBox(height: 230),
             Center(
               child: Container(
                 height: 2.0,
