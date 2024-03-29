@@ -2,23 +2,39 @@
 //пока что мне лень и я не придумал общий внешний вид
 
 import 'package:flutter/material.dart';
+//import 'screens/settings_screen.dart';
+
+//возможно нужны text_style_light и text_style_dark 
 
 TextStyle headerTextStyle() => const TextStyle(
+
   fontSize: 28, 
-  color: Colors.black87, 
   fontWeight: FontWeight.bold,
   fontFamily: "Montserrat",
-  //centerTitle: true,
+  //color: Colors.black
 );
 
 TextStyle mainTextStyle() => const TextStyle(
   fontSize: 21, 
-  color: Colors.black87,
   fontFamily: "Montserrat",
+  //color: Colors.black
 );
 
 TextStyle smallTextStyle() => const TextStyle(
+  fontSize: 18,
+  fontFamily: "Montserrat",
+  //color: Colors.black
+);
+
+TextStyle settingsTextStyle() => const TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+  fontFamily: "Montserrat",
+  //color: Colors.black
+);
+
+TextStyle redSmallTextStyle() => const TextStyle(
   fontSize: 18, 
-  color: Colors.black87,
+  color: Colors.red,
   fontFamily: "Montserrat",
 );
