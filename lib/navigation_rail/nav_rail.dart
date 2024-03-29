@@ -19,6 +19,11 @@ var months = [
     'Декабрь'
   ];
 
+String currentMonthAndYear() {
+  DateTime now = DateTime.now();
+  int month = now.month;
+  return '${months[month - 1]} ${now.year}';
+}
   //DateTime now = DateTime.now();
 
 class Navigation extends StatefulWidget {
@@ -75,21 +80,62 @@ class _NavigationState extends State<Navigation> {
       //надо оборачивать виджеты в экран и вызывать просто экран(но он типа класс/виджет)
       body: _screenOptions[_selectedIndex],
       drawer: Drawer(
+        width: 220,
+        backgroundColor: Color.fromARGB(255, 236, 236, 236),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
+            SizedBox(
+              height: 120,
+              child: DrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.white,
+                //color: Colors.white,
               ),
-              child: Text(
-                'Multitask',
-                style: TextStyle(color: Colors.blue.shade900, fontSize: 36, fontFamily: "Montserrat", fontWeight: FontWeight.bold),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'images/MT_blue.png', // Путь к вашей .png иконке
+                      width: 73, // Установите желаемую ширину и высоту для иконки
+                      height: 73,
+                    ),
+                    const SizedBox(width: 30),
+                    const Text(
+                      'Multi\nTask',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 8, 4, 252),
+                        fontSize: 22,
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
                 ),
+              ),
+              ),
             ),
+            
             ListTile(
-              title: const Text('Главное меню',
-              style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20, fontFamily: "Montserrat", ),
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'images/main_page.png', 
+                    width: 25, 
+                    height: 25,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Главное меню',
+                     style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19,
+                      fontFamily: "Montserrat",
+                      color: _selectedIndex == 0 ? const Color.fromARGB(255, 8, 4, 252) : null,
+                    ),
+                  ),
+                ],
               ),
               selected: _selectedIndex == 0,
               onTap: () {
@@ -98,16 +144,52 @@ class _NavigationState extends State<Navigation> {
               },
             ),
             ListTile(
-              title: const Text('Расписание', style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20, fontFamily: "Montserrat", ),),
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'images/schedule.png', 
+                    width: 25, 
+                    height: 25,
+                  ),
+                  const SizedBox(width: 9),
+                  Text(
+                    'Расписание',
+                     style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19,
+                      fontFamily: "Montserrat",
+                      color: _selectedIndex == 1 ? const Color.fromARGB(255, 8, 4, 252) : null,
+                    ),
+                  ),
+                ],
+              ),
               selected: _selectedIndex == 1,
               onTap: () {
                 _onItemTapped(1);
                 Navigator.pop(context);
               },
             ),
+            const SizedBox(height: 450),
             ListTile(
-              title: const Text('Настройки', style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20, fontFamily: "Montserrat", ),),
-              selected: _selectedIndex == 2,
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'images/settings.png', 
+                    width: 25, 
+                    height: 25,
+                  ),
+                  const SizedBox(width: 9),
+                  Text(
+                    'Настройки',
+                     style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19,
+                      fontFamily: "Montserrat",
+                      color: _selectedIndex == 2 ? const Color.fromARGB(255, 8, 4, 252) : null,
+                    ),
+                  ),
+                ],
+              ),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
@@ -118,9 +200,4 @@ class _NavigationState extends State<Navigation> {
       ),
     );
   }
-}
-
-String currentMonthAndYear() {
-  int month = now.month;
-  return  '${months[month - 1]} ${now.year}';
 }
