@@ -3,6 +3,7 @@ import '../text_style.dart';
 import 'package:multitask/screens/main_screen.dart';
 
 class AddScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const AddScreen({Key? key});
 
   @override

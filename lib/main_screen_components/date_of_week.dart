@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'date_builder.dart';
 
 class DateOfWeek extends StatefulWidget {
 
@@ -11,6 +10,7 @@ class DateOfWeek extends StatefulWidget {
 
   //хули тварь ругается / реши потом
   @override
+  // ignore: no_logic_in_create_state
   State<DateOfWeek> createState() => _DateOfWeekState(text, isSelected);
 }
 
