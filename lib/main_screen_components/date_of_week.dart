@@ -19,7 +19,7 @@ class DateOfWeek extends StatelessWidget {
           style: TextStyle(
             fontSize: 18,
             fontFamily: "Montserrat",
-            color: isSelected ? Colors.blue.shade900 : Colors.black,
+            color: isSelected ? const Color.fromARGB(255, 8, 4, 252) : Theme.of(context).textTheme.displayLarge?.color ?? Colors.black,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
           textAlign: TextAlign.center,

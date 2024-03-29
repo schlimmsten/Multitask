@@ -81,17 +81,17 @@ class _NavigationState extends State<Navigation> {
       body: _screenOptions[_selectedIndex],
       drawer: Drawer(
         width: 220,
-        backgroundColor: const Color.fromARGB(255, 236, 236, 236),
+        backgroundColor: Theme.of(context).tabBarTheme.labelColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).tabBarTheme.labelColor,
               ),
               child: Text(
                 'Multitask',
-                style: TextStyle(color: Color.fromARGB(255, 8, 4, 252), fontSize: 36, fontFamily: "Montserrat", fontWeight: FontWeight.bold),
+                style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 36, fontFamily: "Montserrat", fontWeight: FontWeight.bold),
                 ),
             ),
             ListTile(
@@ -109,7 +109,7 @@ class _NavigationState extends State<Navigation> {
                       fontWeight: FontWeight.bold,
                       fontSize: 19,
                       fontFamily: "Montserrat",
-                      color: _selectedIndex == 0 ? const Color.fromARGB(255, 8, 4, 252) : null,
+                      color: _selectedIndex == 0 ? const Color.fromARGB(255, 8, 4, 252) : Theme.of(context).textTheme.displayLarge?.color ?? Colors.black,
                     ),
                   ),
                 ],
@@ -135,7 +135,7 @@ class _NavigationState extends State<Navigation> {
                       fontWeight: FontWeight.bold,
                       fontSize: 19,
                       fontFamily: "Montserrat",
-                      color: _selectedIndex == 1 ? const Color.fromARGB(255, 8, 4, 252) : null,
+                      color: _selectedIndex == 1 ? const Color.fromARGB(255, 8, 4, 252) : Theme.of(context).textTheme.displayLarge?.color ?? Colors.black,
                     ),
                   ),
                 ],
@@ -162,7 +162,7 @@ class _NavigationState extends State<Navigation> {
                       fontWeight: FontWeight.bold,
                       fontSize: 19,
                       fontFamily: "Montserrat",
-                      color: _selectedIndex == 2 ? const Color.fromARGB(255, 8, 4, 252) : null,
+                      color: _selectedIndex == 2 ? const Color.fromARGB(255, 8, 4, 252) : Theme.of(context).textTheme.displayLarge?.color ?? Colors.black,
                     ),
                   ),
                 ],
