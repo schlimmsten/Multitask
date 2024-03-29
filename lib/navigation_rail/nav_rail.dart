@@ -81,7 +81,7 @@ class _NavigationState extends State<Navigation> {
       body: _screenOptions[_selectedIndex],
       drawer: Drawer(
         width: 220,
-        backgroundColor: Color.fromARGB(255, 236, 236, 236),
+        backgroundColor: const Color.fromARGB(255, 236, 236, 236),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -146,7 +146,7 @@ class _NavigationState extends State<Navigation> {
                 Navigator.pop(context);
               },
             ),
-            const SizedBox(height: 450),
+            const SizedBox(height: 400),
             ListTile(
               title: Row(
                 children: <Widget>[

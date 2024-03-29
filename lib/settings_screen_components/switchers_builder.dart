@@ -30,7 +30,7 @@ class SwitchersBuilder extends StatelessWidget {
                   value); // Используем метод экземпляра класса CustomTheme, предоставленного провайдером
             },
             width: 160),
-        const SizedBox(height: 400),
+        const SizedBox(height: 350),
       ],
     );
   }
