@@ -25,7 +25,7 @@ class _DateBuilderState extends State<DateBuilder> {
     return DateOfWeek(
       text: date.day.toString(),
       isSelected: selected,
-      onTap: () {
+      onPressed: () {
         _onItemTapped(index);
       },
     );
@@ -42,12 +42,17 @@ class _DateBuilderState extends State<DateBuilder> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 65,
+      height: 45,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: weekNumbersButtons.length,
         itemBuilder: (context, index) {
-          return weekNumbersButtons[index];
+          //можно сделать лучше?
+          return Container(  
+            padding: const EdgeInsets.only(left: 7, top: 4),  
+            width: 55,
+            child: weekNumbersButtons[index]
+          );
         },
       ),
     );

@@ -1,41 +1,46 @@
 import 'package:flutter/material.dart';
 import '../text_style.dart';
 import 'package:multitask/screens/main_screen.dart';
+import 'package:multitask/settings_screen_components/line.dart';
 
 class AddScreen extends StatelessWidget {
   const AddScreen({super.key});
 
+//возможно стоит использовать предидущие компоненты кнопок? хотя у них нет функционала
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
-        child: Column(
-          children: [
-            // название страницы
-            const SizedBox(height: 10),
-            Text(
+
+      appBar: AppBar(
+          title: Text(
               "Добавление задачи",
-              textAlign: TextAlign.right,
+              textAlign: TextAlign.center,
               style: headerTextStyle(),
             ),
+        centerTitle: true,
+      ),
+
+      body: Container(
+
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        
+        child: Column(
+          children: [
             // верхняя полоска
-            Center(
-              child: Container(
-                height: 2.0,
-                color: Theme.of(context).primaryColor,
-                width: MediaQuery.of(context).size.width * 0.9,
-              ),
-            ),
+            const Line(),
             //текст для названия
             const SizedBox(height: 40),
+
             Text(
               "Название:",
               textAlign: TextAlign.right,
               style: mainTextStyle(),
             ),
+
             // поле для ввода названия
             const SizedBox(height: 10),
+
             TextFormField(
               decoration: const InputDecoration(
                 hintText: 'Введите название задачи',
@@ -47,14 +52,18 @@ class AddScreen extends StatelessWidget {
                 return null;
               },
             ),
+
             //текст 
             const SizedBox(height: 40),
+
             Text(
               "Описание:",
               textAlign: TextAlign.left,
               style: mainTextStyle(),
             ),
+
             const SizedBox(height: 10),
+
             TextFormField(
               decoration: const InputDecoration(
                 hintText: 'Ведите описание задачи',
@@ -66,8 +75,10 @@ class AddScreen extends StatelessWidget {
                 return null;
               },
             ),
+
           // категории
-          Row(
+          // тут основная работа
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ElevatedButton(
@@ -104,7 +115,9 @@ class AddScreen extends StatelessWidget {
                 
               ],
             ),
-            //ДОЛЖНА ИДТИ КАК ROW!!!
+
+            //ДОЛЖНА ИДТИ КАК ROW!!! че это за слова ё?
+
             ElevatedButton(
               onPressed: () {
                 showDatePicker(
@@ -131,14 +144,10 @@ class AddScreen extends StatelessWidget {
             ),
          
             const SizedBox(height: 230),
-            Center(
-              child: Container(
-                height: 2.0,
-                color: Theme.of(context).primaryColor,
-                width: MediaQuery.of(context).size.width * 0.9,
-              ),
-            ),
             
+            const Line(),
+
+            //кнопка добавления, пока не трогаем функционал
             ElevatedButton(
               style: OutlinedButton.styleFrom(side: const BorderSide(color: Color.fromARGB(255, 8, 4, 252), width: 2)),
               onPressed: () {
@@ -150,6 +159,7 @@ class AddScreen extends StatelessWidget {
               ),
             ),
             
+            //кнопка назад, функционал правильный
             ElevatedButton(
               style: OutlinedButton.styleFrom(side: const BorderSide(color: Color.fromARGB(255, 8, 4, 252), width: 2)),
               onPressed: () {
