@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../text_style.dart';
 import 'package:multitask/screens/main_screen.dart'; //просто заглушка
 
 class DeclineButton extends StatelessWidget {
@@ -7,15 +6,27 @@ class DeclineButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: OutlinedButton.styleFrom(side: const BorderSide(color: Color.fromARGB(255, 8, 4, 252), width: 2)),
-      onPressed: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));
-      },
-      child: Text(
-        "Назад",
-        style: smallTextStyle(),
-      ),
-    );
+     return Container(
+            alignment:
+                Alignment.bottomLeft, // Выравнивание по нижнему левому краю
+            padding: const EdgeInsets.only(
+                left: 15.0, top: 20.0), // Отступ от нижнего и левого края
+            child: Container(
+              constraints: BoxConstraints.tightFor(
+                width: MediaQuery.of(context).size.width * 0.9, // Ширина кнопки
+                height:
+                    MediaQuery.of(context).size.width * 0.15, // Высота кнопки
+              ),
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => const MainScreen()));
+                },
+                backgroundColor: Theme.of(context).primaryColor,
+                
+                child: Icon(Icons.arrow_back_rounded, color: Theme.of(context).iconTheme.color, size: 50,),
+              ),
+            ),
+          );
   }
 }

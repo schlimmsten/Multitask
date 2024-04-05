@@ -128,7 +128,9 @@ class _NavigationState extends State<Navigation> {
                           fontSize: 19,
                           fontFamily: "Montserrat",
                           color: _selectedIndex == 0
-                              ? const Color.fromARGB(255, 8, 4, 252)
+                              ? Provider.of<CustomTheme>(context).isDarkTheme ?
+                              const Color.fromARGB(255, 78, 153, 240):
+                              const Color.fromARGB(255, 8, 4, 252)
                               : Theme.of(context).textTheme.displayLarge?.color ??
                                   Colors.black,
                         ),
@@ -157,7 +159,9 @@ class _NavigationState extends State<Navigation> {
                           fontSize: 19,
                           fontFamily: "Montserrat",
                           color: _selectedIndex == 1
-                              ? const Color.fromARGB(255, 8, 4, 252)
+                              ? Provider.of<CustomTheme>(context).isDarkTheme ?
+                              const Color.fromARGB(255, 78, 153, 240):
+                              const Color.fromARGB(255, 8, 4, 252)
                               : Theme.of(context).textTheme.displayLarge?.color ??
                                   Colors.black,
                         ),
@@ -188,7 +192,9 @@ class _NavigationState extends State<Navigation> {
                           fontSize: 19,
                           fontFamily: "Montserrat",
                           color: _selectedIndex == 2
-                              ? const Color.fromARGB(255, 8, 4, 252)
+                              ? Provider.of<CustomTheme>(context).isDarkTheme ?
+                              const Color.fromARGB(255, 78, 153, 240):
+                              const Color.fromARGB(255, 8, 4, 252)
                               : Theme.of(context).textTheme.displayLarge?.color ??
                                   Colors.black,
                         ),

@@ -33,5 +33,6 @@ class CustomTheme with ChangeNotifier {
 
   void toggleTheme(bool isDark) {
     _isDarkTheme = isDark;// Сохраняем выбранную тему
+    notifyListeners();
   }
 }
