@@ -15,13 +15,13 @@ class SwitchersBuilder extends StatelessWidget {
             initialValue: false,
             onChanged: (value) {},
             width: 40),
-        const SizedBox(height: 30),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
         SettingsRow(
             title: "Показывать расписание",
             initialValue: false,
             onChanged: (value) {},
             width: 45),
-        const SizedBox(height: 30),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
         SettingsRow(
             title: "Тёмная тема",
             initialValue: customTheme.isDarkTheme,
@@ -30,7 +30,7 @@ class SwitchersBuilder extends StatelessWidget {
                   value); // Используем метод экземпляра класса CustomTheme, предоставленного провайдером
             },
             width: 160),
-        const SizedBox(height: 350),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.4),
       ],
     );
   }
