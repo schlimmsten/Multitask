@@ -19,7 +19,7 @@ class _MainScreenBuilderState extends State<MainScreenBuilder> {
       body: Column(
         children: [
           const SizedBox(height: 10),
-          const DayBuilder(),
+          //const DayBuilder(),
           const DateBuilder(),
           SizedBox(height: screenHeight * 0.65), // Расстояние между DateBuilder и AddButton
           const AddButton(),
