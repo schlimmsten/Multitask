@@ -25,12 +25,13 @@ class _SwitcherState extends State<Switcher> {
       value: _switchValue,
       onChanged: (value) {
         setState(() {
-          _switchValue = value; // обновление текущего значения тумблера при изменении его состояния
+          _switchValue = value;// обновление текущего значения тумблера при изменении его состояния
         });
-        widget.onChanged(value); // вызов функции обратного вызова с новым значением
+        widget.onChanged(value);// вызов функции обратного вызова с новым значением
       },
       activeColor: Theme.of(context).primaryColor, // Цвет включенного состояния
-      inactiveThumbColor: Theme.of(context).primaryColor.withOpacity(0.4), 
+      inactiveTrackColor: Theme.of(context).primaryColor.withOpacity(0.1),
+      inactiveThumbColor: Theme.of(context).primaryColor.withOpacity(0.5)
     );
   }
 }

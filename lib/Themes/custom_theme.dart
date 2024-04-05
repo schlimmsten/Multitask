@@ -28,7 +28,7 @@ class CustomTheme with ChangeNotifier {
       primaryColor: Colors.white,
       textTheme: ThemeData.dark().textTheme,
       iconTheme: IconThemeData(color: Colors.grey[800]),
-      tabBarTheme: TabBarTheme(labelColor: Colors.grey[600]),
+      tabBarTheme: TabBarTheme(labelColor: Colors.grey[800]),
     );
   }
 
