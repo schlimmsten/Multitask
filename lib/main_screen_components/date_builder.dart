@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'date_of_week.dart';
 
+List<String> days = [
+    'ПН',
+    'ВТ',
+    'СР',
+    'ЧТ',
+    'ПТ',
+    'СБ',
+    'ВС',
+];
+
 class DateBuilder extends StatefulWidget {
   const DateBuilder({super.key});
 
@@ -23,7 +33,8 @@ class _DateBuilderState extends State<DateBuilder> {
     DateTime date = now.add(Duration(days: dayDifference));
     bool selected = index == now.weekday - 1;
     return DateOfWeek(
-      text: date.day.toString(),
+      day: days[index],
+      date: date.day.toString(),
       isSelected: selected,
       onPressed: () {
         _onItemTapped(index);
@@ -39,18 +50,22 @@ class _DateBuilderState extends State<DateBuilder> {
     });
   }
 
+  //вот тут будет сложно оптимизировать, надо как то более адекватно это сделать +
+  //вопрос с листанием остается
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45,
-      child: ListView.builder(
+      height: 75,
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: weekNumbersButtons.length,
+        separatorBuilder: (BuildContext context, int index) =>
+                const VerticalDivider(width: 2.5, color: Colors.white,),
         itemBuilder: (context, index) {
           //можно сделать лучше?
-          return Container(  
-            padding: const EdgeInsets.only(left: 7, top: 4),  
-            width: 55,
+          return SizedBox(  
+            //padding: const EdgeInsets.only(left: 7, top: 4),  
+            width: 54,
             child: weekNumbersButtons[index]
           );
         },

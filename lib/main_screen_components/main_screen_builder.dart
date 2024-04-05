@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'add_button.dart';
 import 'date_builder.dart';
-import 'day_builder.dart';
+//import 'day_builder.dart';
 
 class MainScreenBuilder extends StatefulWidget {
   const MainScreenBuilder({super.key});
@@ -17,7 +17,7 @@ class _MainScreenBuilderState extends State<MainScreenBuilder> {
       body: Column(
         children: [
           SizedBox(height: 10),
-          DayBuilder(),
+          //DayBuilder(),
           DateBuilder(),
           SizedBox(height: 540),
           AddButton()
