@@ -13,14 +13,16 @@ class MainScreenBuilder extends StatefulWidget {
 class _MainScreenBuilderState extends State<MainScreenBuilder> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final screenHeight = MediaQuery.of(context).size.height;
+    
+    return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 10),
-          //DayBuilder(),
-          DateBuilder(),
-          SizedBox(height: 540),
-          AddButton()
+          const SizedBox(height: 10),
+          const DayBuilder(),
+          const DateBuilder(),
+          SizedBox(height: screenHeight * 0.65), // Расстояние между DateBuilder и AddButton
+          const AddButton(),
         ],
       ),
     );
