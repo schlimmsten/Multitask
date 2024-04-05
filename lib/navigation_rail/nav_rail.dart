@@ -66,6 +66,8 @@ class _NavigationState extends State<Navigation> {
     });
   }
 
+  //можно доработать добавив leading?
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CustomTheme>( 
