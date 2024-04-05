@@ -19,32 +19,38 @@ class AddScreeBuilder extends StatelessWidget {
       appBar: AppBar(title: const Header(), centerTitle: true,),
       body: Container(
         padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Column(
+        child: SingleChildScrollView(
+          //padding: const EdgeInsets.all(32),
+          child: Column(
           children: [
-            const SizedBox(height: 40),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Text(
               "Название:",
               textAlign: TextAlign.right,
               style: mainTextStyle(),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.008),
             const NameField(),
-            const SizedBox(height: 40),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             Text(
               "Описание:",
               textAlign: TextAlign.left,
               style: mainTextStyle(),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             const DescriptionField(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             const CategoryPicker(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             const DatePicker(),
-            const SizedBox(height: 230),
-            const Line(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.23),
+            //const Line(),
             const AddButton(),
             const DeclineButton(),
           ],
         ),
+        )
+        
       ),
     );
   }

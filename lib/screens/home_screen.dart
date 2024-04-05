@@ -9,6 +9,16 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // Получаем размеры экрана
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Вычисляем отступы и расстояния между элементами, основываясь на размерах экрана
+    final double topPadding = screenHeight * 0.1;
+    final double middleSpacing = screenHeight * 0.05;
+    final double bottomSpacing = screenHeight * 0.1;
+    
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -18,7 +28,7 @@ class HomeScreen extends StatelessWidget {
           )),
 
       body: Container(
-        padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
+        padding: EdgeInsets.fromLTRB(screenWidth * 0.05, topPadding, screenWidth * 0.05, 0),
         child: Column(
           children: [
             Text(
@@ -26,13 +36,14 @@ class HomeScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: mainTextStyle(),
             ),
-            const SizedBox(height: 60),
+             SizedBox(height: middleSpacing),
             Text("Пожалуйста, укажите номер своей группы.",
                 textAlign: TextAlign.center, style: mainTextStyle()),
-            const SizedBox(height: 70),
+            SizedBox(height: bottomSpacing),
             const dp.DropdownMenu(),
-            const SizedBox(height: 150),
+            SizedBox(height: bottomSpacing),
             const ContinueButton(),
+            //const SizedBox(height: 20),
             const SkipButton()
           ],
         ),

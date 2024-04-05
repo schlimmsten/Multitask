@@ -88,7 +88,7 @@ class _NavigationState extends State<Navigation> {
               padding: EdgeInsets.zero,
               children: [
                 SizedBox(
-                  height: 120,
+                  height: MediaQuery.of(context).size.height * 0.17,
                   child: DrawerHeader(
                     child: Row(
                       children: [
@@ -170,14 +170,15 @@ class _NavigationState extends State<Navigation> {
                     Navigator.pop(context);
                   },
                 ),
-                const SizedBox(height: 400),
-                ListTile(
+              Padding(
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.55),
+                  child: ListTile(
                   title: Row(
                     children: <Widget>[
                       Image.asset(
                         Provider.of<CustomTheme>(context).isDarkTheme ?'images/settings_white.png':'images/settings_blue.png',
-                        width: 25,
-                        height: 25,
+                        width: MediaQuery.of(context).size.width * 0.05, // 5% ширины экрана
+                        height: MediaQuery.of(context).size.width * 0.05, // 5% ширины экрана
                       ),
                       const SizedBox(width: 9),
                       Text(
@@ -199,11 +200,12 @@ class _NavigationState extends State<Navigation> {
                     Navigator.pop(context);
                   },
                 ),
-              ],
-            ),
+              )
+            ],
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+ }
 }
