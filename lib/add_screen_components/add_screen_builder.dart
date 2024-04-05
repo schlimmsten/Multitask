@@ -22,43 +22,27 @@ class AddScreeBuilder extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 40),
-
             Text(
               "Название:",
               textAlign: TextAlign.right,
               style: mainTextStyle(),
             ),
-
-            // поле для ввода названия
             const SizedBox(height: 10),
-
             const NameField(),
-
-            //текст 
             const SizedBox(height: 40),
-
             Text(
               "Описание:",
               textAlign: TextAlign.left,
               style: mainTextStyle(),
             ),
-
             const SizedBox(height: 10),
-
             const DescriptionField(),
-
             const CategoryPicker(),
-
             const DatePicker(),
-
             const SizedBox(height: 230),
-            
             const Line(),
-
             const AddButton(),
-
             const DeclineButton(),
-
           ],
         ),
       ),
