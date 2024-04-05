@@ -6,7 +6,6 @@ class CustomTheme with ChangeNotifier {
   bool get isDarkTheme => _isDarkTheme;
 
   ThemeData get currentTheme => _isDarkTheme ? darkTheme : lightTheme;
-
   static ThemeData get lightTheme {
     return ThemeData(
       scaffoldBackgroundColor: Colors.white,
@@ -19,7 +18,7 @@ class CustomTheme with ChangeNotifier {
 
   static ThemeData get darkTheme {
     return ThemeData(
-      scaffoldBackgroundColor: Colors.grey[800], 
+      scaffoldBackgroundColor: Colors.grey[800],
       fontFamily: 'Montserrat',
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.grey[800],
@@ -33,7 +32,6 @@ class CustomTheme with ChangeNotifier {
   }
 
   void toggleTheme(bool isDark) {
-    _isDarkTheme = isDark;
-    notifyListeners();
+    _isDarkTheme = isDark;// Сохраняем выбранную тему
   }
 }
