@@ -12,7 +12,8 @@ class CustomTheme with ChangeNotifier {
       scaffoldBackgroundColor: Colors.white,
       fontFamily: 'Montserrat',
       primaryColor: const Color.fromARGB(255, 8, 4, 252),
-      iconTheme: const IconThemeData(color: Colors.white)
+      iconTheme: const IconThemeData(color: Colors.white),
+      tabBarTheme: const TabBarTheme(labelColor: Colors.white),
     );
   }
 
@@ -27,7 +28,7 @@ class CustomTheme with ChangeNotifier {
       primaryColor: Colors.white,
       textTheme: ThemeData.dark().textTheme,
       iconTheme: IconThemeData(color: Colors.grey[800]),
-      
+      tabBarTheme: TabBarTheme(labelColor: Colors.grey[800]),
     );
   }
 

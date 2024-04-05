@@ -15,7 +15,7 @@ class MultitaskApp extends StatelessWidget {
         return MaterialApp(
           title: "Приветствуем",
           home: const SplashScreen(),
-          theme: customTheme.currentTheme,
+          theme: Provider.of<CustomTheme>(context).currentTheme,
         );
       },
     );
