@@ -7,8 +7,6 @@ import 'date_picker.dart';
 import 'add_button.dart';
 import 'decline_button.dart';
 import '../text_style.dart';
-import '../themes/custom_theme.dart';
-import 'package:provider/provider.dart';
 
 class AddScreeBuilder extends StatelessWidget {
   const AddScreeBuilder({super.key});
@@ -30,14 +28,7 @@ class AddScreeBuilder extends StatelessWidget {
                 Text(
                   "Название:",
                   textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Montserrat",
-                    color: Provider.of<CustomTheme>(context).isDarkTheme
-                        ? Colors.white
-                        : Colors.black,
-                  ),
+                  style: addtitlesTextStyle(context)
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.008),
                 const NameField(),
@@ -45,14 +36,7 @@ class AddScreeBuilder extends StatelessWidget {
                 Text(
                   "Описание:",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Montserrat",
-                    color: Provider.of<CustomTheme>(context).isDarkTheme
-                        ? Colors.white
-                        : Colors.black,
-                  ),
+                  style: addtitlesTextStyle(context)
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 const DescriptionField(),

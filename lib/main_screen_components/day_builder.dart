@@ -1,14 +1,16 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:multitask/text_style.dart';
 
 List<Text> days = [
-    Text('ПН', style: smallTextStyle()),
-    Text('ВТ', style: smallTextStyle()),
-    Text('СР', style: smallTextStyle()),
-    Text('ЧТ', style: smallTextStyle()),
-    Text('ПТ', style: smallTextStyle()),
-    Text('СБ', style: redSmallTextStyle()),
-    Text('ВС', style: redSmallTextStyle()),
+    Text('ПН', style: smallTextStyle(context)),
+    Text('ВТ', style: smallTextStyle(context)),
+    Text('СР', style: smallTextStyle(context)),
+    Text('ЧТ', style: smallTextStyle(context)),
+    Text('ПТ', style: smallTextStyle(context)),
+    Text('СБ', style: redSmallTextStyle(context)),
+    Text('ВС', style: redSmallTextStyle(context)),
 ];
 
 class DayBuilder extends StatelessWidget {

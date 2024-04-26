@@ -26,22 +26,22 @@ class _DropdownMenuState extends State<DropdownMenu> {
         width: 290,
         child: DropdownButtonFormField<String>(
             menuMaxHeight: 200,
-            hint: Text("Выберите номер группы", style: smallTextStyle()),
+            hint: Text("Выберите номер группы", style: smallTextStyle(context)),
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: const BorderSide(color:  Color.fromARGB(255, 8, 4, 252), width: 2),
+                borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: const BorderSide(color: Color.fromARGB(255, 8, 4, 252), width: 2),
+                borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
               ),
             ),
             value: selectedItem,
             items: items
                 .map((item) => DropdownMenuItem<String>(
                       value: item,
-                      child: Text(item, style: smallTextStyle()),
+                      child: Text(item, style: smallTextStyle(context)),
                     ))
                 .toList(),
             onChanged: (String? item) {

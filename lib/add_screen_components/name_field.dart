@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../themes/custom_theme.dart';
-import 'package:provider/provider.dart';
+import '../text_style.dart';
 //прикрутить реальный функционал
 class NameField extends StatelessWidget {
 
@@ -11,11 +10,7 @@ class NameField extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         hintText: 'Введите название задачи',
-        hintStyle: TextStyle(
-          fontSize: 16,
-          fontFamily: "Montserrat",
-          color: Provider.of<CustomTheme>(context).isDarkTheme?Colors.white:Colors.black,
-        )
+        hintStyle: addfuelsTextStyle(context)
       ),
       validator: (String? value) {
         if (value == null || value.isEmpty) {

@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
           centerTitle: true,
           title: Text(
             "Приветствуем",
-            style: headerTextStyle(),
+            style: headerTextStyle(context),
           )),
 
       body: Container(
@@ -34,11 +34,11 @@ class HomeScreen extends StatelessWidget {
             Text(
               "Приложение MultiTask поможет вам отслеживать задачи и расписание на день.",
               textAlign: TextAlign.center,
-              style: mainTextStyle(),
+              style: mainTextStyle(context),
             ),
              SizedBox(height: middleSpacing),
             Text("Пожалуйста, укажите номер своей группы.",
-                textAlign: TextAlign.center, style: mainTextStyle()),
+                textAlign: TextAlign.center, style: mainTextStyle(context)),
             SizedBox(height: bottomSpacing),
             const dp.DropdownMenu(),
             SizedBox(height: bottomSpacing),

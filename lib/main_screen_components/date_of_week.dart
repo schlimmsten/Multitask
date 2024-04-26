@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../themes/custom_theme.dart';
-import 'package:provider/provider.dart';
+import '../text_style.dart';
 
 class DateOfWeek extends StatelessWidget {
   final String day;
@@ -23,34 +22,10 @@ class DateOfWeek extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      style: ButtonStyle(
-          
-          backgroundColor: MaterialStateProperty.all<Color?>(isSelected
-              ? Provider.of<CustomTheme>(context).isDarkTheme
-                      ? Colors.white
-                      : const Color.fromARGB(255, 78, 153, 240)
-              : Theme.of(context).tabBarTheme.labelColor),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-            //side: isSelected ? const BorderSide(color: Color.fromARGB(255, 8, 4, 252)) : BorderSide.none
-          ))),
+      style: buttondayButtonStyle(context, isSelected),
       child: Text(
         "$day\n$date",
-        style: TextStyle(
-          fontSize: 18,
-          fontFamily: "Montserrat",
-          color: ((day == 'СБ' || day == 'ВС') && !isSelected)
-              ? Colors.red
-              : (isSelected
-                  ? Provider.of<CustomTheme>(context).isDarkTheme
-                      ? Colors.grey[800]
-                      : Colors.white
-                  : Provider.of<CustomTheme>(context).isDarkTheme
-                      ? Colors.white
-                      : Colors.black),
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-        ),
+        style: dateofweekTextStyle(context, isSelected, day),
         textAlign: TextAlign.center,
       ),
     );

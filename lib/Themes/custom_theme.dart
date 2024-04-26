@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+
 class CustomTheme with ChangeNotifier {
   bool _isDarkTheme = false;
-
   bool get isDarkTheme => _isDarkTheme;
 
   ThemeData get currentTheme => _isDarkTheme ? darkTheme : lightTheme;
@@ -10,9 +10,11 @@ class CustomTheme with ChangeNotifier {
     return ThemeData(
       scaffoldBackgroundColor: Colors.white,
       fontFamily: 'Montserrat',
-      primaryColor: const Color.fromARGB(255, 8, 4, 252),
-      iconTheme: const IconThemeData(color: Colors.white),
-      tabBarTheme: const TabBarTheme(labelColor: Colors.white),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(color: Colors.black),
+      ),
+      primaryColor: const Color.fromARGB(255, 78, 153, 240),
     );
   }
 
@@ -26,8 +28,6 @@ class CustomTheme with ChangeNotifier {
       ),
       primaryColor: Colors.white,
       textTheme: ThemeData.dark().textTheme,
-      iconTheme: IconThemeData(color: Colors.grey[800]),
-      tabBarTheme: TabBarTheme(labelColor: Colors.grey[800]),
     );
   }
 
