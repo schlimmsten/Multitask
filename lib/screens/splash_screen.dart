@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multitask/screens/home_screen.dart';
-
+import 'package:provider/provider.dart';
+import 'package:multitask/themes/custom_theme.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       //backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset('images/logo_blue.png')
+        child: Image.asset(Provider.of<CustomTheme>(context).isDarkTheme? 'images/logo_white.png' : 'images/logo_blue.png')
       )
     );
   }
