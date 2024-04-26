@@ -25,26 +25,18 @@ class _CategoryPickerState extends State<CategoryPicker> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ElevatedButton(
-          child: const Text(
+          child: Text(
             "Выбрать категорию",
-            style: TextStyle(
-              fontSize: 18,
-              fontFamily: "Montserrat",
-              color: Colors.black,
-            ),
+            style: smallalwaysblackTextStyle(context)
           ),
           onPressed: () {
             showDialog(
               context: context,
               builder: (BuildContext context) {
                 return SimpleDialog(
-                  title: const Text(
+                  title: Text(
                     'Выберите категорию',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: "Montserrat",
-                      color: Colors.black,
-                    ),
+                    style: mainalwaysblackTextStyle(context)
                   ),
                   children: categories.map((category) {
                     return SimpleDialogOption(
@@ -66,11 +58,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
                           const SizedBox(width: 10),
                           Text(
                             category["name"],
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontFamily: "Montserrat",
-                              color: Colors.black,
-                            ),
+                            style: smallalwaysblackTextStyle(context)
                           ),
                         ],
                       ),

@@ -10,14 +10,10 @@ class MultitaskApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CustomTheme>(
-      builder: (context, customTheme, child) {
         return MaterialApp(
           title: "Приветствуем",
-          home: const SplashScreen(),
           theme: Provider.of<CustomTheme>(context).currentTheme,
+          home: const SplashScreen(),
         );
-      },
-    );
+      }
   }
-}

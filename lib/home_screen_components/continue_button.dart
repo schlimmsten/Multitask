@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/screens/main_screen.dart';
+import '../text_style.dart';
 
 class ContinueButton extends StatelessWidget {
   const ContinueButton({super.key});
@@ -8,20 +9,16 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-          side: const BorderSide(
-              color: Color.fromARGB(255, 8, 4, 252), width: 2)),
+          side: BorderSide(
+              color: Theme.of(context).primaryColor, width: 2)),
       onPressed: () {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => const MainScreen()));
       },
-      child: const Text(
+      child: Text(
         "Продолжить",
-        style: TextStyle(
-          fontSize: 18,
-          fontFamily: "Montserrat",
-          color: Colors.black,
+        style: addbuttonTextStyle(context)
         ),
-      ),
-    );
+      );
   }
 }

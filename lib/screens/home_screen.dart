@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
           centerTitle: true,
           title: Text(
             "Приветствуем",
-            style: headerTextStyle(),
+            style: headerTextStyle(context),
           )),
 
       body: Container(

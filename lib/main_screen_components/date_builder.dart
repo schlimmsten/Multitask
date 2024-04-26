@@ -60,7 +60,7 @@ class _DateBuilderState extends State<DateBuilder> {
         scrollDirection: Axis.horizontal,
         itemCount: weekNumbersButtons.length,
         separatorBuilder: (BuildContext context, int index) =>
-                 VerticalDivider(width: 2.5, color: Theme.of(context).tabBarTheme.labelColor,),
+                 VerticalDivider(width: 2.5, color: Theme.of(context).appBarTheme.backgroundColor,),
         itemBuilder: (context, index) {
           //можно сделать лучше?
           return SizedBox(  

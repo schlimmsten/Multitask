@@ -76,14 +76,14 @@ class _NavigationState extends State<Navigation> {
           appBar: AppBar(
             title: Text(
               _appBarOptions[_selectedIndex],
-              style: headerTextStyle(),
+              style: headerTextStyle(context),
             ),
-            iconTheme: IconThemeData(color: customTheme.isDarkTheme ? Colors.white : const Color.fromARGB(255, 8, 4, 252)),
+            iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           ),
           body: _screenOptions[_selectedIndex],
           drawer: Drawer(
             width: 220,
-            backgroundColor: customTheme.currentTheme.tabBarTheme.labelColor, // Использовать цвет из текущей темы
+            backgroundColor: customTheme.currentTheme.appBarTheme.backgroundColor, // Использовать цвет из текущей темы
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -100,13 +100,8 @@ class _NavigationState extends State<Navigation> {
                         const SizedBox(width: 30),
                         Text(
                           'Multi\nTask',
-                          style: TextStyle(
-                            color: customTheme.currentTheme.primaryColor, // Использовать цвет из текущей темы
-                            fontSize: 22,
-                            fontFamily: "Montserrat",
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.right,
+                          style: toolbartitleTextStyle(context),
+                          textAlign: TextAlign.left,
                         ),
                       ],
                     ),
@@ -123,17 +118,7 @@ class _NavigationState extends State<Navigation> {
                       const SizedBox(width: 8),
                       Text(
                         'Главное меню',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 19,
-                          fontFamily: "Montserrat",
-                          color: _selectedIndex == 0
-                              ? Provider.of<CustomTheme>(context).isDarkTheme ?
-                              const Color.fromARGB(255, 78, 153, 240):
-                              const Color.fromARGB(255, 8, 4, 252)
-                              : Theme.of(context).textTheme.displayLarge?.color ??
-                                  Colors.black,
-                        ),
+                        style: toolbar1TextStyle(context, _selectedIndex)
                       ),
                     ],
                   ),
@@ -154,17 +139,7 @@ class _NavigationState extends State<Navigation> {
                       const SizedBox(width: 9),
                       Text(
                         'Расписание',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 19,
-                          fontFamily: "Montserrat",
-                          color: _selectedIndex == 1
-                              ? Provider.of<CustomTheme>(context).isDarkTheme ?
-                              const Color.fromARGB(255, 78, 153, 240):
-                              const Color.fromARGB(255, 8, 4, 252)
-                              : Theme.of(context).textTheme.displayLarge?.color ??
-                                  Colors.black,
-                        ),
+                        style: toolbar2TextStyle(context, _selectedIndex)
                       ),
                     ],
                   ),
@@ -187,17 +162,7 @@ class _NavigationState extends State<Navigation> {
                       const SizedBox(width: 9),
                       Text(
                         'Настройки',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 19,
-                          fontFamily: "Montserrat",
-                          color: _selectedIndex == 2
-                              ? Provider.of<CustomTheme>(context).isDarkTheme ?
-                              const Color.fromARGB(255, 78, 153, 240):
-                              const Color.fromARGB(255, 8, 4, 252)
-                              : Theme.of(context).textTheme.displayLarge?.color ??
-                                  Colors.black,
-                        ),
+                        style: toolbar3TextStyle(context, _selectedIndex)
                       ),
                     ],
                   ),
