@@ -16,14 +16,14 @@ class HomeScreen extends StatelessWidget {
 
     // Вычисляем отступы и расстояния между элементами, основываясь на размерах экрана
     final double topPadding = screenHeight * 0.1;
-    final double middleSpacing = screenHeight * 0.05;
-    final double bottomSpacing = screenHeight * 0.1;
+    final double middleSpacing = screenHeight * 0.08;
+    final double bottomSpacing = screenHeight * 0.03;
     
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Приветствуем",
+            "Приветствуем,",
             style: headerTextStyle(context),
           )),
 
@@ -31,17 +31,13 @@ class HomeScreen extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(screenWidth * 0.05, topPadding, screenWidth * 0.05, 0),
         child: Column(
           children: [
-            Text(
-              "Приложение MultiTask поможет вам отслеживать задачи и расписание на день.",
-              textAlign: TextAlign.center,
-              style: mainTextStyle(context),
-            ),
-             SizedBox(height: middleSpacing),
+            Image.asset('images/hand.png'),
+            SizedBox(height: middleSpacing),
             Text("Пожалуйста, укажите номер своей группы.",
                 textAlign: TextAlign.center, style: mainTextStyle(context)),
-            SizedBox(height: bottomSpacing),
+            SizedBox(height: bottomSpacing),  
             const dp.DropdownMenu(),
-            SizedBox(height: bottomSpacing),
+            SizedBox(height: topPadding),
             const ContinueButton(),
             //const SizedBox(height: 20),
             const SkipButton()
