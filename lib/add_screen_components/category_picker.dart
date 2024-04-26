@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/add_screen_components/new_category.dart';
+import 'package:multitask/text_style.dart';
 //можно как то пересобрать этот ужас?
 
 List<Map<String, dynamic>> categories = [
