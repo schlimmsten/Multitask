@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^6.1.2
+  flutter_material_color_picker: ^1.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

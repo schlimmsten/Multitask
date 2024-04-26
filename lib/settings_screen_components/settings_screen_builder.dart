@@ -6,16 +6,18 @@ import 'back_button.dart';
 class SettingsScreenBuilder extends StatelessWidget {
   const SettingsScreenBuilder({super.key});
 
+//BackButtonMenu сделать ниже
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         children: [
-          Line(),
-          SizedBox(height: 40),
-          SwitchersBuilder(),
-          Line(),
-          BackButtonMenu(),
+          const Line(),
+          const SizedBox(height: 40),
+          const SwitchersBuilder(),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          const Line(),
+          const BackButtonMenu(),
         ],
       )
     );

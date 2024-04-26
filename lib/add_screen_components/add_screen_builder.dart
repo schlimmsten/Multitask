@@ -6,7 +6,6 @@ import 'category_picker.dart';
 import 'date_picker.dart';
 import 'add_button.dart';
 import 'decline_button.dart';
-import '../text_style.dart';
 import '../themes/custom_theme.dart';
 import 'package:provider/provider.dart';
 
@@ -63,7 +62,7 @@ class AddScreeBuilder extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 //const Line(),
                 const AddButton(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.20),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.14),
                 const DeclineButton(),
               ],
             ),

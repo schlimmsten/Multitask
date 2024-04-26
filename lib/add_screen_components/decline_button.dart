@@ -10,7 +10,7 @@ class DeclineButton extends StatelessWidget {
             alignment:
                 Alignment.bottomLeft, // Выравнивание по нижнему левому краю
             padding: const EdgeInsets.only(
-                left: 15.0, top: 20.0), // Отступ от нижнего и левого края
+                left: 10.0, top: 20.0), // Отступ от нижнего и левого края
             child: Container(
               constraints: BoxConstraints.tightFor(
                 width: MediaQuery.of(context).size.width * 0.9, // Ширина кнопки
