@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:multitask/dropdown/dropdown_menu.dart';
-import '../themes/custom_theme.dart';
-import 'package:provider/provider.dart';
-import 'package:multitask/screens/main_screen.dart'; //просто заглушка
+//просто заглушка
 import 'date_picker.dart';
-import 'name_field.dart';
+
 import '../main_screen_components/main_screen_builder.dart';
 //import 'save_task.dart';
 /*
@@ -114,24 +111,24 @@ class AddButton extends StatelessWidget {
    */
 
 class AddButton extends StatelessWidget {
-  const AddButton({Key? key}) : super(key: key);
+  const AddButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        DateTime? selectedDateTime = DatePicker().getSelectedDateTime();
+        DateTime? selectedDateTime = const DatePicker().getSelectedDateTime();
 
         if (selectedDateTime != null) {
           Navigator.of(context).push(MaterialPageRoute(builder: (_) => MainScreenBuilder(dateTime: selectedDateTime)));
         }
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 78, 153, 240)),
+        backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 78, 153, 240)),
       ),
-      child: Text(
-        "Добавить",
-        style: TextStyle(
+      child: const Text(
+          "Добавить",
+          style: TextStyle(
           fontSize: 20,
           fontFamily: "Montserrat",
           color: Colors.white,
