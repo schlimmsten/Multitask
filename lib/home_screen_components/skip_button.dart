@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../dropdown/dropdown_menu.dart' as dp;
+import 'dropdown_menu.dart' as dp;
 import 'package:multitask/screens/main_screen.dart';
+import '../text_style.dart';
 
 class SkipButton extends StatelessWidget {
   const SkipButton({super.key});
@@ -13,15 +14,9 @@ class SkipButton extends StatelessWidget {
             MaterialPageRoute(builder: (_) => const MainScreen()));
         dp.selectedItem = "";
       },
-      child: const Text(
+      child: Text(
         "Пропустить",
-        style:TextStyle(
-          decoration: TextDecoration.underline,
-          decorationColor: Colors.grey,
-          fontSize: 18, 
-          fontFamily: "Montserrat",
-          color: Colors.grey
-        ),
+        style:skipbuttonTextStyle(context)
         
       ),
     );

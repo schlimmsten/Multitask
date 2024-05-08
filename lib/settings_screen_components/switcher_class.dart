@@ -25,7 +25,7 @@ class SettingsRow extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20),
           child: Text(
             title,
-            style: settingsTextStyle(), // Предполагается, что у вас есть этот стиль
+            style: settingsTextStyle(context), // Предполагается, что у вас есть этот стиль
           ),
         ),
         SizedBox(width: width),

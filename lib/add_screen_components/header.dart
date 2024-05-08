@@ -12,7 +12,7 @@ class Header extends StatelessWidget {
           Text(
             "Добавление задачи",
             textAlign: TextAlign.center,
-            style: headerTextStyle(),
+            style: headerTextStyle(context),
           ),
           const SizedBox(height: 10),
           const Line(),

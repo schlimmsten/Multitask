@@ -9,6 +9,7 @@ import 'decline_button.dart';
 //import '../text_style.dart';
 import '../themes/custom_theme.dart';
 import 'package:provider/provider.dart';
+import '../text_style.dart';
 
 class AddScreeBuilder extends StatelessWidget {
   const AddScreeBuilder({super.key});
@@ -30,14 +31,7 @@ class AddScreeBuilder extends StatelessWidget {
                 Text(
                   "Название:",
                   textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Montserrat",
-                    color: Provider.of<CustomTheme>(context).isDarkTheme
-                        ? Colors.white
-                        : Colors.black,
-                  ),
+                  style: addtitlesTextStyle(context)
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.008),
                 NameField(),
@@ -45,14 +39,7 @@ class AddScreeBuilder extends StatelessWidget {
                 Text(
                   "Описание:",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Montserrat",
-                    color: Provider.of<CustomTheme>(context).isDarkTheme
-                        ? Colors.white
-                        : Colors.black,
-                  ),
+                  style: addtitlesTextStyle(context)
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 const DescriptionField(),
@@ -63,7 +50,7 @@ class AddScreeBuilder extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 //const Line(),
                 const AddButton(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.20),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.14),
                 const DeclineButton(),
               ],
             ),

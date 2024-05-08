@@ -12,6 +12,32 @@ class NameField extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         hintText: 'Введите название задачи',
+        hintStyle: addfuelsTextStyle(context)
+      ),
+      validator: (String? value) {
+        if (value == null || value.isEmpty) {
+          return 'Пожалуйста, введите название задачи';
+        }
+        return null;
+      },
+    );
+  }
+}
+*/
+/*
+class NameField extends StatelessWidget {
+  const NameField({Key? key}) : super(key: key);
+
+
+  String getName(BuildContext context) {
+    return TextEditingController().text;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        hintText: 'Введите название задачи',
         hintStyle: TextStyle(
           fontSize: 16,
           fontFamily: "Montserrat",

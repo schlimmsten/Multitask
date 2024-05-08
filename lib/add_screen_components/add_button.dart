@@ -14,8 +14,8 @@ class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: OutlinedButton.styleFrom(side: BorderSide(color: Provider.of<CustomTheme>(context).isDarkTheme? Colors.white:const Color.fromARGB(255, 8, 4, 252), width: 2),
-      backgroundColor: Theme.of(context).tabBarTheme.labelColor),
+      style: OutlinedButton.styleFrom(side: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor),
       
       onPressed: () {
         String? taskName = NameField().getName(context);
