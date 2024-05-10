@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //просто заглушка
 import 'date_picker.dart';
-
+import '../text_style.dart';
 import '../main_screen_components/main_screen_builder.dart';
 //import 'save_task.dart';
 /*
@@ -123,16 +123,11 @@ class AddButton extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(builder: (_) => MainScreenBuilder(dateTime: selectedDateTime)));
         }
       },
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 78, 153, 240)),
-      ),
-      child: const Text(
-          "Добавить",
-          style: TextStyle(
-          fontSize: 20,
-          fontFamily: "Montserrat",
-          color: Colors.white,
-        ),
+      style: OutlinedButton.styleFrom(side: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor),
+      child: Text(
+        "Добавить",
+        style: addbuttonTextStyle(context)
       ),
     );
   }
