@@ -211,7 +211,7 @@ class _DatePickerState extends State<DatePicker> {
 }
 */
 class DatePicker extends StatefulWidget {
-  const DatePicker({Key? key}) : super(key: key);
+  const DatePicker({super.key});
 
   @override
   _DatePickerState createState() => _DatePickerState();
@@ -293,7 +293,7 @@ class _DatePickerState extends State<DatePicker> {
         _selectedDate != null && _selectedTime != null
             ? 'Дата: ${_selectedDate!.toString().split(' ')[0]}, Время: ${_selectedTime!.format(context)}'
             : "Выбрать дату и время выполнения",
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontFamily: "Montserrat",
           color: Colors.black,

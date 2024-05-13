@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'task_list.dart';
 import 'add_button.dart';
 import 'date_builder.dart';
-
 /*
 class MainScreenBuilder extends StatefulWidget {
   const MainScreenBuilder({super.key});
@@ -34,18 +34,27 @@ class MainScreenBuilder extends StatelessWidget {
   final String? taskName;
   final DateTime? dateTime;
 
-  const MainScreenBuilder({Key? key, this.taskName, this.dateTime}) : super(key: key);
+  const MainScreenBuilder({super.key, this.taskName, this.dateTime});
 
   @override
-  Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: Column(
+ Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Stack( // Используем Stack для размещения виджетов один над другим
         children: [
-          const SizedBox(height: 10),
-          const DateBuilder(),
-          SizedBox(height: screenHeight * 0.65), // Расстояние между DateBuilder и AddButton
-          const AddButton(),
+          Column(
+            children: [
+              SizedBox(height: 10),
+              DateBuilder(),
+              SizedBox(height: 10),
+              Expanded(child: TaskListWidget()), // Занимает всё доступное пространство
+            ],
+          ),
+          Positioned( // Позиционируем AddButton поверх TaskListWidget
+            bottom: 100,
+            right: 0,
+            left: 0,
+            child: AddButton(),
+          ),
         ],
       ),
     );

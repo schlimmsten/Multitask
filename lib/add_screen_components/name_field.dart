@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../themes/custom_theme.dart';
 import 'package:provider/provider.dart';
@@ -161,7 +160,7 @@ class _NameFieldState extends State<NameField> {
 class NameField extends StatefulWidget {
   final ValueChanged<String>? onNameChanged;
 
-  const NameField({Key? key, this.onNameChanged}) : super(key: key);
+  const NameField({super.key, this.onNameChanged});
 
   @override
   _NameFieldState createState() => _NameFieldState();

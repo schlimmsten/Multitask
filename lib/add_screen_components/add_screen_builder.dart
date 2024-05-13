@@ -6,9 +6,6 @@ import 'category_picker.dart';
 import 'date_picker.dart';
 import 'add_button.dart';
 import 'decline_button.dart';
-//import '../text_style.dart';
-import '../themes/custom_theme.dart';
-import 'package:provider/provider.dart';
 import '../text_style.dart';
 
 class AddScreeBuilder extends StatelessWidget {
@@ -34,7 +31,7 @@ class AddScreeBuilder extends StatelessWidget {
                   style: addtitlesTextStyle(context)
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.008),
-                NameField(),
+                const NameField(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                 Text(
                   "Описание:",
