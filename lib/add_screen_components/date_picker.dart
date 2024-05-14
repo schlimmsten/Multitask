@@ -25,7 +25,10 @@ class DatePickerState extends State<DatePicker> {
 void setSelectedTime(TimeOfDay selectedTime) {
   setState(() {
     _selectedTime = selectedTime;
-    widget.model.selectedTime = selectedTime.format(context); // Обновляем только время в модели
+    // Форматирование времени в 24-часовом формате
+    final hour = selectedTime.hour.toString().padLeft(2, '0');
+    final minute = selectedTime.minute.toString().padLeft(2, '0');
+    widget.model.selectedTime = '$hour:$minute'; // Сохранение времени в 24-часовом формате
   });
 }
 
