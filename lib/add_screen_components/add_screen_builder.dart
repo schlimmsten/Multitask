@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'header.dart';
 import 'name_field.dart';
 import 'description_field.dart';
-import 'category_picker.dart';
+import 'category_screen_components/category_picker_components/category_picker_builder.dart';
 import 'date_picker.dart';
 import 'add_button.dart';
 import 'decline_button.dart';

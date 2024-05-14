@@ -11,7 +11,7 @@ class SwitchersBuilder extends StatelessWidget {
     return Column(
       children: [
         SettingsRow(
-            title: "Рвзрешить уведомления",
+            title: "Разрешить уведомления",
             initialValue: false,
             onChanged: (value) {},
             width: 40),
