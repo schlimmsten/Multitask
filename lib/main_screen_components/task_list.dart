@@ -16,8 +16,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
   Widget build(BuildContext context) {
      bool hasCompletedTasks = completedItems.isNotEmpty;
 
-    return Expanded(
-      child: ListView.builder(
+    return  ListView.builder(
         itemCount: items.length + (hasCompletedTasks ? 1 : 0) + completedItems.length,
         itemBuilder: (BuildContext context, int index) {
           if (index < items.length) {
@@ -28,8 +27,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
             return _buildCompletedTaskListItem(index - items.length - (hasCompletedTasks ? 1 : 0));
           }
         },
-      ),
-    );
+      );
   }
 
   Widget _buildTaskListItem(int index) {

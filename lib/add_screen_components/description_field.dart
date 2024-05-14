@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/add_screen_components/data_task/task_form_model.dart';
 import '../text_style.dart';
 //прикрутить реальный функционал
 class DescriptionField extends StatelessWidget {
@@ -7,6 +8,7 @@ class DescriptionField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = TaskFormModelProvider.of(context)?.model;
     return TextFormField(
       decoration: InputDecoration(
         hintText: 'Введите описание задачи',
@@ -18,6 +20,7 @@ class DescriptionField extends StatelessWidget {
         }
           return null;
       },
+      onChanged: (value) => model?.description = value,
     );
   }
 }

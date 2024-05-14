@@ -1,9 +1,14 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:multitask/text_style.dart';
 
-List<Text> days = [
+
+
+class DayBuilder extends StatelessWidget {
+  const DayBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    List<Text> days = [
     Text('ПН', style: smallTextStyle(context)),
     Text('ВТ', style: smallTextStyle(context)),
     Text('СР', style: smallTextStyle(context)),
@@ -12,12 +17,6 @@ List<Text> days = [
     Text('СБ', style: redSmallTextStyle(context)),
     Text('ВС', style: redSmallTextStyle(context)),
 ];
-
-class DayBuilder extends StatelessWidget {
-  const DayBuilder({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return SizedBox(
       height: 20,
       child: ListView.builder(
