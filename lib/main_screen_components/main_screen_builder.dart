@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'task_list.dart';
 import 'add_button.dart';
 import 'date_builder.dart';
-//import 'day_builder.dart';
-
+/*
 class MainScreenBuilder extends StatefulWidget {
   const MainScreenBuilder({super.key});
 
@@ -28,3 +28,37 @@ class _MainScreenBuilderState extends State<MainScreenBuilder> {
     );
   }
 }
+*/
+
+class MainScreenBuilder extends StatelessWidget {
+  final String? taskName;
+  final DateTime? dateTime;
+
+  const MainScreenBuilder({super.key, this.taskName, this.dateTime});
+
+  @override
+ Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Stack( // Используем Stack для размещения виджетов один над другим
+        children: [
+          Column(
+            children: [
+              SizedBox(height: 10),
+              DateBuilder(),
+              SizedBox(height: 10),
+              Expanded(child: TaskListWidget()), // Занимает всё доступное пространство
+            ],
+          ),
+          Positioned( // Позиционируем AddButton поверх TaskListWidget
+            bottom: 100,
+            right: 0,
+            left: 0,
+            child: AddButton(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
