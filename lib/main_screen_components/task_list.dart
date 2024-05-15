@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:multitask/add_screen_components/data_task/task_model.dart';
 import 'package:multitask/text_style.dart';
 
 class Item {
@@ -20,25 +21,42 @@ final completedItems = <Item>[];
 
 class TaskListWidget extends StatefulWidget {
   const TaskListWidget({super.key});
-
+  
   @override
   State<TaskListWidget> createState() => _TaskListWidgetState();
 }
 
 class _TaskListWidgetState extends State<TaskListWidget> {
+  final model = TaskModel();
+  @override
+  Widget build(BuildContext context) {
+    return TaskModelProvider(model: model, child: const _TaskListWidgetBody(),);
+  }
+}
+
+class _TaskListWidgetBody extends StatefulWidget {
+  const _TaskListWidgetBody({super.key});
+
+  @override
+  State<_TaskListWidgetBody> createState() => __TaskListWidgetBodyState();
+}
+
+class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
+  
   @override
   Widget build(BuildContext context) {
      bool hasCompletedTasks = completedItems.isNotEmpty;
-
+      final countlist = TaskModelProvider.of(context)?.model.tasks.length ?? 0;
+      final list = TaskModelProvider.of(context)?.model.tasks;
     return ListView.separated(
-        itemCount: items.length + (hasCompletedTasks ? 1 : 0) + completedItems.length,
+        itemCount: countlist + (hasCompletedTasks ? 1 : 0) + completedItems.length,
         itemBuilder: (BuildContext context, int index) {
-          if (index < items.length) {
-            return _buildTaskListItem(index);
-          } else if (index == items.length && hasCompletedTasks) {
+          if (index < countlist) {
+            return _buildTaskListItem(index, list);
+          } else if (index == countlist && hasCompletedTasks) {
             return const Center(child: Text("Выполненные задачи"));
           } else {
-            return _buildCompletedTaskListItem(index - items.length - (hasCompletedTasks ? 1 : 0));
+            return _buildCompletedTaskListItem(index - countlist - (hasCompletedTasks ? 1 : 0));
           }
         }, separatorBuilder: (BuildContext context, int index) { 
           return const Divider(
@@ -48,18 +66,19 @@ class _TaskListWidgetState extends State<TaskListWidget> {
          },
       );
   }
-
-  Widget _buildTaskListItem(int index) {
+  
+  Widget _buildTaskListItem(int index, final list) {
+    final model = TaskModelProvider.of(context)?.model;
     return Slidable(
-      key: ValueKey(items[index]),
+      key: ValueKey(list[index]),
       startActionPane: ActionPane(
         dismissible: DismissiblePane(
-          onDismissed: () => _performAction(context, index, 'Выполнить'),
+          onDismissed: () => _performAction(context, index, 'Выполнить', list),
         ),
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) => _performAction(context, index, 'Выполнить'),
+            onPressed: (context) => _performAction(context, index, 'Выполнить', list),
             backgroundColor: const Color.fromARGB(199, 18, 215, 94),
             foregroundColor: Colors.white,
             icon: Icons.check_circle,
@@ -69,12 +88,12 @@ class _TaskListWidgetState extends State<TaskListWidget> {
       ),
       endActionPane: ActionPane(
         dismissible: DismissiblePane(
-          onDismissed: () => _performAction(context, index, 'Удалить'),
+          onDismissed: () => _performAction(context, index, 'Удалить', list),
         ),
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) => _performAction(context, index, 'Удалить'),
+            onPressed: (context) => _performAction(context, index, 'Удалить', list),
             backgroundColor: const Color(0xFFFE4A49),
             foregroundColor: Colors.white,
             icon: Icons.delete,
@@ -86,7 +105,8 @@ class _TaskListWidgetState extends State<TaskListWidget> {
         height: 80,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 78, 153, 240),
+          // color: const Color.fromARGB(255, 78, 153, 240)
+          color: model?.tasks[index].color,
           borderRadius: BorderRadius.circular(10), // Форма контейнера
           boxShadow: [
             BoxShadow(
@@ -99,11 +119,11 @@ class _TaskListWidgetState extends State<TaskListWidget> {
         ),
         child: ListTile(
           title: Text(
-            items[index].name,
+            list[index].name,
             style: addbuttonTextStyle(context),
           ),
           subtitle: Text(
-            items[index].description,
+            list[index].description,
             style: TextStyle(fontSize: 15.0, color: Colors.blueGrey[800]) 
           ), 
         trailing: const Icon(
@@ -117,6 +137,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
 }
 
   Widget _buildCompletedTaskListItem(int index) {
+    final model = TaskModelProvider.of(context)?.model;
     return ListTile(
       title: Text(
         completedItems[index].name,
@@ -125,22 +146,22 @@ class _TaskListWidgetState extends State<TaskListWidget> {
     );
   }
 
-  void _performAction(BuildContext context, int index, String action) {
-    final item = items[index];
+  void _performAction(BuildContext context, int index, String action, final list) {
+    final item = list[index];
+    final model = TaskModelProvider.of(context)?.model;
     setState(() {
       if (action == 'Удалить') {
-        items.removeAt(index);
+        model?.deleteItemBox(index);
         final snackBar = SnackBar(content: Text('$item удален'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (action == 'Выполнить') {
         completedItems.add(Item(item.name, item.description, item.date, completed: true));
-        items.removeAt(index);
+        model?.deleteItemBox(index);
         final snackBar = SnackBar(content: Text('$item выполнен'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
   }
 }
-
 
 
