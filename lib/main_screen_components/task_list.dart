@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
 import 'package:multitask/text_style.dart';
 
@@ -17,7 +18,7 @@ final List<Item> items = [
   Item("Анжумания", "обязательно", "10:50"),
   Item("ПРЭСС качат", "обязательно", "10:50"),
 ];
-final completedItems = <Item>[];
+final completedItems = <Task>[];
 
 class TaskListWidget extends StatefulWidget {
   const TaskListWidget({super.key});
@@ -147,7 +148,7 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
   }
 
   void _performAction(BuildContext context, int index, String action, final list) {
-    final item = list[index];
+    final item = list[index].name;
     final model = TaskModelProvider.of(context)?.model;
     setState(() {
       if (action == 'Удалить') {
@@ -155,8 +156,8 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
         final snackBar = SnackBar(content: Text('$item удален'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (action == 'Выполнить') {
-        completedItems.add(Item(item.name, item.description, item.date, completed: true));
-        model?.deleteItemBox(index);
+        completedItems.add(model!.tasks[index]);
+        model.deleteItemBox(index);
         final snackBar = SnackBar(content: Text('$item выполнен'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
