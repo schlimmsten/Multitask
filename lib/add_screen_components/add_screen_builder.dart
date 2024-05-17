@@ -21,13 +21,22 @@ class __AddScreenBuilderState extends State<AddScreenBuilder> {
   final _model = TaskFormModel();
   @override
   Widget build(BuildContext context) {
-    return TaskFormModelProvider(model: _model, child: const _AddScreenBodyBuilder()) ;
+    return TaskFormModelProvider(model: _model, child: const AddScreenBodyBuilder()) ;
   }
 }
 
+class AddScreenBodyBuilder extends StatefulWidget {
+  const AddScreenBodyBuilder({super.key});
 
-class _AddScreenBodyBuilder extends StatelessWidget {
-  const _AddScreenBodyBuilder();
+  @override
+  State<AddScreenBodyBuilder> createState() => _AddScreenBodyBuilderState();
+}
+
+class _AddScreenBodyBuilderState extends State<AddScreenBodyBuilder> {
+
+  void updateWidget(){
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +68,7 @@ class _AddScreenBodyBuilder extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 const DescriptionField(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                CategoryPicker(onPressed: () => updateCategory()),
+                CategoryPicker(onPressed: () => updateWidget()),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 DatePicker(model: TaskFormModelProvider.of(context)!.model),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -72,5 +81,4 @@ class _AddScreenBodyBuilder extends StatelessWidget {
           )),
     );
   }
-
 }

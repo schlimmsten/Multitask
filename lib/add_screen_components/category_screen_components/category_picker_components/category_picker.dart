@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/add_screen_components/category_screen_components/new_category_components/new_category_builder.dart';
 import 'package:multitask/text_style.dart';
-import 'package:multitask/themes/custom_theme.dart';
-import 'package:provider/provider.dart';
+import '../../data_task/task_form_model.dart';
 
 List<Map<String, dynamic>> categories = [
   {"name": "Учеба", "color": Colors.red},
@@ -25,8 +24,11 @@ class CategoryPicker extends StatefulWidget {
 
 class _CategoryPickerState extends State<CategoryPicker> {
 
+
+
   @override
   Widget build(BuildContext context) {
+    final model = TaskFormModelProvider.of(context)?.model;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,6 +48,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
           Text(
             (chosenCategory == null) ? "Выбрать категорию" : chosenCategory!["name"],
             style: smallalwaysblackTextStyle(context),
+            //ТУТ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           ),
           onPressed: () {
             showDialog(
@@ -54,9 +57,11 @@ class _CategoryPickerState extends State<CategoryPicker> {
                 return StatefulBuilder(
                   builder: (context, setState) {
                     return SimpleDialog(
+                      //ТУТ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                       title: Text(
                         'Выберите категорию',
                         style: mainalwaysblackTextStyle(context),
+                        //ТУТ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                       ),
                       children: categories.map((category) {
                         return SimpleDialogOption(
@@ -71,6 +76,8 @@ class _CategoryPickerState extends State<CategoryPicker> {
                                   },
                                 );
                               } else {
+                                model?.category = category["name"];
+                                model?.color = category["color"];
                                 chosenCategory = category;
                                 widget.onPressed();
                                 Navigator.of(context).pop();
@@ -86,6 +93,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
                                 Text(
                                   category["name"],
                                   style: smallalwaysblackTextStyle(context),
+                                  //ТУТ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                 ),
                                 const Spacer(),
                                 (category["name"] != "Добавить свою")
@@ -98,13 +106,9 @@ class _CategoryPickerState extends State<CategoryPicker> {
                                       style: ElevatedButton.styleFrom(
                                         shape: const CircleBorder(),
                                       ),
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.close_outlined,
-                                        color:
-                                          Provider.of<CustomTheme>(context)
-                                            .isDarkTheme
-                                            ? Colors.white
-                                            : Colors.black,
+                                        color: Colors.black
                                       ),
                                     )
                                   : const Text("")

@@ -19,7 +19,7 @@ class TaskFormModel {
     // print(description);
     // print('Дата: $selectedDay.$selecyedMonth.$selectedYear, Время: $selectedTime');
     // print(category);
-    // print(color);
+    //print(color);
     if (name.isEmpty) return;
     if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(TaskAdapter());
