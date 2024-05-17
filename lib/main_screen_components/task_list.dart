@@ -16,19 +16,17 @@ class _TaskListWidgetState extends State<TaskListWidget> {
   Widget build(BuildContext context) {
      bool hasCompletedTasks = completedItems.isNotEmpty;
 
-    return Expanded(
-      child: ListView.builder(
-        itemCount: items.length + (hasCompletedTasks ? 1 : 0) + completedItems.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index < items.length) {
-            return _buildTaskListItem(index);
-          } else if (index == items.length && hasCompletedTasks) {
-            return const Center(child: Text("Выполненные задачи"));
-          } else {
-            return _buildCompletedTaskListItem(index - items.length - (hasCompletedTasks ? 1 : 0));
-          }
-        },
-      ),
+    return ListView.builder(
+      itemCount: items.length + (hasCompletedTasks ? 1 : 0) + completedItems.length,
+      itemBuilder: (BuildContext context, int index) {
+        if (index < items.length) {
+          return _buildTaskListItem(index);
+        } else if (index == items.length && hasCompletedTasks) {
+          return const Center(child: Text("Выполненные задачи"));
+        } else {
+          return _buildCompletedTaskListItem(index - items.length - (hasCompletedTasks ? 1 : 0));
+        }
+      },
     );
   }
 

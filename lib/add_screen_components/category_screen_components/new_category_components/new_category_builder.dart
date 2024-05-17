@@ -11,9 +11,11 @@ class NewCategoryBuilder extends StatefulWidget {
 
   @override
   State<NewCategoryBuilder> createState() => _NewCategoryState();
+
 }
 
 class _NewCategoryState extends State<NewCategoryBuilder> {
+
   @override
   Widget build(BuildContext context) {
       return Dialog(

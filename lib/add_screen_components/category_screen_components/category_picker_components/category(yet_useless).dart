@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'category_picker_builder.dart';
+//import 'category_picker_builder.dart';
 import 'package:provider/provider.dart';
 import '../../../themes/custom_theme.dart';
 import 'package:multitask/text_style.dart';
@@ -8,18 +8,21 @@ import 'package:multitask/text_style.dart';
 class Category extends StatefulWidget {
 
   Map<String, dynamic> category;
+  final VoidCallback onPressed;
 
-  Category({super.key, required this.category});
+  Category({super.key, required this.category, required this.onPressed});
 
   @override
   // ignore: no_logic_in_create_state
-  State<Category> createState() => _CategoryState(category);
+  State<Category> createState() => _CategoryState(category, onPressed);
 }
 
 class _CategoryState extends State<Category> {
 
   Map<String, dynamic> category;
-  _CategoryState(this.category);
+  final VoidCallback onPressed;
+
+  _CategoryState(this.category, this.onPressed);
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +38,9 @@ class _CategoryState extends State<Category> {
         const Spacer(),
         (category["name"] != "Добавить свою")
         ? ElevatedButton(
-          //тут удаление категории!
+          //тут удаление
           //не обновляется
-          onPressed: () {
-            setState(() {
-              categories.remove(category);
-            });
-          },
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
           ),

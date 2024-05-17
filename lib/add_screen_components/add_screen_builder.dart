@@ -2,14 +2,24 @@ import 'package:flutter/material.dart';
 import 'header.dart';
 import 'name_field.dart';
 import 'description_field.dart';
-import 'category_screen_components/category_picker_components/category_picker_builder.dart';
+import 'category_screen_components/category_picker_components/category_picker.dart';
 import 'date_picker.dart';
 import 'add_button.dart';
 import 'decline_button.dart';
 import '../text_style.dart';
 
-class AddScreeBuilder extends StatelessWidget {
+class AddScreeBuilder extends StatefulWidget {
   const AddScreeBuilder({super.key});
+
+  @override
+  State<AddScreeBuilder> createState() => _AddScreeBuilderState();
+}
+
+class _AddScreeBuilderState extends State<AddScreeBuilder> {
+
+  void updateCategory(){
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +51,7 @@ class AddScreeBuilder extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 const DescriptionField(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                const CategoryPicker(),
+                CategoryPicker(onPressed: () => updateCategory()),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 const DatePicker(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -54,4 +64,5 @@ class AddScreeBuilder extends StatelessWidget {
           )),
     );
   }
+
 }
