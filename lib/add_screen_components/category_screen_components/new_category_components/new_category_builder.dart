@@ -18,18 +18,18 @@ class _NewCategoryState extends State<NewCategoryBuilder> {
 
   @override
   Widget build(BuildContext context) {
-      return Dialog(
+      return const Dialog(
         child: Column(
           //размерность!!!
           mainAxisSize: MainAxisSize.min,
           children: [
             //вот под это можно будет переделать description_field
             CategoryName(),
-            const SizedBox(height: 20,),
+            SizedBox(height: 20,),
             //color_picker
-            const ColorPicker(),
-            const SizedBox(height: 20,),
-            const SaveButton(),
+            ColorPicker(),
+            SizedBox(height: 20,),
+            SaveButton(),
         ],),
     );
   }

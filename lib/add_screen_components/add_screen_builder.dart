@@ -7,19 +7,27 @@ import 'date_picker.dart';
 import 'add_button.dart';
 import 'decline_button.dart';
 import '../text_style.dart';
+import './data_task/task_form_model.dart';
 
-class AddScreeBuilder extends StatefulWidget {
-  const AddScreeBuilder({super.key});
+class AddScreenBuilder extends StatefulWidget {
+  const AddScreenBuilder({super.key});
 
   @override
-  State<AddScreeBuilder> createState() => _AddScreeBuilderState();
+  State<AddScreenBuilder> createState() => __AddScreenBuilderState();
 }
 
-class _AddScreeBuilderState extends State<AddScreeBuilder> {
+class __AddScreenBuilderState extends State<AddScreenBuilder> {
 
-  void updateCategory(){
-    setState(() {});
+  final _model = TaskFormModel();
+  @override
+  Widget build(BuildContext context) {
+    return TaskFormModelProvider(model: _model, child: const _AddScreenBodyBuilder()) ;
   }
+}
+
+
+class _AddScreenBodyBuilder extends StatelessWidget {
+  const _AddScreenBodyBuilder();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +61,7 @@ class _AddScreeBuilderState extends State<AddScreeBuilder> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                 CategoryPicker(onPressed: () => updateCategory()),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                const DatePicker(),
+                DatePicker(model: TaskFormModelProvider.of(context)!.model),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 //const Line(),
                 const AddButton(),

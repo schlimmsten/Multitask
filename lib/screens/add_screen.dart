@@ -7,6 +7,6 @@ class AddScreen extends StatelessWidget {
 //возможно стоит использовать предидущие компоненты кнопок? хотя у них нет функционала
 
   @override
-  Widget build(BuildContext context) { return const AddScreeBuilder(); }
+  Widget build(BuildContext context) { return const AddScreenBuilder(); }
 }
 

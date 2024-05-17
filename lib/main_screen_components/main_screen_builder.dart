@@ -38,18 +38,18 @@ class MainScreenBuilder extends StatelessWidget {
 
   @override
  Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Stack( // Используем Stack для размещения виджетов один над другим
         children: [
           Column(
             children: [
-              SizedBox(height: 10),
-              DateBuilder(),
-              SizedBox(height: 10),
-              Expanded(child: TaskListWidget()), // Занимает всё доступное пространство
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              const DateBuilder(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              const Expanded(child: TaskListWidget()), // Занимает всё доступное пространство
             ],
           ),
-          Positioned( // Позиционируем AddButton поверх TaskListWidget
+          const Positioned( // Позиционируем AddButton поверх TaskListWidget
             bottom: 100,
             right: 0,
             left: 0,
