@@ -19,7 +19,16 @@ TextStyle alwaysblackTextStyle(context) => commonTextStyle(context).copyWith(
 TextStyle addbuttonTextStyle(context) => blackwhiteTextStyle(context).copyWith(
       fontSize: 20,
     );
-
+TextStyle nameTaskTextStyle(context) => blackwhiteTextStyle(context).copyWith(
+      fontSize: 24,
+      fontWeight: FontWeight.w900,
+    );
+TextStyle descriptionTextStyle(context) => blackwhiteTextStyle(context).copyWith(
+      fontSize: 15,
+    );
+TextStyle selectedTimeTextStyle(context) => blackwhiteTextStyle(context).copyWith(
+      fontSize: 18,
+    );
 TextStyle addtitlesTextStyle(context) => blackwhiteTextStyle(context).copyWith(
       fontSize: 30,
       fontWeight: FontWeight.bold,

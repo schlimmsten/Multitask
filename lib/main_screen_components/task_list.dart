@@ -118,28 +118,30 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
         decoration: BoxDecoration(
           color: model?.tasks[index].color,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 3,
-              offset: const Offset(0, 2),
-            ),
-          ],
         ),
         child: ListTile(
           title: Text(
-            list[index].name,
-            style: addbuttonTextStyle(context),
+            list[index].category,
+            style: descriptionTextStyle(context),
           ),
           subtitle: Text(
-            list[index].description,
-            style: TextStyle(fontSize: 15.0, color: Colors.blueGrey[800]),
+            list[index].name,
+            style: nameTaskTextStyle(context),
           ),
-          trailing: const Icon(
-            Icons.access_time,
-            color: Colors.black,
+          trailing: 
+          Column(
+            children: [
+            const Icon(Icons.access_time),
+            Text(
+              list[index].selectedTime,
+              style: selectedTimeTextStyle(context),
+            ),
+            ],
           ),
+          // Text(
+          //   list[index].selectedTime,
+          //   style: selectedTimeTextStyle(context)
+          //   ),
           onTap: () {},
         ),
       ),
@@ -149,10 +151,23 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
   Widget _buildCompletedTaskListItem(int index) {
     final model = TaskModelProvider.of(context)?.model;
     final completedTasks = model?.completedtasks ?? [];
-    return ListTile(
-      title: Text(
-        completedTasks[index].name,
-        style: const TextStyle(decoration: TextDecoration.lineThrough),
+    return Container(
+      height: 65,
+      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[350],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListTile(
+        title: Text(
+          completedTasks[index].name,
+          style:
+          const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            decoration: TextDecoration.lineThrough, 
+          ),
+        ),
       ),
     );
   }

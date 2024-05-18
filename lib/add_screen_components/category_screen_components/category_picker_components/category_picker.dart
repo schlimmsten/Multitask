@@ -4,10 +4,10 @@ import 'package:multitask/text_style.dart';
 import '../../data_task/task_form_model.dart';
 
 List<Map<String, dynamic>> categories = [
-  {"name": "Учеба", "color": Colors.red},
-  {"name": "Работа", "color": Colors.green},
-  {"name": "Развлечения", "color": Colors.blue},
-  {"name": "Добавить свою", "color": Colors.orange},
+  {"name": "Учеба", "color": Colors.red[300]},
+  {"name": "Работа", "color": Colors.green[300]},
+  {"name": "Развлечения", "color": Colors.blue[300]},
+  {"name": "Добавить свою", "color": Colors.orange[300]},
 ];
 
 Map<String, dynamic> ?chosenCategory;
