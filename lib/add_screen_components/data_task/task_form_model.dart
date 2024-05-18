@@ -37,7 +37,7 @@ class TaskFormModel {
         selectedTime: selectedTime,
         selectedYear: selectedYear,
         category: category,
-        color: color);
+        color: color,);
     await box.add(task);
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));

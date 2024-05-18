@@ -25,13 +25,15 @@ class TaskAdapter extends TypeAdapter<Task> {
       selectedTime: fields[5] as String,
       category: fields[6] as String,
       color: fields[7] as Color?,
+      isSelected: (fields[8] as bool?) ?? false, // Используйте значение по умолчанию false
+      id: fields[9] as int?, // Чтение id из полей
     );
   }
 
   @override
   void write(BinaryWriter writer, Task obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -47,7 +49,11 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(6)
       ..write(obj.category)
       ..writeByte(7)
-      ..write(obj.color);
+      ..write(obj.color)
+      ..writeByte(8)
+      ..write(obj.isSelected)
+      ..writeByte(9)
+      ..write(obj.id); // Запись id в поля
   }
 
   @override
@@ -63,7 +69,7 @@ class TaskAdapter extends TypeAdapter<Task> {
 
 class ColorAdapter extends TypeAdapter<Color?> {
   @override
-  final int typeId = 2; // Уникальный идентификатор для типа Color
+  final int typeId = 2;
 
   @override
   Color? read(BinaryReader reader) {

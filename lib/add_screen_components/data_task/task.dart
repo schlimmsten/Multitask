@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'task.g.dart';
 
 @HiveType(typeId: 1)
-class Task{
+class Task {
   @HiveField(0)
   String name;
 
@@ -27,6 +27,13 @@ class Task{
 
   @HiveField(7)
   Color? color;
+
+  @HiveField(8)
+  bool isSelected;
+
+  @HiveField(9)
+  int? id; 
+
   Task({
     required this.name,
     required this.description,
@@ -36,5 +43,7 @@ class Task{
     required this.selectedYear,
     required this.category,
     required this.color,
+    this.isSelected = false,
+    this.id, 
   });
 }
