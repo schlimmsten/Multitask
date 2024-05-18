@@ -53,6 +53,7 @@ class TaskFormModelProvider extends InheritedWidget {
     return context.dependOnInheritedWidgetOfExactType<TaskFormModelProvider>();
   }
 
+  @override
   bool updateShouldNotify(TaskFormModelProvider oldWidget) {
     return model.name != oldWidget.model.name ||
         model.description != oldWidget.model.description ||
