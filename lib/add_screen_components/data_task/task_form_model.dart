@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
 import '../../screens/main_screen.dart';
+import 'task_model.dart';
 
 class TaskFormModel {
   var name = '';
@@ -39,6 +40,39 @@ class TaskFormModel {
         category: category,
         color: color);
     await box.add(task);
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));
+  }
+  void changeTask(BuildContext context, int index) async {
+    // Вызов метода для сохранения задачи с выбранной датой и временем
+    // Можно объединить их в один DateTime или оставить отдельно, в зависимости от потребностей приложения
+    print(name);
+    print(index);
+    // print(description);
+    // print('Дата: $selectedDay.$selecyedMonth.$selectedYear, Время: $selectedTime');
+    // print(category);
+    //print(color);
+    if (name.isEmpty) return;
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter(TaskAdapter());
+    }
+    if (!Hive.isAdapterRegistered(2)) {
+      Hive.registerAdapter(ColorAdapter());
+    }
+    
+    final box = await Hive.openBox<Task>('tasks_box');
+    final task = Task(
+        name: name,
+        description: description,
+        selectedDay: selectedDay,
+        selectedMonth: selecyedMonth,
+        selectedTime: selectedTime,
+        selectedYear: selectedYear,
+        category: category,
+        color: color);
+      await box.putAt(index,task);
+      
+    //TaskModelProvider.of(context)?.model.put(index, task as Box<Task>);
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));
   }

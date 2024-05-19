@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
+import 'package:multitask/screens/change_screen.dart';
 import 'package:multitask/text_style.dart';
+
 
 class Item {
   final String name;
@@ -133,7 +135,7 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
           ),
         onTap: () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const ChangeScreen()));
+            MaterialPageRoute(builder: (_) => ChangeScreen(index: index)));
         },
       ),
     )
