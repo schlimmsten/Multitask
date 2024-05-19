@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 //просто заглушка
-import 'date_picker.dart';
 import '../text_style.dart';
-import '../main_screen_components/main_screen_builder.dart';
+import './data_task/task_form_model.dart';
 //import 'save_task.dart';
 /*
 class AddButton extends StatelessWidget {
@@ -116,13 +115,7 @@ class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        DateTime? selectedDateTime = const DatePicker().getSelectedDateTime();
-
-        if (selectedDateTime != null) {
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => MainScreenBuilder(dateTime: selectedDateTime)));
-        }
-      },
+      onPressed: ()=>TaskFormModelProvider.of(context)?.model.saveTask(context),
       style: OutlinedButton.styleFrom(side: BorderSide(color: Theme.of(context).primaryColor, width: 2),
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor),
       child: Text(

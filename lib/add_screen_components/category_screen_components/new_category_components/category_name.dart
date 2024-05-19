@@ -7,7 +7,7 @@ import '../../../themes/custom_theme.dart';
 //TextEditingController textController = TextEditingController();
 
 class CategoryName extends StatefulWidget {
-  CategoryName({super.key});
+  const CategoryName({super.key});
 
   static final TextEditingController _textController = TextEditingController();
 

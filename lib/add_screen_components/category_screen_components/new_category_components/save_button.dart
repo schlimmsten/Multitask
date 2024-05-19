@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../themes/custom_theme.dart';
-import '../category_picker_components/category_picker_builder.dart';
+import '../category_picker_components/category_picker.dart';
 import 'category_name.dart';
 import 'color_picker.dart';
 
@@ -11,10 +11,14 @@ class SaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      //тут обновление виджета
       onPressed: () {
+        chosenCategory = {"name": CategoryName.textController.text, "color": selectedColor};
         categories.insert(categories.length-1,{"name": CategoryName.textController.text, "color": selectedColor});
         CategoryName.textController.text = '';
-        Navigator.of(context).pop();
+        Navigator.pop(context);
+        //надо вызывать CategoryPicker
+        //const NewCategoryBuilder();
       }, 
       child: Text("Сохранить",
         style: TextStyle(

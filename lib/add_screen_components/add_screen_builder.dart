@@ -2,14 +2,41 @@ import 'package:flutter/material.dart';
 import 'header.dart';
 import 'name_field.dart';
 import 'description_field.dart';
-import 'category_screen_components/category_picker_components/category_picker_builder.dart';
+import 'category_screen_components/category_picker_components/category_picker.dart';
 import 'date_picker.dart';
 import 'add_button.dart';
 import 'decline_button.dart';
 import '../text_style.dart';
+import './data_task/task_form_model.dart';
 
-class AddScreeBuilder extends StatelessWidget {
-  const AddScreeBuilder({super.key});
+class AddScreenBuilder extends StatefulWidget {
+  const AddScreenBuilder({super.key});
+
+  @override
+  State<AddScreenBuilder> createState() => __AddScreenBuilderState();
+}
+
+class __AddScreenBuilderState extends State<AddScreenBuilder> {
+
+  final _model = TaskFormModel();
+  @override
+  Widget build(BuildContext context) {
+    return TaskFormModelProvider(model: _model, child: const AddScreenBodyBuilder()) ;
+  }
+}
+
+class AddScreenBodyBuilder extends StatefulWidget {
+  const AddScreenBodyBuilder({super.key});
+
+  @override
+  State<AddScreenBodyBuilder> createState() => _AddScreenBodyBuilderState();
+}
+
+class _AddScreenBodyBuilderState extends State<AddScreenBodyBuilder> {
+
+  void updateWidget(){
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +68,9 @@ class AddScreeBuilder extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 const DescriptionField(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                const CategoryPicker(),
+                CategoryPicker(onPressed: () => updateWidget()),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                const DatePicker(),
+                DatePicker(model: TaskFormModelProvider.of(context)!.model),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 //const Line(),
                 const AddButton(),

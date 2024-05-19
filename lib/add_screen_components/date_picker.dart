@@ -1,230 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/add_screen_components/data_task/task_form_model.dart';
 
-/*
 class DatePicker extends StatefulWidget {
-  const DatePicker({Key? key}) : super(key: key);
+  final TaskFormModel model; // Передайте модель снаружи
+  const DatePicker({required this.model, super.key});
 
   @override
-  _DatePickerState createState() => _DatePickerState();
+  DatePickerState createState() => DatePickerState();
 }
 
-class _DatePickerState extends State
-{
-  
+class DatePickerState extends State<DatePicker> {
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
 
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: Text(
-        _selectedDate != null && _selectedTime != null
-            ? 'Дата: ${_selectedDate!.toString().split(' ')[0]}, Время: ${_selectedTime!.format(context)}'
-            : "Выбрать дату и время выполнения",
-        style: TextStyle(
-          fontSize: 18,
-          fontFamily: "Montserrat",
-          color: Colors.black,
-        ),
-      ),
-      onPressed: () {
-        showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime.now(),
-          lastDate: DateTime(2050),
-        ).then((selectedDate) {
-          if (selectedDate != null) {
-            setState(() {
-              _selectedDate = selectedDate;
-            });
-            showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now(),
-            ).then((selectedTime) {
-              if (selectedTime != null) {
-                setState(() {
-                  _selectedTime = selectedTime;
-                });
-                DateTime? combinedDateTime = DateTime(
-                  _selectedDate!.year,
-                  _selectedDate!.month,
-                  _selectedDate!.day,
-                  _selectedTime!.hour,
-                  _selectedTime!.minute,
-                );
-              }
-            });
-          }
-        });
-      },
-    );
-  }
-}
-*/
-/*
-class DatePicker extends StatefulWidget {
-  const DatePicker({Key? key}) : super(key: key);
-
-  @override
-  _DatePickerState createState() => _DatePickerState();
+  void setSelectedDate(DateTime selectedDate) {
+  setState(() {
+    _selectedDate = selectedDate;
+    widget.model.selectedDay = selectedDate.day.toString();
+    widget.model.selecyedMonth = selectedDate.month.toString();
+    widget.model.selectedYear = selectedDate.year.toString();
+  });
 }
 
-class _DatePickerState extends State
-{
-  DateTime? _selectedDate;
-  TimeOfDay? _selectedTime;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: Text(
-        _selectedDate != null && _selectedTime != null
-            ? 'Дата: ${_selectedDate!.toString().split(' ')[0]}, Время: ${_selectedTime!.format(context)}'
-            : "Выбрать дату и время выполнения",
-        style: TextStyle(
-          fontSize: 18,
-          fontFamily: "Montserrat",
-          color: Colors.black,
-        ),
-      ),
-      onPressed: () {
-        showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime.now(),
-          lastDate: DateTime(2050),
-          builder: (context, child) {
-            return Theme(
-              data: Theme.of(context).copyWith(
-                primaryColor: const Color.fromARGB(255, 78, 153, 240),
-                colorScheme: const ColorScheme.light(
-                  primary: Color.fromARGB(
-                      255, 78, 153, 240), // header background color
-                  onPrimary: Colors.white, // header text color
-                  onSurface: Colors.black, // body text color
-                ),
-                textButtonTheme: TextButtonThemeData(
-                  style: TextButton.styleFrom(
-                    foregroundColor: const Color.fromARGB(
-                        255, 78, 153, 240), // button text color
-                  ),
-                ),
-              ),
-              child: child!,
-            );
-          },
-        ).then((selectedDate) {
-          if (selectedDate != null) {
-            setState(() {
-              _selectedDate = selectedDate;
-            });
-            showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now(),
-            ).then((selectedTime) {
-              if (selectedTime != null) {
-                setState(() {
-                  _selectedTime = selectedTime;
-                });
-              }
-            });
-          }
-        });
-      },
-    );
-  }
-}
-*/
-/* rabota
-class DatePicker extends StatefulWidget {
-  const DatePicker({Key? key}) : super(key: key);
-
-  @override
-  _DatePickerState createState() => _DatePickerState();
-
-  DateTime? getSelectedDateTime() {
-    // Получаем доступ к состоянию _DatePickerState
-    final state = _DatePickerState();
-    // Возвращаем результат вызова метода из состояния
-    return state.getSelectedDateTime();
-  }
+void setSelectedTime(TimeOfDay selectedTime) {
+  setState(() {
+    _selectedTime = selectedTime;
+    // Форматирование времени в 24-часовом формате
+    final hour = selectedTime.hour.toString().padLeft(2, '0');
+    final minute = selectedTime.minute.toString().padLeft(2, '0');
+    widget.model.selectedTime = '$hour:$minute'; // Сохранение времени в 24-часовом формате
+  });
 }
 
-class _DatePickerState extends State<DatePicker> {
-  DateTime? _selectedDate;
-  TimeOfDay? _selectedTime;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime.now(),
-          lastDate: DateTime(2050),
-        ).then((selectedDate) {
-          if (selectedDate != null) {
-            setState(() {
-              _selectedDate = selectedDate;
-            });
-            showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now(),
-            ).then((selectedTime) {
-              if (selectedTime != null) {
-                setState(() {
-                  _selectedTime = selectedTime;
-                });
-              }
-            });
-          }
-        });
-      },
-      child: Text(
-        _selectedDate != null && _selectedTime != null
-            ? 'Дата: ${_selectedDate!.toString().split(' ')[0]}, Время: ${_selectedTime!.format(context)}'
-            : "Выбрать дату и время выполнения",
-        style: TextStyle(
-          fontSize: 18,
-          fontFamily: "Montserrat",
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-
-  DateTime? getSelectedDateTime() {
-    if (_selectedDate != null && _selectedTime != null) {
-      return DateTime(
-        _selectedDate!.year,
-        _selectedDate!.month,
-        _selectedDate!.day,
-        _selectedTime!.hour,
-        _selectedTime!.minute,
-      );
-    } else {
-      return null;
-    }
-  }
-}
-*/
-class DatePicker extends StatefulWidget {
-  const DatePicker({super.key});
-
-  @override
-  _DatePickerState createState() => _DatePickerState();
-
-  DateTime? getSelectedDateTime() {
-    final state = _DatePickerState();
-    return state.getSelectedDateTime();
-  }
-}
-
-class _DatePickerState extends State<DatePicker> {
-  DateTime? _selectedDate;
-  TimeOfDay? _selectedTime;
 
   @override
   Widget build(BuildContext context) {
@@ -257,33 +64,30 @@ class _DatePickerState extends State<DatePicker> {
           },
         ).then((selectedDate) {
           if (selectedDate != null) {
-            setState(() {
-              _selectedDate = selectedDate;
-            });
+            setSelectedDate(selectedDate); // Обновляем выбранную дату
             showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.now(),
-                builder: (context, child) {
-                  return Theme(
-                    data: ThemeData.light().copyWith(
-                      colorScheme: const ColorScheme.light(
-                        // change the border color
-                        primary: Color.fromARGB(255, 78, 153, 240),
-                        // change the text color
-                        onSurface: Colors.black,
-                      ),
-                      timePickerTheme: const TimePickerThemeData(
-                        // Настройка цвета фона кнопок "AM" и "PM"
-                        dayPeriodColor: Color.fromARGB(255, 78, 153, 240),
-                      ),
+              context: context,
+              initialTime: TimeOfDay.now(),
+              builder: (context, child) {
+                return Theme(
+                  data: ThemeData.light().copyWith(
+                    colorScheme: const ColorScheme.light(
+                      // change the border color
+                      primary: Color.fromARGB(255, 78, 153, 240),
+                      // change the text color
+                      onSurface: Colors.black,
                     ),
-                    child: child!,
-                  );
-                }).then((selectedTime) {
+                    timePickerTheme: const TimePickerThemeData(
+                      // Настройка цвета фона кнопок "AM" и "PM"
+                      dayPeriodColor: Color.fromARGB(255, 78, 153, 240),
+                    ),
+                  ),
+                  child: child!,
+                );
+              },
+            ).then((selectedTime) {
               if (selectedTime != null) {
-                setState(() {
-                  _selectedTime = selectedTime;
-                });
+                setSelectedTime(selectedTime); // Обновляем выбранное время
               }
             });
           }
@@ -300,19 +104,5 @@ class _DatePickerState extends State<DatePicker> {
         ),
       ),
     );
-  }
-
-  DateTime? getSelectedDateTime() {
-    if (_selectedDate != null && _selectedTime != null) {
-      return DateTime(
-        _selectedDate!.year,
-        _selectedDate!.month,
-        _selectedDate!.day,
-        _selectedTime!.hour,
-        _selectedTime!.minute,
-      );
-    } else {
-      return null;
-    }
   }
 }
