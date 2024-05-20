@@ -51,6 +51,7 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Center(child:
               FloatingActionButton(
+                heroTag: 'clearCompletedTasks',
                 onPressed: () {
                   model?.clearCompletedTasks();
                   const snackBar = SnackBar(content: Text('Список выполненных задач очищен'));
