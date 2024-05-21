@@ -5,47 +5,63 @@ import 'package:multitask/add_screen_components/data_task/task.dart';
 class TaskModel extends ChangeNotifier {
   final _tasks = <Task>[];
   final _completedtasks = <Task>[];
+  DateTime _selectedDate = DateTime.now();
 
   List<Task> get completedtasks => _completedtasks.toList();
   List<Task> get tasks => _tasks.toList();
+  DateTime? get selectedDate => _selectedDate;
 
   TaskModel() {
     setup();
   }
 
-  void _readTasksFromHive(Box<Task> box) {
-    _completedtasks.clear();
-    _tasks.clear();
+ void _readTasksFromHive(Box<Task> box) {
+  _completedtasks.clear();
+  _tasks.clear();
     for (var key in box.keys) {
       var task = box.get(key)!;
       task.id = key; // Установите id задачи
-      if (task.isSelected) {
-        _completedtasks.add(task);
-      } else {
-        _tasks.add(task);
+      if (task.time?.year == _selectedDate!.year &&
+          task.time?.month == _selectedDate!.month &&
+          task.time?.day == _selectedDate!.day) {
+        if (task.isSelected) {
+          _completedtasks.add(task);
+        } else {
+          _tasks.add(task);
+        }
       }
     }
-    notifyListeners();
-  }
-  Future<void> clearCompletedTasks() async {
-  if (!Hive.isAdapterRegistered(1)) {
-    Hive.registerAdapter(TaskAdapter());
-  }
-  if (!Hive.isAdapterRegistered(2)) {
-    Hive.registerAdapter(ColorAdapter());
-  }
-
-  final box = await Hive.openBox<Task>('tasks_box');
-  final completedTaskIds = _completedtasks.map((task) => task.id).toList();
   
-  for (var taskId in completedTaskIds) {
-    await box.delete(taskId);
-  }
-
-  _completedtasks.clear(); // Очистка локального списка выполненных задач
   notifyListeners();
 }
 
+
+  void setSelectedDate(DateTime date) {
+    _selectedDate = date;
+
+    print(_selectedDate);
+    notifyListeners();
+    setup();
+  }
+
+  Future<void> clearCompletedTasks() async {
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter(TaskAdapter());
+    }
+    if (!Hive.isAdapterRegistered(2)) {
+      Hive.registerAdapter(ColorAdapter());
+    }
+
+    final box = await Hive.openBox<Task>('tasks_box');
+    final completedTaskIds = _completedtasks.map((task) => task.id).toList();
+
+    for (var taskId in completedTaskIds) {
+      await box.delete(taskId);
+    }
+
+    _completedtasks.clear(); // Очистка локального списка выполненных задач
+    notifyListeners();
+  }
 
   void deleteItemBox(Task task) async {
     if (!Hive.isAdapterRegistered(1)) {
@@ -90,7 +106,8 @@ class TaskModel extends ChangeNotifier {
 
 class TaskModelProvider extends InheritedNotifier {
   final TaskModel model;
-  const TaskModelProvider({super.key, required super.child, required this.model})
+  const TaskModelProvider(
+      {super.key, required super.child, required this.model})
       : super(notifier: model);
 
   static TaskModelProvider? of(BuildContext context) {

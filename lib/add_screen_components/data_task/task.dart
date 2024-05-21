@@ -34,6 +34,9 @@ class Task {
   @HiveField(9)
   int? id; 
 
+  @HiveField(10)
+  DateTime? time;
+
   Task({
     required this.name,
     required this.description,
@@ -45,5 +48,6 @@ class Task {
     required this.color,
     this.isSelected = false,
     this.id, 
+    required this.time,
   });
 }
