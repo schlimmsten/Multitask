@@ -34,10 +34,10 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return Consumer<TaskModel>(
+//     return Consumer<TaskMaodel>(
 //       builder: (context, taskModel, _) {
 //         return SizedBox(
-//           height: MediaQuery.of(context).size.height * 0.09,
+//           height: MediQuery.of(context).size.height * 0.09,
 //           child: ListView.separated(
 //             scrollDirection: Axis.horizontal,
 //             itemCount: 7,
@@ -118,25 +118,28 @@ List<String> days = [
 ];
 
 class DateBuilder extends StatefulWidget {
-  const DateBuilder({Key? key}) : super(key: key);
+  const DateBuilder({super.key});
 
   @override
-  _DateBuilderState createState() => _DateBuilderState();
+  DateBuilderState createState() => DateBuilderState();
 }
 
-class _DateBuilderState extends State<DateBuilder> {
+class DateBuilderState extends State<DateBuilder> {
   late PageController _pageController;
-  late List<ValueNotifier<bool>> isSelectedList;
   late DateTime selectedDate;
   late int currentPage;
+  final List<ValueNotifier<bool>> isSelectedList =
+      List.generate(7, (index) => ValueNotifier<bool>(false));
+  bool isTapped = false; // Добавим переменную для отслеживания тапов
 
   @override
   void initState() {
     super.initState();
-    loadSelectedDate();
-    isSelectedList = List.generate(7, (index) => ValueNotifier<bool>(false));
-    _pageController = PageController(initialPage: 5000); // Ставим начальную страницу в середину
+    
+    _pageController = PageController(
+        initialPage: 5000); // Ставим начальную страницу в середину
     currentPage = 5000;
+    loadSelectedDate();
   }
 
   @override
@@ -151,12 +154,16 @@ class _DateBuilderState extends State<DateBuilder> {
             onPageChanged: (index) {
               setState(() {
                 currentPage = index;
+                _updateSelectedList(taskModel);
               });
             },
-            itemCount: 10000, // Достаточно большое число для бесконечной прокрутки
+            itemCount:
+                10000, // Достаточно большое число для бесконечной прокрутки
             itemBuilder: (context, pageIndex) {
               // Вычисляем начальную дату для текущей страницы
-              DateTime startDate = DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).add(Duration(days: 7 * (pageIndex - 5000)));
+              DateTime startDate = DateTime.now()
+                  .subtract(Duration(days: DateTime.now().weekday - 1))
+                  .add(Duration(days: 7 * (pageIndex - 5000)));
 
               // Создаем список виджетов для текущей недели
               List<Widget> weekDays = List.generate(7, (dayIndex) {
@@ -170,7 +177,7 @@ class _DateBuilderState extends State<DateBuilder> {
                         date: currentDate.day.toString(),
                         isSelected: isSelected,
                         onPressed: () {
-                          _onItemTapped(dayIndex, taskModel);
+                          _onItemTapped(dayIndex, currentDate, taskModel);
                         },
                       );
                     },
@@ -189,34 +196,37 @@ class _DateBuilderState extends State<DateBuilder> {
     );
   }
 
-  void _onItemTapped(int index, TaskModel taskModel) {
+  void _onItemTapped(int index, DateTime currentDate, TaskModel taskModel) {
     setState(() {
       for (int i = 0; i < isSelectedList.length; i++) {
-        isSelectedList[i].value = i == index;
+        isSelectedList[i].value = false;
       }
+      isSelectedList[index].value = true;
+      isTapped = true; // Устанавливаем флаг тапа
     });
 
-    DateTime now = DateTime.now();
-    int dayDifference = index - now.weekday + 1;
-    selectedDate = now.add(Duration(days: dayDifference));
-    saveSelectedDate(selectedDate);
+    selectedDate = currentDate;
     taskModel.setSelectedDate(selectedDate);
   }
 
-  Future<void> saveSelectedDate(DateTime date) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selectedDate', date.toIso8601String());
+  void loadSelectedDate() {
+    selectedDate = DateTime.now();
+    _updateSelectedList(Provider.of<TaskModel>(context, listen: false));
   }
 
-  Future<void> loadSelectedDate() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? dateString = prefs.getString('selectedDate');
-    if (dateString != null) {
-      selectedDate = DateTime.parse(dateString);
-      int selectedIndex = selectedDate.weekday - 1;
-      isSelectedList[selectedIndex].value = true;
-    } else {
-      selectedDate = DateTime.now();
+  void _updateSelectedList(TaskModel taskModel) {
+    DateTime startDate = DateTime.now()
+        .subtract(Duration(days: DateTime.now().weekday - 1))
+        .add(Duration(days: 7 * (currentPage - 5000)));
+    for (int i = 0; i < 7; i++) {
+      DateTime currentDate = startDate.add(Duration(days: i));
+      if (currentDate.year == selectedDate.year &&
+          currentDate.month == selectedDate.month &&
+          currentDate.day == selectedDate.day) {
+        isSelectedList[i].value = true;
+      } else {
+        isSelectedList[i].value = false;
+      }
     }
   }
 }

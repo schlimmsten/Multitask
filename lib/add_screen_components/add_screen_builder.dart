@@ -44,6 +44,7 @@ class _AddScreenBodyBuilderState extends State<AddScreenBodyBuilder> {
       appBar: AppBar(
         title: const Header(),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Container(
           padding: const EdgeInsets.only(left: 10, right: 10),

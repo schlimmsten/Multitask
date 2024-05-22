@@ -43,7 +43,7 @@ class TaskFormModel {
         time: day);
     await box.add(task);
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));
+        .pop(context);
   }
   void changeTask(BuildContext context, int index) async {
     // Вызов метода для сохранения задачи с выбранной датой и временем
@@ -77,7 +77,7 @@ class TaskFormModel {
       
     //TaskModelProvider.of(context)?.model.put(index, task as Box<Task>);
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));
+        .pop(context);
   }
 }
 

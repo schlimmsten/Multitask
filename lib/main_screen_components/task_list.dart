@@ -32,7 +32,7 @@ class TaskListWidget extends StatelessWidget {
             if (index < tasks.length) {
               return _buildTaskListItem(context, index, tasks);
             } else if (index == tasks.length && hasCompletedTasks) {
-              return _buildCompletedTasksSection(context);
+              return _buildCompletedTasksSection(context, tasks);
             } else {
               return _buildCompletedTaskListItem(
                   context, index - tasks.length - (hasCompletedTasks ? 1 : 0));
@@ -116,7 +116,7 @@ class TaskListWidget extends StatelessWidget {
           //   style: selectedTimeTextStyle(context)
           //   ),
           onTap: () {
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => ChangeScreen(index: index)));
           },
         ),
@@ -124,12 +124,15 @@ class TaskListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCompletedTasksSection(BuildContext context) {
+  Widget _buildCompletedTasksSection(BuildContext context, List<Task> tasks) {
     final model = Provider.of<TaskModel>(context);
     return Column(children: [
-      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-      const Line(),
-      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+      if(tasks.isNotEmpty)
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+      if(tasks.isNotEmpty)
+        const Line(),
+      if(tasks.isNotEmpty)
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         const Text("Выполненные задачи"),
         SizedBox(width: MediaQuery.of(context).size.width * 0.02),
