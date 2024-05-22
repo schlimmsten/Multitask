@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/settings_screen_components/line.dart';
 import 'task_list.dart';
 import 'add_button.dart';
 import 'date_builder.dart';
@@ -45,8 +46,10 @@ class MainScreenBuilder extends StatelessWidget {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               const DateBuilder(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              const Line(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              const Expanded(child: TaskListWidget()), // Занимает всё доступное пространство
+              const Expanded(child: TaskListWidget()),// Занимает всё доступное пространство
             ],
           ),
           const Positioned( // Позиционируем AddButton поверх TaskListWidget

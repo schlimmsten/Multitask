@@ -21,17 +21,20 @@ class TaskAdapter extends TypeAdapter<Task> {
       description: fields[1] as String,
       selectedDay: fields[2] as String,
       selectedMonth: fields[3] as String,
-      selectedYear: fields[4] as String,
       selectedTime: fields[5] as String,
+      selectedYear: fields[4] as String,
       category: fields[6] as String,
       color: fields[7] as Color?,
+      isSelected: fields[8] as bool,
+      id: fields[9] as int?,
+      time: fields[10] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Task obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -47,7 +50,13 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(6)
       ..write(obj.category)
       ..writeByte(7)
-      ..write(obj.color);
+      ..write(obj.color)
+      ..writeByte(8)
+      ..write(obj.isSelected)
+      ..writeByte(9)
+      ..write(obj.id)
+      ..writeByte(10)
+      ..write(obj.time);
   }
 
   @override
@@ -60,10 +69,9 @@ class TaskAdapter extends TypeAdapter<Task> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-
 class ColorAdapter extends TypeAdapter<Color?> {
   @override
-  final int typeId = 2; // Уникальный идентификатор для типа Color
+  final int typeId = 2;
 
   @override
   Color? read(BinaryReader reader) {

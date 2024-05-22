@@ -16,6 +16,7 @@ class DatePickerState extends State<DatePicker> {
   void setSelectedDate(DateTime selectedDate) {
   setState(() {
     _selectedDate = selectedDate;
+    widget.model.day = selectedDate;
     widget.model.selectedDay = selectedDate.day.toString();
     widget.model.selecyedMonth = selectedDate.month.toString();
     widget.model.selectedYear = selectedDate.year.toString();

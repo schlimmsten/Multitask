@@ -19,8 +19,7 @@ class DeclineButton extends StatelessWidget {
               ),
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => const MainScreen()));
+                  Navigator.of(context).pop(context);
                 },
                 backgroundColor: Theme.of(context).primaryColor,
                 

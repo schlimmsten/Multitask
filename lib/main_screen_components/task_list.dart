@@ -3,76 +3,55 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
 import 'package:multitask/screens/change_screen.dart';
+import 'package:multitask/settings_screen_components/line.dart';
 import 'package:multitask/text_style.dart';
-import 'package:multitask/screens/see_all.dart';
+import 'package:provider/provider.dart'; // Импорт Provider
 
+class TaskListWidget extends StatelessWidget {
+  const TaskListWidget({Key? key}) : super(key: key);
 
-class Item {
-  final String name;
-  final String description;
-  final String date;
-  bool completed = false;
-
-  Item(this.name, this.description, this.date, {this.completed = false});
-}
-
-final List<Item> items = [
-  Item("БЕГИТ", "обязательно", "10:50"),
-  Item("Анжумания", "обязательно", "10:50"),
-  Item("ПРЭСС качат", "обязательно", "10:50"),
-];
-final completedItems = <Task>[];
-
-class TaskListWidget extends StatefulWidget {
-  const TaskListWidget({super.key});
-  
-  @override
-  State<TaskListWidget> createState() => _TaskListWidgetState();
-}
-
-class _TaskListWidgetState extends State<TaskListWidget> {
-  final model = TaskModel();
   @override
   Widget build(BuildContext context) {
-    return TaskModelProvider(model: model, child: const _TaskListWidgetBody(),);
+    return Consumer<TaskModel>(
+      // Использование Consumer для доступа к TaskModel
+      builder: (context, model, child) {
+        final completedTasks = model.completedtasks;
+        final tasks = model.tasks;
+        final hasCompletedTasks = completedTasks.isNotEmpty;
+        if (tasks.isEmpty && !hasCompletedTasks) {
+          return Column(children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+            const Text("Задач на текущий день нет...")
+          ]);
+        }
+        return ListView.separated(
+          itemCount: tasks.length +
+              (hasCompletedTasks ? 1 : 0) +
+              completedTasks.length,
+          itemBuilder: (BuildContext context, int index) {
+            if (index < tasks.length) {
+              return _buildTaskListItem(context, index, tasks);
+            } else if (index == tasks.length && hasCompletedTasks) {
+              return _buildCompletedTasksSection(context, tasks);
+            } else {
+              return _buildCompletedTaskListItem(
+                  context, index - tasks.length - (hasCompletedTasks ? 1 : 0));
+            }
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              color: Colors.transparent,
+              height: 8,
+            );
+          },
+        );
+      },
+    );
   }
-}
 
-class _TaskListWidgetBody extends StatefulWidget {
-  const _TaskListWidgetBody({super.key});
-
-  @override
-  State<_TaskListWidgetBody> createState() => __TaskListWidgetBodyState();
-}
-
-class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
-  
-  @override
-  Widget build(BuildContext context) {
-     bool hasCompletedTasks = completedItems.isNotEmpty;
-      final countlist = TaskModelProvider.of(context)?.model.tasks.length ?? 0;
-      final list = TaskModelProvider.of(context)?.model.tasks;
-    return ListView.separated(
-        itemCount: countlist + (hasCompletedTasks ? 1 : 0) + completedItems.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index < countlist) {
-            return _buildTaskListItem(index, list);
-          } else if (index == countlist && hasCompletedTasks) {
-            return const Center(child: Text("Выполненные задачи"));
-          } else {
-            return _buildCompletedTaskListItem(index - countlist - (hasCompletedTasks ? 1 : 0));
-          }
-        }, separatorBuilder: (BuildContext context, int index) { 
-          return const Divider(
-            color: Colors.transparent, // Устанавливаем цвет разделителя как прозрачный
-            height: 8,
-          );
-         },
-      );
-  }
-  
-  Widget _buildTaskListItem(int index, final list) {
-    final model = TaskModelProvider.of(context)?.model;
+  Widget _buildTaskListItem(BuildContext context, int index, List<Task> list) {
+    final model = Provider.of<TaskModel>(
+        context); // Использование Provider.of для доступа к модели
     return Slidable(
       key: ValueKey(list[index]),
       startActionPane: ActionPane(
@@ -82,7 +61,8 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) => _performAction(context, index, 'Выполнить', list),
+            onPressed: (context) =>
+                _performAction(context, index, 'Выполнить', list),
             backgroundColor: const Color.fromARGB(199, 18, 215, 94),
             foregroundColor: Colors.white,
             icon: Icons.check_circle,
@@ -97,7 +77,8 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) => _performAction(context, index, 'Удалить', list),
+            onPressed: (context) =>
+                _performAction(context, index, 'Удалить', list),
             backgroundColor: const Color(0xFFFE4A49),
             foregroundColor: Colors.white,
             icon: Icons.delete,
@@ -109,66 +90,106 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
         height: 80,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          // color: const Color.fromARGB(255, 78, 153, 240)
           color: model?.tasks[index].color,
-          borderRadius: BorderRadius.circular(10), // Форма контейнера
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 3,
-              offset: const Offset(0, 2), // Сдвиг тени
-            ),
-          ],
+          borderRadius: BorderRadius.circular(10),
         ),
         child: ListTile(
           title: Text(
-            list[index].name,
-            style: addbuttonTextStyle(context),
+            list[index].category,
+            style: descriptionTextStyle(context),
           ),
           subtitle: Text(
-            list[index].description,
-            style: TextStyle(fontSize: 15.0, color: Colors.blueGrey[800]) 
-          ), 
-        trailing: const Icon(
-          Icons.access_time,
-          color: Colors.black,
+            list[index].name,
+            style: nameTaskTextStyle(context),
           ),
-        onTap: () {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => SeeAllScreen(index: index)));
-        },
-      ),
-    )
-  );
-}
-
-  Widget _buildCompletedTaskListItem(int index) {
-    final model = TaskModelProvider.of(context)?.model;
-    return ListTile(
-      title: Text(
-        completedItems[index].name,
-        style: const TextStyle(decoration: TextDecoration.lineThrough),
+          trailing: Column(
+            children: [
+              const Icon(Icons.access_time),
+              Text(
+                list[index].selectedTime,
+                style: selectedTimeTextStyle(context),
+              ),
+            ],
+          ),
+          // Text(
+          //   list[index].selectedTime,
+          //   style: selectedTimeTextStyle(context)
+          //   ),
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => ChangeScreen(index: index)));
+          },
+        ),
       ),
     );
   }
 
-  void _performAction(BuildContext context, int index, String action, final list) {
-    final item = list[index].name;
-    final model = TaskModelProvider.of(context)?.model;
-    setState(() {
-      if (action == 'Удалить') {
-        model?.deleteItemBox(index);
-        final snackBar = SnackBar(content: Text('$item удален'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      } else if (action == 'Выполнить') {
-        completedItems.add(model!.tasks[index]);
-        model.deleteItemBox(index);
-        final snackBar = SnackBar(content: Text('$item выполнен'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
-    });
+  Widget _buildCompletedTasksSection(BuildContext context, List<Task> tasks) {
+    final model = Provider.of<TaskModel>(context);
+    return Column(children: [
+      if(tasks.isNotEmpty)
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+      if(tasks.isNotEmpty)
+        const Line(),
+      if(tasks.isNotEmpty)
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Text("Выполненные задачи"),
+        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+        FloatingActionButton(
+          heroTag: 'clearCompletedTasks',
+          onPressed: () {
+            model.clearCompletedTasks();
+            const snackBar =
+                SnackBar(content: Text('Список выполненных задач очищен'));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+          backgroundColor: Theme.of(context).primaryColor,
+          child: Icon(Icons.delete,
+              color: Theme.of(context).appBarTheme.backgroundColor),
+        ),
+      ]),
+    ]);
+  }
+
+  Widget _buildCompletedTaskListItem(BuildContext context, int index) {
+    final model = Provider.of<TaskModel>(context);
+    final completedTasks = model.completedtasks;
+    return Container(
+      height: 65,
+      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+      decoration: BoxDecoration(
+        color: colorSelectedTasks(context),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListTile(
+        title: Text(
+          completedTasks[index].name,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            decoration: TextDecoration.lineThrough,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _performAction(
+      BuildContext context, int index, String action, List<Task> list) {
+    final model = Provider.of<TaskModel>(context, listen: false);
+
+    final item = list[index];
+
+    if (action == 'Удалить') {
+      model.deleteItemBox(item);
+      list.removeAt(index);
+      final snackBar = SnackBar(content: Text('${item.name} удален'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (action == 'Выполнить') {
+      model.updateTaskStatus(item, true);
+      final snackBar = SnackBar(content: Text('${item.name} выполнен'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
-
-
