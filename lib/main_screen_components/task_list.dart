@@ -4,6 +4,7 @@ import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
 import 'package:multitask/screens/change_screen.dart';
 import 'package:multitask/text_style.dart';
+import 'package:multitask/screens/see_all.dart';
 
 
 class Item {
@@ -135,7 +136,7 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
           ),
         onTap: () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => ChangeScreen(index: index)));
+            MaterialPageRoute(builder: (_) => SeeAllScreen(index: index)));
         },
       ),
     )
