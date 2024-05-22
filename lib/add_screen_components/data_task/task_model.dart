@@ -38,7 +38,6 @@ class TaskModel extends ChangeNotifier {
 
   void setSelectedDate(DateTime date) {
     _selectedDate = date;
-
     print(_selectedDate);
     notifyListeners();
     setup();

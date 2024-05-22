@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
 import 'package:multitask/screens/change_screen.dart';
+import 'package:multitask/settings_screen_components/line.dart';
 import 'package:multitask/text_style.dart';
 import 'package:provider/provider.dart'; // Импорт Provider
 
@@ -12,25 +12,30 @@ class TaskListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TaskModel>( // Использование Consumer для доступа к TaskModel
+    return Consumer<TaskModel>(
+      // Использование Consumer для доступа к TaskModel
       builder: (context, model, child) {
         final completedTasks = model.completedtasks;
         final tasks = model.tasks;
         final hasCompletedTasks = completedTasks.isNotEmpty;
-        if(tasks.isEmpty && !hasCompletedTasks){
-              return const Center(
-                child: Text("Задач на текущий день нет...")
-              );
-            }
+        if (tasks.isEmpty && !hasCompletedTasks) {
+          return Column(children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+            const Text("Задач на текущий день нет...")
+          ]);
+        }
         return ListView.separated(
-          itemCount: tasks.length + (hasCompletedTasks ? 1 : 0) + completedTasks.length,
+          itemCount: tasks.length +
+              (hasCompletedTasks ? 1 : 0) +
+              completedTasks.length,
           itemBuilder: (BuildContext context, int index) {
             if (index < tasks.length) {
               return _buildTaskListItem(context, index, tasks);
             } else if (index == tasks.length && hasCompletedTasks) {
               return _buildCompletedTasksSection(context);
             } else {
-              return _buildCompletedTaskListItem(context, index - tasks.length - (hasCompletedTasks ? 1 : 0));
+              return _buildCompletedTaskListItem(
+                  context, index - tasks.length - (hasCompletedTasks ? 1 : 0));
             }
           },
           separatorBuilder: (BuildContext context, int index) {
@@ -45,7 +50,8 @@ class TaskListWidget extends StatelessWidget {
   }
 
   Widget _buildTaskListItem(BuildContext context, int index, List<Task> list) {
-    final model = Provider.of<TaskModel>(context); // Использование Provider.of для доступа к модели
+    final model = Provider.of<TaskModel>(
+        context); // Использование Provider.of для доступа к модели
     return Slidable(
       key: ValueKey(list[index]),
       startActionPane: ActionPane(
@@ -96,14 +102,13 @@ class TaskListWidget extends StatelessWidget {
             list[index].name,
             style: nameTaskTextStyle(context),
           ),
-          trailing: 
-          Column(
+          trailing: Column(
             children: [
-            const Icon(Icons.access_time),
-            Text(
-              list[index].selectedTime,
-              style: selectedTimeTextStyle(context),
-            ),
+              const Icon(Icons.access_time),
+              Text(
+                list[index].selectedTime,
+                style: selectedTimeTextStyle(context),
+              ),
             ],
           ),
           // Text(
@@ -111,9 +116,9 @@ class TaskListWidget extends StatelessWidget {
           //   style: selectedTimeTextStyle(context)
           //   ),
           onTap: () {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => ChangeScreen(index: index)));
-        },
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => ChangeScreen(index: index)));
+          },
         ),
       ),
     );
@@ -121,24 +126,27 @@ class TaskListWidget extends StatelessWidget {
 
   Widget _buildCompletedTasksSection(BuildContext context) {
     final model = Provider.of<TaskModel>(context);
-    return Column(
-      children: [
-        const Center(child: Text("Выполненные задачи")),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-        Center(
-          child: FloatingActionButton(
-            heroTag: 'clearCompletedTasks',
-            onPressed: () {
-              model.clearCompletedTasks();
-              const snackBar = SnackBar(content: Text('Список выполненных задач очищен'));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            },
-            backgroundColor: Theme.of(context).primaryColor,
-            child: Icon(Icons.delete, color: Theme.of(context).appBarTheme.backgroundColor),
-          ),
-        )
-      ],
-    );
+    return Column(children: [
+      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+      const Line(),
+      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Text("Выполненные задачи"),
+        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+        FloatingActionButton(
+          heroTag: 'clearCompletedTasks',
+          onPressed: () {
+            model.clearCompletedTasks();
+            const snackBar =
+                SnackBar(content: Text('Список выполненных задач очищен'));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+          backgroundColor: Theme.of(context).primaryColor,
+          child: Icon(Icons.delete,
+              color: Theme.of(context).appBarTheme.backgroundColor),
+        ),
+      ]),
+    ]);
   }
 
   Widget _buildCompletedTaskListItem(BuildContext context, int index) {
@@ -148,7 +156,7 @@ class TaskListWidget extends StatelessWidget {
       height: 65,
       margin: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
-        color: Colors.grey[350],
+        color: colorSelectedTasks(context),
         borderRadius: BorderRadius.circular(10),
       ),
       child: ListTile(
@@ -164,8 +172,9 @@ class TaskListWidget extends StatelessWidget {
     );
   }
 
-  void _performAction(BuildContext context, int index, String action, List<Task> list) {
-    final model =Provider.of<TaskModel>(context, listen: false);
+  void _performAction(
+      BuildContext context, int index, String action, List<Task> list) {
+    final model = Provider.of<TaskModel>(context, listen: false);
 
     final item = list[index];
 
