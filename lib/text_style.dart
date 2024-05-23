@@ -158,9 +158,3 @@ TextStyle redSmallTextStyle(context) => commonTextStyle(context).copyWith(
       fontSize: 18,
       color: Colors.red,
     );
-
-Color? colorSelectedTasks(context){
-  return Provider.of<CustomTheme>(context).isDarkTheme
-          ? Colors.grey[600]
-          : Colors.grey[300];
-}
