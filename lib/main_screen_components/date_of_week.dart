@@ -8,12 +8,12 @@ class DateOfWeek extends StatelessWidget {
   final VoidCallback onPressed;
 
   const DateOfWeek({
-    Key? key,
+    super.key,
     required this.date,
     required this.day,
     required this.isSelected,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

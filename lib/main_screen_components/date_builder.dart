@@ -1,113 +1,9 @@
-// import 'package:flutter/material.dart';
-// import 'package:multitask/add_screen_components/data_task/task_model.dart';
-// import 'package:provider/provider.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'date_of_week.dart';
-
-// List<String> days = [
-//     'ПН',
-//     'ВТ',
-//     'СР',
-//     'ЧТ',
-//     'ПТ',
-//     'СБ',
-//     'ВС',
-// ];
-
-// class DateBuilder extends StatefulWidget {
-//   const DateBuilder({Key? key}) : super(key: key);
-
-//   @override
-//   _DateBuilderState createState() => _DateBuilderState();
-// }
-
-// class _DateBuilderState extends State<DateBuilder> {
-//   late List<ValueNotifier<bool>> isSelectedList;
-//   late DateTime selectedDate;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     loadSelectedDate();
-//     isSelectedList = List.generate(7, (index) => ValueNotifier<bool>(false));
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Consumer<TaskMaodel>(
-//       builder: (context, taskModel, _) {
-//         return SizedBox(
-//           height: MediQuery.of(context).size.height * 0.09,
-//           child: ListView.separated(
-//             scrollDirection: Axis.horizontal,
-//             itemCount: 7,
-//             separatorBuilder: (BuildContext context, int index) =>
-//                 VerticalDivider(
-//                   width: MediaQuery.of(context).size.width * 0.006,
-//                   color: Theme.of(context).appBarTheme.backgroundColor,
-//                 ),
-//             itemBuilder: (context, index) {
-//               return SizedBox(
-//                 width: MediaQuery.of(context).size.width * 0.1374,
-//                 child: ValueListenableBuilder<bool>(
-//                   valueListenable: isSelectedList[index],
-//                   builder: (context, isSelected, child) {
-//                     return DateOfWeek(
-//                       day: days[index],
-//                       date: (DateTime.now().add(Duration(days: index - DateTime.now().weekday + 1))).day.toString(),
-//                       isSelected: isSelected,
-//                       onPressed: () {
-//                         _onItemTapped(index, taskModel);
-//                       },
-//                     );
-//                   },
-//                 ),
-//               );
-//             },
-//           ),
-//         );
-//       },
-//     );
-//   }
-
-//   void _onItemTapped(int index, TaskModel taskModel) {
-//     setState(() {
-//       for (int i = 0; i < isSelectedList.length; i++) {
-//         isSelectedList[i].value = i == index;
-//       }
-//     });
-
-//     DateTime now = DateTime.now();
-//     int dayDifference = index - now.weekday + 1;
-//     selectedDate = now.add(Duration(days: dayDifference));
-//     saveSelectedDate(selectedDate);
-//     taskModel.setSelectedDate(selectedDate);
-//   }
-
-//   Future<void> saveSelectedDate(DateTime date) async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     await prefs.setString('selectedDate', date.toIso8601String());
-//   }
-
-//   Future<void> loadSelectedDate() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     String? dateString = prefs.getString('selectedDate');
-//     if (dateString != null) {
-//       selectedDate = DateTime.parse(dateString);
-//       int selectedIndex = selectedDate.weekday - 1;
-//       isSelectedList[selectedIndex].value = true;
-//     } else {
-//       selectedDate = DateTime.now();
-//     }
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'date_of_week.dart';
+import 'package:provider/provider.dart';
 
-List<String> days = [
+var days = [
   'ПН',
   'ВТ',
   'СР',
@@ -118,7 +14,14 @@ List<String> days = [
 ];
 
 class DateBuilder extends StatefulWidget {
-  const DateBuilder({super.key});
+  final void Function(DateTime) onDateScrolled;
+  final DateTime selectedDateAppBar;
+
+  const DateBuilder({
+    super.key,
+    required this.onDateScrolled,
+    required this.selectedDateAppBar,
+  });
 
   @override
   DateBuilderState createState() => DateBuilderState();
@@ -130,14 +33,12 @@ class DateBuilderState extends State<DateBuilder> {
   late int currentPage;
   final List<ValueNotifier<bool>> isSelectedList =
       List.generate(7, (index) => ValueNotifier<bool>(false));
-  bool isTapped = false; // Добавим переменную для отслеживания тапов
+  bool isTapped = false;
 
   @override
   void initState() {
     super.initState();
-    
-    _pageController = PageController(
-        initialPage: 5000); // Ставим начальную страницу в середину
+    _pageController = PageController(initialPage: 5000);
     currentPage = 5000;
     loadSelectedDate();
   }
@@ -156,16 +57,15 @@ class DateBuilderState extends State<DateBuilder> {
                 currentPage = index;
                 _updateSelectedList(taskModel);
               });
+              DateTime currentDate = _getCurrentDate();
+              widget.onDateScrolled(currentDate);
             },
-            itemCount:
-                10000, // Достаточно большое число для бесконечной прокрутки
+            itemCount: 10000,
             itemBuilder: (context, pageIndex) {
-              // Вычисляем начальную дату для текущей страницы
               DateTime startDate = DateTime.now()
                   .subtract(Duration(days: DateTime.now().weekday - 1))
                   .add(Duration(days: 7 * (pageIndex - 5000)));
 
-              // Создаем список виджетов для текущей недели
               List<Widget> weekDays = List.generate(7, (dayIndex) {
                 DateTime currentDate = startDate.add(Duration(days: dayIndex));
                 return Expanded(
@@ -202,7 +102,7 @@ class DateBuilderState extends State<DateBuilder> {
         isSelectedList[i].value = false;
       }
       isSelectedList[index].value = true;
-      isTapped = true; // Устанавливаем флаг тапа
+      isTapped = true;
     });
 
     selectedDate = currentDate;
@@ -228,5 +128,25 @@ class DateBuilderState extends State<DateBuilder> {
         isSelectedList[i].value = false;
       }
     }
+    taskModel.setSelectedDate(selectedDate);
+  }
+
+  DateTime _getCurrentDate() {
+    DateTime startDate = DateTime.now()
+        .subtract(Duration(days: DateTime.now().weekday - 1))
+        .add(Duration(days: 7 * (currentPage - 5000)));
+    return startDate;
+  }
+
+  void goToSelectedWeek(DateTime selectedDate) {
+    int targetPage = 5000 +
+        ((selectedDate.difference(DateTime.now()).inDays + DateTime.now().weekday -1) ~/7);
+    _pageController.jumpToPage(targetPage);
+    setState(() {
+      currentPage = targetPage;
+      this.selectedDate = selectedDate;
+      _updateSelectedList(Provider.of<TaskModel>(context, listen: false));
+    });
+    
   }
 }

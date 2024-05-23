@@ -62,7 +62,16 @@ ButtonStyle buttondayButtonStyle(context, bool isSelected) => ButtonStyle(
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(18.0),
-    )));
+    ),
+    
+    ),
+    minimumSize: MaterialStateProperty.all<Size>(
+    Size(MediaQuery.of(context).size.width * 0.137, MediaQuery.of(context).size.height * 0.09)), // Установите ширину и высоту по вашему усмотрению
+  
+  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.006), // Горизонтальный отступ
+  ),
+    );
 
 TextStyle toolbartitleTextStyle(context) => commonTextStyle(context).copyWith(
       color: Theme.of(context).primaryColor,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
-import '../../screens/main_screen.dart';
-import 'task_model.dart';
 
 class TaskFormModel {
   var name = '';

@@ -8,7 +8,7 @@ import 'package:multitask/text_style.dart';
 import 'package:provider/provider.dart'; // Импорт Provider
 
 class TaskListWidget extends StatelessWidget {
-  const TaskListWidget({Key? key}) : super(key: key);
+  const TaskListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class TaskListWidget extends StatelessWidget {
         height: 80,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          color: model?.tasks[index].color,
+          color: model.tasks[index].color,
           borderRadius: BorderRadius.circular(10),
         ),
         child: ListTile(

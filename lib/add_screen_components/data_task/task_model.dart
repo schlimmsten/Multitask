@@ -21,9 +21,9 @@ class TaskModel extends ChangeNotifier {
     for (var key in box.keys) {
       var task = box.get(key)!;
       task.id = key; // Установите id задачи
-      if (task.time?.year == _selectedDate!.year &&
-          task.time?.month == _selectedDate!.month &&
-          task.time?.day == _selectedDate!.day) {
+      if (task.time?.year == _selectedDate.year &&
+          task.time?.month == _selectedDate.month &&
+          task.time?.day == _selectedDate.day) {
         if (task.isSelected) {
           _completedtasks.add(task);
         } else {
@@ -39,7 +39,6 @@ class TaskModel extends ChangeNotifier {
   void setSelectedDate(DateTime date) {
     _selectedDate = date;
     print(_selectedDate);
-    notifyListeners();
     setup();
   }
 

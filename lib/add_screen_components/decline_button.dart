@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multitask/screens/main_screen.dart'; //просто заглушка
+//просто заглушка
 
 class DeclineButton extends StatelessWidget {
   const DeclineButton({super.key});
