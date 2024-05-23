@@ -41,7 +41,7 @@ class TaskListWidget extends StatelessWidget {
           separatorBuilder: (BuildContext context, int index) {
             return const Divider(
               color: Colors.transparent,
-              height: 8,
+              height: 10,
             );
           },
         );
@@ -87,38 +87,64 @@ class TaskListWidget extends StatelessWidget {
         ],
       ),
       child: Container(
-        height: 80,
+        height: 90,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          color: model.tasks[index].color,
+          color: model?.tasks[index].color?.withOpacity(0.5) ?? Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: ListTile(
-          title: Text(
-            list[index].category,
-            style: descriptionTextStyle(context),
-          ),
-          subtitle: Text(
-            list[index].name,
-            style: nameTaskTextStyle(context),
-          ),
-          trailing: Column(
-            children: [
-              const Icon(Icons.access_time),
-              Text(
-                list[index].selectedTime,
-                style: selectedTimeTextStyle(context),
+        child: Row(
+          children: [
+            Expanded(
+              child: ListTile(
+                title: Text(
+                  list[index].category,
+                  style: descriptionTextStyle(context,model.tasks[index].color),
+                ),
+                subtitle: Text(
+                  list[index].name,
+                  style: nameTaskTextStyle(context),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (_) => ChangeScreen(index: index)),
+                  );
+                },
               ),
-            ],
-          ),
-          // Text(
-          //   list[index].selectedTime,
-          //   style: selectedTimeTextStyle(context)
-          //   ),
-          onTap: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => ChangeScreen(index: index)));
-          },
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: 2.9,
+                height: 70.0,
+                color: colorLine(context, model.tasks[index].color),
+                margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: SizedBox(
+                width: 70,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.access_time,
+                      color: colorTime(context),
+                    ),
+                    Text(
+                      list[index].selectedTime,
+                      style: selectedTimeTextStyle(context),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -127,34 +153,57 @@ class TaskListWidget extends StatelessWidget {
   Widget _buildCompletedTasksSection(BuildContext context, List<Task> tasks) {
     final model = Provider.of<TaskModel>(context);
     return Column(children: [
-      if(tasks.isNotEmpty)
-        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-      if(tasks.isNotEmpty)
-        const Line(),
-      if(tasks.isNotEmpty)
-        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        const Text("Выполненные задачи"),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-        FloatingActionButton(
-          heroTag: 'clearCompletedTasks',
-          onPressed: () {
-            model.clearCompletedTasks();
-            const snackBar =
-                SnackBar(content: Text('Список выполненных задач очищен'));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          },
-          backgroundColor: Theme.of(context).primaryColor,
-          child: Icon(Icons.delete,
-              color: Theme.of(context).appBarTheme.backgroundColor),
-        ),
-      ]),
+      if (tasks.isNotEmpty)
+        SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+      if (tasks.isNotEmpty) const Line(),
+      if (tasks.isNotEmpty)
+        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.07,
+            child: ElevatedButton(
+              onPressed: () {
+                model.clearCompletedTasks();
+                const snackBar =
+                    SnackBar(content: Text('Список выполненных задач очищен'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.delete, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Очистить выполненные задачи',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      ),
+                    
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+        ],
+      ),
     ]);
   }
 
   Widget _buildCompletedTaskListItem(BuildContext context, int index) {
     final model = Provider.of<TaskModel>(context);
     final completedTasks = model.completedtasks;
+
     return Container(
       height: 65,
       margin: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -163,12 +212,11 @@ class TaskListWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: ListTile(
-        title: Text(
-          completedTasks[index].name,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            decoration: TextDecoration.lineThrough,
+        title: RichText(
+          text: TextSpan(
+            text: completedTasks[index].name,
+            style: combinedStyle(context)
+                .merge(const TextStyle(decorationThickness: 3.0)),
           ),
         ),
       ),

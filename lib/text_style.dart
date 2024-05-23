@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 //которые накладываются друг на друга за счет наследования, а потом при создании
 //нового стиля для какого-то определенного элемента просто наследуем от уже созданных
 
+
+
 TextStyle commonTextStyle(context) => const TextStyle(fontFamily: "Montserrat");
 TextStyle blackwhiteTextStyle(context) => commonTextStyle(context).copyWith(
       color: Provider.of<CustomTheme>(context).isDarkTheme
@@ -23,8 +25,35 @@ TextStyle nameTaskTextStyle(context) => blackwhiteTextStyle(context).copyWith(
       fontSize: 24,
       fontWeight: FontWeight.w900,
     );
-TextStyle descriptionTextStyle(context) => blackwhiteTextStyle(context).copyWith(
+TextStyle combinedStyle(BuildContext context) {
+  final bool isDarkTheme = Provider.of<CustomTheme>(context).isDarkTheme;
+  final Color? lineThroughColor = isDarkTheme ? Colors.grey[800] : Colors.black;
+  
+  return blackwhiteTextStyle(context).copyWith(
+    fontSize: 21,
+    fontWeight: FontWeight.w600,
+    decorationColor: lineThroughColor,
+    decoration: TextDecoration.lineThrough,
+  );
+}
+Color? colorSelectedTasks(context){
+  return Provider.of<CustomTheme>(context).isDarkTheme
+          ? Colors.grey[600]
+          : Colors.grey[300];
+}
+Color? colorTime(context){
+  return Theme.of(context).primaryColor;
+}
+Color? colorLine(context, Color? color){
+  return Provider.of<CustomTheme>(context).isDarkTheme
+          ? Colors.grey[800]
+          : Colors.grey[200];
+}
+TextStyle descriptionTextStyle(context, Color? color) => blackwhiteTextStyle(context).copyWith(
+      
       fontSize: 15,
+      color: color,
+      fontWeight: FontWeight.w800,
     );
 TextStyle selectedTimeTextStyle(context) => blackwhiteTextStyle(context).copyWith(
       fontSize: 18,

@@ -39,9 +39,8 @@ class MainScreenBuilder extends StatelessWidget {
             ], 
           ), 
           const Positioned( 
-            bottom: 100, 
-            right: 0, 
-            left: 0, 
+            bottom: 50,
+            right: 45, 
             child: AddButton(), 
           ), 
         ], 
