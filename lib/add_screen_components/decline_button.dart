@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multitask/screens/main_screen.dart'; //просто заглушка
+//просто заглушка
 
 class DeclineButton extends StatelessWidget {
   const DeclineButton({super.key});
@@ -19,8 +19,7 @@ class DeclineButton extends StatelessWidget {
               ),
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => const MainScreen()));
+                  Navigator.of(context).pop(context);
                 },
                 backgroundColor: Theme.of(context).primaryColor,
                 

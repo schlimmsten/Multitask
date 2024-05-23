@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
-import '../../screens/main_screen.dart';
 
 class TaskFormModel {
   var name = '';
@@ -12,6 +11,7 @@ class TaskFormModel {
   var selectedTime = ''; // Поле для хранения выбранного времени
   var category = '';
   Color? color;
+  DateTime? day;
   void saveTask(BuildContext context) async {
     // Вызов метода для сохранения задачи с выбранной датой и временем
     // Можно объединить их в один DateTime или оставить отдельно, в зависимости от потребностей приложения
@@ -20,7 +20,7 @@ class TaskFormModel {
     // print('Дата: $selectedDay.$selecyedMonth.$selectedYear, Время: $selectedTime');
     // print(category);
     //print(color);
-    if (name.isEmpty) return;
+    if (name.isEmpty|| day == null) return;
     if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(TaskAdapter());
     }
@@ -37,10 +37,45 @@ class TaskFormModel {
         selectedTime: selectedTime,
         selectedYear: selectedYear,
         category: category,
-        color: color);
+        color: color,
+        time: day);
     await box.add(task);
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));
+        .pop(context);
+  }
+  void changeTask(BuildContext context, int index) async {
+    // Вызов метода для сохранения задачи с выбранной датой и временем
+    // Можно объединить их в один DateTime или оставить отдельно, в зависимости от потребностей приложения
+    print(name);
+    print(index);
+    // print(description);
+    // print('Дата: $selectedDay.$selecyedMonth.$selectedYear, Время: $selectedTime');
+    // print(category);
+    //print(color);
+    if (name.isEmpty || day == null) return;
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter(TaskAdapter());
+    }
+    if (!Hive.isAdapterRegistered(2)) {
+      Hive.registerAdapter(ColorAdapter());
+    }
+    
+    final box = await Hive.openBox<Task>('tasks_box');
+    final task = Task(
+        name: name,
+        description: description,
+        selectedDay: selectedDay,
+        selectedMonth: selecyedMonth,
+        selectedTime: selectedTime,
+        selectedYear: selectedYear,
+        category: category,
+        color: color,
+        time: day);
+      await box.putAt(index,task);
+      
+    //TaskModelProvider.of(context)?.model.put(index, task as Box<Task>);
+    Navigator.of(context)
+        .pop(context);
   }
 }
 
@@ -53,6 +88,7 @@ class TaskFormModelProvider extends InheritedWidget {
     return context.dependOnInheritedWidgetOfExactType<TaskFormModelProvider>();
   }
 
+  @override
   bool updateShouldNotify(TaskFormModelProvider oldWidget) {
     return model.name != oldWidget.model.name ||
         model.description != oldWidget.model.description ||

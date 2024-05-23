@@ -15,9 +15,6 @@ class DateOfWeek extends StatelessWidget {
     required this.onPressed,
   });
 
-//BorderSide(color: isSelected ? const Color.fromARGB(255, 8, 4, 252) : Theme.of(context).textTheme.displayLarge?.color ?? Colors.black,)
-
-//тут с темами разобраться!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -38,6 +35,7 @@ class DateOfWeek extends StatelessWidget {
     VoidCallback? onPressed,
   }) {
     return DateOfWeek(
+      key: key,
       day: day ?? this.day,
       date: date ?? this.date,
       isSelected: isSelected ?? this.isSelected,

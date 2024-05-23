@@ -8,17 +8,19 @@ class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.bottomCenter,
-      child: FloatingActionButton(
-        onPressed: () {
-          //категорию зануляем так сказать
-          chosenCategory = null;
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const AddScreen()));
-        },
-        backgroundColor: Theme.of(context).primaryColor,
-        child: Icon(Icons.add, color: Theme.of(context).appBarTheme.backgroundColor),
-      )
-    );
+        alignment: Alignment.bottomCenter,
+        child: FloatingActionButton(
+          onPressed: () {
+            chosenCategory = null;
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const AddScreen(),
+              ),
+            );
+          },
+          backgroundColor: Theme.of(context).primaryColor,
+          child: Icon(Icons.add,
+              color: Theme.of(context).appBarTheme.backgroundColor),
+        ));
   }
 }

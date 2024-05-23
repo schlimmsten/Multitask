@@ -1,38 +1,44 @@
 import 'package:flutter/material.dart';
 import 'header.dart';
-import 'name_field.dart';
-import 'description_field.dart';
-import 'category_screen_components/category_picker_components/category_picker.dart';
-import 'date_picker.dart';
-import 'add_button.dart';
-import 'decline_button.dart';
+import '../add_screen_components/name_field.dart';
+import '../add_screen_components/description_field.dart';
+import '../add_screen_components/date_picker.dart';
+import '../add_screen_components/category_screen_components/category_picker_components/category_picker.dart';
+import '../add_screen_components/decline_button.dart';
+import 'change_button.dart';
 import '../text_style.dart';
-import './data_task/task_form_model.dart';
+import '../add_screen_components/data_task/task_form_model.dart';
 
-class AddScreenBuilder extends StatefulWidget {
-  const AddScreenBuilder({super.key});
+class ChangeScreenBuilder extends StatefulWidget {
+
+  final int index;
+
+  const ChangeScreenBuilder({super.key, required this.index});
 
   @override
-  State<AddScreenBuilder> createState() => __AddScreenBuilderState();
+  State<ChangeScreenBuilder> createState() => __AddScreenBuilderState();
 }
 
-class __AddScreenBuilderState extends State<AddScreenBuilder> {
+class __AddScreenBuilderState extends State<ChangeScreenBuilder> {
 
   final _model = TaskFormModel();
   @override
   Widget build(BuildContext context) {
-    return TaskFormModelProvider(model: _model, child: const AddScreenBodyBuilder()) ;
+    return TaskFormModelProvider(model: _model, child: ChangeScreenBodyBuilder(index: widget.index)) ;
   }
 }
 
-class AddScreenBodyBuilder extends StatefulWidget {
-  const AddScreenBodyBuilder({super.key});
+class ChangeScreenBodyBuilder extends StatefulWidget {
+
+  final int index;
+
+  const ChangeScreenBodyBuilder({super.key, required this.index});
 
   @override
-  State<AddScreenBodyBuilder> createState() => _AddScreenBodyBuilderState();
+  State<ChangeScreenBodyBuilder> createState() => _AddScreenBodyBuilderState();
 }
 
-class _AddScreenBodyBuilderState extends State<AddScreenBodyBuilder> {
+class _AddScreenBodyBuilderState extends State<ChangeScreenBodyBuilder> {
 
   void updateWidget(){
     setState(() {});
@@ -74,7 +80,7 @@ class _AddScreenBodyBuilderState extends State<AddScreenBodyBuilder> {
                 DatePicker(model: TaskFormModelProvider.of(context)!.model),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 //const Line(),
-                const AddButton(),
+                ChangeButton(index: widget.index),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.14),
                 const DeclineButton(),
               ],

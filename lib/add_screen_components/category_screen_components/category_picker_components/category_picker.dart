@@ -36,10 +36,10 @@ Future<void> getCategories() async {
     print("true");
   } else {
     categories = [
-      {"name": "Учеба", "color": Colors.red},
-      {"name": "Работа", "color": Colors.green},
-      {"name": "Развлечения", "color": Colors.blue},
-      {"name": "Добавить свою", "color": Colors.orange},
+      {"name": "Учеба", "color": Colors.red[300]},
+      {"name": "Работа", "color": Colors.green[300]},
+      {"name": "Развлечения", "color": Colors.blue[300]},
+      {"name": "Добавить свою", "color": Colors.orange[300]},
     ];
     print("false");
   }
