@@ -2,13 +2,59 @@ import 'package:flutter/material.dart';
 import 'package:multitask/add_screen_components/category_screen_components/new_category_components/new_category_builder.dart';
 import 'package:multitask/text_style.dart';
 import '../../data_task/task_form_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
-List<Map<String, dynamic>> categories = [
-  {"name": "Учеба", "color": Colors.red},
-  {"name": "Работа", "color": Colors.green},
-  {"name": "Развлечения", "color": Colors.blue},
-  {"name": "Добавить свою", "color": Colors.orange},
-];
+List<Map<String, dynamic>> categories = [];
+
+Future<void> saveCategories(List<Map<String, dynamic>> categoriesInput) async {
+  final prefs = await SharedPreferences.getInstance();
+  categoriesInput = convertToNums(categoriesInput);
+  final categoriesJson = jsonEncode(categoriesInput);
+  prefs.setString('categories', categoriesJson);
+}
+
+List<Map<String, dynamic>> convertToNums(List<Map<String, dynamic>> categories){
+  return categories.map((category) {
+    Color color = category["color"];
+    int colorValue = color.value;
+    return {
+      "name": category["name"],
+      "color": colorValue,
+    };
+  }).toList();
+}
+
+Future<void> getCategories() async {
+  final prefs = await SharedPreferences.getInstance();
+  final categoriesJson = prefs.getString('categories');
+  if(categoriesJson != null) {
+    final categoriesList = jsonDecode(categoriesJson) as List;
+    categories = categoriesList.map((e) => e as Map<String, dynamic>).toList();
+    categories = convertToColors(categories);
+    print(categoriesJson);
+    print("true");
+  } else {
+    categories = [
+      {"name": "Учеба", "color": Colors.red},
+      {"name": "Работа", "color": Colors.green},
+      {"name": "Развлечения", "color": Colors.blue},
+      {"name": "Добавить свою", "color": Colors.orange},
+    ];
+    print("false");
+  }
+}
+
+List<Map<String, dynamic>> convertToColors(List<Map<String, dynamic>> categories){
+  return categories.map((category) {
+    Color color = Color(category["color"]);
+    return {
+      "name": category["name"],
+      "color": color,
+    };
+  }).toList();
+}
+
 
 Map<String, dynamic> ?chosenCategory;
 
@@ -24,7 +70,16 @@ class CategoryPicker extends StatefulWidget {
 
 class _CategoryPickerState extends State<CategoryPicker> {
 
+  @override
+  void initState() {
+    super.initState();
+    getCategories(); // Загружаем категории при инициализации
+  }
 
+  // void loadCategories() async {
+  //   await getCategories(); // Дожидаемся завершения загрузки категорий
+  //   setState(() {}); // Обновляем UI после загрузки категорий
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +127,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return const NewCategoryBuilder();
+                                    return NewCategoryBuilder(model: model);
                                   },
                                 );
                               } else {
@@ -97,10 +152,12 @@ class _CategoryPickerState extends State<CategoryPicker> {
                                 ),
                                 const Spacer(),
                                 (category["name"] != "Добавить свою")
+                                //удаление из shared pref
                                   ? ElevatedButton(
                                       onPressed: () {
                                         setState(() {
                                           categories.remove(category);
+                                          saveCategories(categories);
                                         });
                                       },
                                       style: ElevatedButton.styleFrom(

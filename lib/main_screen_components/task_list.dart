@@ -109,14 +109,6 @@ class __TaskListWidgetBodyState extends State<_TaskListWidgetBody> {
           // color: const Color.fromARGB(255, 78, 153, 240)
           color: model?.tasks[index].color,
           borderRadius: BorderRadius.circular(10), // Форма контейнера
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 3,
-              offset: const Offset(0, 2), // Сдвиг тени
-            ),
-          ],
         ),
         child: ListTile(
           title: Text(
