@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:multitask/Notifications/notifications_server.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
+import 'package:provider/provider.dart';
 
 class TaskModel extends ChangeNotifier {
   final _tasks = <Task>[];
@@ -29,7 +31,9 @@ class TaskModel extends ChangeNotifier {
         } else {
           _tasks.add(task);
         }
+       
       }
+
     }
   
   notifyListeners();

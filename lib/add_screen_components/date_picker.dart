@@ -14,25 +14,25 @@ class DatePickerState extends State<DatePicker> {
   TimeOfDay? _selectedTime;
 
   void setSelectedDate(DateTime selectedDate) {
-  setState(() {
-    _selectedDate = selectedDate;
-    widget.model.day = selectedDate;
-    widget.model.selectedDay = selectedDate.day.toString();
-    widget.model.selecyedMonth = selectedDate.month.toString();
-    widget.model.selectedYear = selectedDate.year.toString();
-  });
-}
+    setState(() {
+      _selectedDate = selectedDate;
+      widget.model.day = selectedDate;
+      widget.model.selectedDay = selectedDate.day.toString();
+      widget.model.selecyedMonth = selectedDate.month.toString();
+      widget.model.selectedYear = selectedDate.year.toString();
+    });
+  }
 
-void setSelectedTime(TimeOfDay selectedTime) {
-  setState(() {
-    _selectedTime = selectedTime;
-    // Форматирование времени в 24-часовом формате
-    final hour = selectedTime.hour.toString().padLeft(2, '0');
-    final minute = selectedTime.minute.toString().padLeft(2, '0');
-    widget.model.selectedTime = '$hour:$minute'; // Сохранение времени в 24-часовом формате
-  });
-}
-
+  void setSelectedTime(TimeOfDay selectedTime) {
+    setState(() {
+      _selectedTime = selectedTime;
+      // Форматирование времени в 24-часовом формате
+      final hour = selectedTime.hour.toString().padLeft(2, '0');
+      final minute = selectedTime.minute.toString().padLeft(2, '0');
+      widget.model.selectedTime =
+          '$hour:$minute'; // Сохранение времени в 24-часовом формате
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,6 @@ void setSelectedTime(TimeOfDay selectedTime) {
           },
         ).then((selectedDate) {
           if (selectedDate != null) {
-            setSelectedDate(selectedDate); // Обновляем выбранную дату
             showTimePicker(
               context: context,
               initialTime: TimeOfDay.now(),
@@ -87,8 +86,16 @@ void setSelectedTime(TimeOfDay selectedTime) {
                 );
               },
             ).then((selectedTime) {
-              if (selectedTime != null) {
-                setSelectedTime(selectedTime); // Обновляем выбранное время
+             if (selectedTime != null) {
+                final selectedDateTime = DateTime(
+                  selectedDate.year,
+                  selectedDate.month,
+                  selectedDate.day,
+                  selectedTime.hour,
+                  selectedTime.minute,
+                );
+                setSelectedDate(selectedDateTime); // Обновляем выбранную дату и время
+                setSelectedTime(selectedTime);
               }
             });
           }

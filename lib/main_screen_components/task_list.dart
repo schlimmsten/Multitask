@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:multitask/Notifications/notifications_server.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
 import 'package:multitask/screens/change_screen.dart';
@@ -90,7 +91,8 @@ class TaskListWidget extends StatelessWidget {
         height: 90,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          color: model?.tasks[index].color?.withOpacity(0.5) ?? Colors.transparent,
+          color:
+              model?.tasks[index].color?.withOpacity(0.5) ?? Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -99,7 +101,8 @@ class TaskListWidget extends StatelessWidget {
               child: ListTile(
                 title: Text(
                   list[index].category,
-                  style: descriptionTextStyle(context,model.tasks[index].color),
+                  style:
+                      descriptionTextStyle(context, model.tasks[index].color),
                 ),
                 subtitle: Text(
                   list[index].name,
@@ -187,8 +190,7 @@ class TaskListWidget extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
-                      ),
-                    
+                    ),
                   ),
                 ],
               ),
@@ -223,8 +225,8 @@ class TaskListWidget extends StatelessWidget {
     );
   }
 
-  void _performAction(
-      BuildContext context, int index, String action, List<Task> list) {
+  Future<void> _performAction(
+      BuildContext context, int index, String action, List<Task> list) async {
     final model = Provider.of<TaskModel>(context, listen: false);
 
     final item = list[index];
@@ -234,10 +236,19 @@ class TaskListWidget extends StatelessWidget {
       list.removeAt(index);
       final snackBar = SnackBar(content: Text('${item.name} удален'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      print(item.id!*1000);
+      if (await Notifications.isNotificationScheduled(item.id!*1000)) {
+        Notifications.deleteNotification(id: item.id!*1000);
+        Notifications.deleteNotification(id: item.id!*1000 + 1);
+      }
     } else if (action == 'Выполнить') {
       model.updateTaskStatus(item, true);
       final snackBar = SnackBar(content: Text('${item.name} выполнен'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (await Notifications.isNotificationScheduled(item.id!*1000)) {
+        Notifications.deleteNotification(id: item.id!*1000);
+        Notifications.deleteNotification(id: item.id!*1000 + 1);
+      }
     }
   }
 }

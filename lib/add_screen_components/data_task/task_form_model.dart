@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:multitask/Notifications/notif_saver.dart';
+import 'package:multitask/Notifications/notifications_server.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
+import 'package:provider/provider.dart';
 
 class TaskFormModel {
   var name = '';
@@ -12,6 +15,7 @@ class TaskFormModel {
   var category = '';
   Color? color;
   DateTime? day;
+
   void saveTask(BuildContext context) async {
     // Вызов метода для сохранения задачи с выбранной датой и временем
     // Можно объединить их в один DateTime или оставить отдельно, в зависимости от потребностей приложения
@@ -20,7 +24,7 @@ class TaskFormModel {
     // print('Дата: $selectedDay.$selecyedMonth.$selectedYear, Время: $selectedTime');
     // print(category);
     //print(color);
-    if (name.isEmpty|| day == null) return;
+    if (name.isEmpty || day == null) return;
     if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(TaskAdapter());
     }
@@ -40,9 +44,19 @@ class TaskFormModel {
         color: color,
         time: day);
     await box.add(task);
-    Navigator.of(context)
-        .pop(context);
+    final noti = Provider.of<NotiSaver>(context, listen: false);
+    if (noti.isNoti &&
+        task.time!.day == DateTime.now().day &&
+        task.time!.month == DateTime.now().month &&
+        task.time!.year == DateTime.now().year) {
+      Notifications.scheduleNotification(
+          title: task.name, id: task.id!*1000, date: task.time!);
+    }
+    
+    print(task.time);
+    Navigator.of(context).pop(context);
   }
+
   void changeTask(BuildContext context, int index) async {
     // Вызов метода для сохранения задачи с выбранной датой и временем
     // Можно объединить их в один DateTime или оставить отдельно, в зависимости от потребностей приложения
@@ -59,7 +73,7 @@ class TaskFormModel {
     if (!Hive.isAdapterRegistered(2)) {
       Hive.registerAdapter(ColorAdapter());
     }
-    
+
     final box = await Hive.openBox<Task>('tasks_box');
     final task = Task(
         name: name,
@@ -71,11 +85,10 @@ class TaskFormModel {
         category: category,
         color: color,
         time: day);
-      await box.putAt(index,task);
-      
+    await box.putAt(index, task);
+
     //TaskModelProvider.of(context)?.model.put(index, task as Box<Task>);
-    Navigator.of(context)
-        .pop(context);
+    Navigator.of(context).pop(context);
   }
 }
 
