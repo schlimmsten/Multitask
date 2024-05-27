@@ -51,7 +51,6 @@ class Notifications{
     tz.initializeTimeZones();
     final String timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
-    print('Local Time Zone: ${tz.local}');
     _checkPendingNotificationRequests();
   }
 
@@ -72,7 +71,6 @@ class Notifications{
     const NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
     var time = tz.TZDateTime.from(date, tz.local);
-    try {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         "Сделай $title и мир станет ярче",
@@ -85,13 +83,8 @@ class Notifications{
         payload: '$time',
         matchDateTimeComponents: DateTimeComponents.time,
       );
-      print("Scheduled Notif Created");
-    } catch (e) {
-      print("Error scheduling notification: $e");
-    }
     var time1hour =
         tz.TZDateTime.from(date, tz.local).subtract(const Duration(hours: 1));
-    try {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         id + 1,
         "До $title остался час",
@@ -104,17 +97,12 @@ class Notifications{
         payload: '$time1hour',
         matchDateTimeComponents: DateTimeComponents.time,
       );
-      print("Scheduled Notif Created");
       _checkPendingNotificationRequests();
-    } catch (e) {
-      print("Error scheduling notification: $e");
-    }
   }
 
   // Удаление запланированного уведомления
   static Future<void> deleteNotification({required int id}) async {
     await _flutterLocalNotificationsPlugin.cancel(id);
-    print("Notification cancelled");
     _checkPendingNotificationRequests();
   }
 
@@ -146,14 +134,13 @@ class Notifications{
       print(
           '${pendingNotificationRequest.id} ${pendingNotificationRequest.payload ?? ""}');
     }
-    print('NOW ' + tz.TZDateTime.now(tz.local).toString());
+    print('NOW ${tz.TZDateTime.now(tz.local)}');
   }
 
 
   // Очистка всех уведомлений
   static Future<void> cancelAllNotifications() async {
     await _flutterLocalNotificationsPlugin.cancelAll();
-    print("All notifications cancelled");
     _checkPendingNotificationRequests();
   }
 }

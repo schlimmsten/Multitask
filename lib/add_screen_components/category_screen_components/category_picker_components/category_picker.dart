@@ -33,8 +33,6 @@ Future<void> getCategories() async {
     final categoriesList = jsonDecode(categoriesJson) as List;
     categories = categoriesList.map((e) => e as Map<String, dynamic>).toList();
     categories = convertToColors(categories);
-    print(categoriesJson);
-    print("true");
   } else {
     categories = [
       {"name": "Учеба", "color": Colors.red[300]},
@@ -42,7 +40,6 @@ Future<void> getCategories() async {
       {"name": "Развлечения", "color": Colors.blue[300]},
       {"name": "Добавить свою", "color": Colors.orange[300]},
     ];
-    print("false");
   }
 }
 
@@ -67,6 +64,7 @@ class CategoryPicker extends StatefulWidget {
       {super.key, required this.onPressed, required this.model});
 
   @override
+  // ignore: no_logic_in_create_state
   State<CategoryPicker> createState() {
     final state = CategoryPickerState();
     model.categoryPicker = state;

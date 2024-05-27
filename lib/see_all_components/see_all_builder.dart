@@ -7,7 +7,7 @@ import 'package:multitask/text_style.dart';
 import 'package:provider/provider.dart';  
 
 class SeeAllBuilder extends StatelessWidget {   
-  SeeAllBuilder({super.key, required this.index});   
+  const SeeAllBuilder({super.key, required this.index});   
 
   final int index;
 
@@ -31,7 +31,7 @@ class SeeAllBuilder extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start, // чтобы залупа вначале была
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Center(
                   child: Container(
                     width: 300,
@@ -55,7 +55,7 @@ class SeeAllBuilder extends StatelessWidget {
                             color: colorSelectedChange(context),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           'Описание:',
                           style: addtitlesTextStyle(context).copyWith(
@@ -64,7 +64,7 @@ class SeeAllBuilder extends StatelessWidget {
                             color: colorSelectedChange(context),
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           task.description,
                           textAlign: TextAlign.left,
@@ -74,7 +74,7 @@ class SeeAllBuilder extends StatelessWidget {
                             color: colorSelectedChange(context),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           'Категория:',
                           style: addtitlesTextStyle(context).copyWith(
@@ -83,7 +83,7 @@ class SeeAllBuilder extends StatelessWidget {
                             color: colorSelectedChange(context),
                             ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           task.category,
                           textAlign: TextAlign.left,
@@ -93,7 +93,7 @@ class SeeAllBuilder extends StatelessWidget {
                             color: colorSelectedChange(context),
                                                  ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           'Время:',
                           style: addtitlesTextStyle(context).copyWith(
@@ -102,7 +102,7 @@ class SeeAllBuilder extends StatelessWidget {
                             color: colorSelectedChange(context),
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           task.selectedTime,
                           textAlign: TextAlign.left,
@@ -116,11 +116,11 @@ class SeeAllBuilder extends StatelessWidget {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GoChangeButton(index: index),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 const DeclineButton(),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),

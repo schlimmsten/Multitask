@@ -6,6 +6,7 @@ class DatePicker extends StatefulWidget {
   const DatePicker({required this.model, super.key});
 
   @override
+  // ignore: no_logic_in_create_state
   DatePickerState createState() {
     final state = DatePickerState();
     model.datePickerState = state;

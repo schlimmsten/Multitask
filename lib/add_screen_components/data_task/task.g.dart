@@ -76,6 +76,7 @@ class ColorAdapter extends TypeAdapter<Color?> {
   @override
   Color? read(BinaryReader reader) {
     int? value = reader.readInt();
+    // ignore: unnecessary_null_comparison
     return value != null ? Color(value) : null;
   }
 

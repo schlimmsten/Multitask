@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/Notifications/notif_saver.dart';
-import 'package:multitask/Notifications/notifications_server.dart';
 import 'package:multitask/settings_screen_components/switcher_class.dart';
 import 'package:provider/provider.dart';
 import 'package:multitask/themes/custom_theme.dart';
@@ -21,8 +20,6 @@ class _SwitchersBuilderState extends State<SwitchersBuilder> {
     setState(() {
       
     });
-    print(noti.isNoti);
-    // print(customTheme.isDarkTheme);
     return Column(
       children: [
         SettingsRow(

@@ -25,11 +25,9 @@ class TaskFormModel {
     String? categoryError = categoryPicker!.validateCategory();
     if (dateTimeError != null) {
       // Показать сообщение об ошибке или обработать ее как необходимо
-      print(dateTimeError);
       datePickerState!.setErrorText(dateTimeError);
       if (!formKey.currentState!.validate()) {
         if (categoryError != null) {
-          print(dateTimeError);
           categoryPicker!.setErrorText(categoryError);
         }
         return;
@@ -59,6 +57,7 @@ class TaskFormModel {
       time: day,
     );
     await box.add(task);
+    // ignore: use_build_context_synchronously
     final noti = Provider.of<NotiSaver>(context, listen: false);
     if (noti.isNoti &&
         task.time!.day == DateTime.now().day &&
@@ -68,7 +67,7 @@ class TaskFormModel {
           title: task.name, id: task.id! * 1000, date: task.time!);
     }
 
-    print(task.time);
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pop(context);
   }
 
@@ -77,11 +76,9 @@ class TaskFormModel {
     String? categoryError = categoryPicker!.validateCategory();
     if (dateTimeError != null) {
       // Показать сообщение об ошибке или обработать ее как необходимо
-      print(dateTimeError);
       datePickerState!.setErrorText(dateTimeError);
       if (!formKey.currentState!.validate()) {
         if (categoryError != null) {
-          print(dateTimeError);
           categoryPicker!.setErrorText(categoryError);
         }
         return;
@@ -91,8 +88,6 @@ class TaskFormModel {
 
     formKey.currentState!.save();
 
-    print(name);
-    print(index);
     if (name.isEmpty || day == null) return;
     if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(TaskAdapter());
@@ -114,6 +109,16 @@ class TaskFormModel {
       time: day,
     );
     await box.putAt(index, task);
+    // ignore: use_build_context_synchronously
+    final noti = Provider.of<NotiSaver>(context, listen: false);
+    if (noti.isNoti &&
+        task.time!.day == DateTime.now().day &&
+        task.time!.month == DateTime.now().month &&
+        task.time!.year == DateTime.now().year) {
+      Notifications.scheduleNotification(
+          title: task.name, id: task.id! * 1000, date: task.time!);
+    }
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pop(context);
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:multitask/Notifications/notifications_server.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
-import 'package:multitask/screens/change_screen.dart';
 import 'package:multitask/screens/see_all.dart';
 
 import 'package:multitask/settings_screen_components/line.dart';
@@ -94,7 +93,7 @@ class TaskListWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
           color:
-              model?.tasks[index].color?.withOpacity(0.5) ?? Colors.transparent,
+              model.tasks[index].color?.withOpacity(0.5) ?? Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -113,6 +112,7 @@ class TaskListWidget extends StatelessWidget {
                   maxLines: 1,
                 ),
                 onTap: () {
+                  
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => SeeAllScreen(index: index)));
           },
@@ -236,7 +236,6 @@ class TaskListWidget extends StatelessWidget {
       list.removeAt(index);
       final snackBar = SnackBar(content: Text('${item.name} удален'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      print(item.id!*1000);
       if (await Notifications.isNotificationScheduled(item.id!*1000)) {
         Notifications.deleteNotification(id: item.id!*1000);
         Notifications.deleteNotification(id: item.id!*1000 + 1);
