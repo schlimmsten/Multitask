@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/add_screen_components/date_picker.dart';
 //просто заглушка
 import '../text_style.dart';
 import './data_task/task_form_model.dart';
@@ -110,18 +111,21 @@ class AddButton extends StatelessWidget {
    */
 
 class AddButton extends StatelessWidget {
-  const AddButton({super.key});
+  final GlobalKey<FormState> formKey;
+  const AddButton({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: ()=>TaskFormModelProvider.of(context)?.model.saveTask(context),
-      style: OutlinedButton.styleFrom(side: BorderSide(color: Theme.of(context).primaryColor, width: 2),
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor),
-      child: Text(
-        "Добавить",
-        style: addbuttonTextStyle(context)
-      ),
+      onPressed: () {
+          TaskFormModelProvider.of(context)
+              ?.model
+              .saveTask(context, formKey);
+      },
+      style: OutlinedButton.styleFrom(
+          side: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor),
+      child: Text("Добавить", style: addbuttonTextStyle(context)),
     );
   }
 }

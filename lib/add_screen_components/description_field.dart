@@ -14,12 +14,6 @@ class DescriptionField extends StatelessWidget {
         hintText: 'Введите описание задачи',
         hintStyle: addfuelsTextStyle(context)
       ),
-      validator: (String? value) {
-        if (value == null || value.isEmpty) {
-          return 'Пожалуйста введите описание задачи';
-        }
-          return null;
-      },
       onChanged: (value) => model?.description = value,
     );
   }
