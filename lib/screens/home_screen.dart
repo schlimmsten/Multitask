@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/internet/fetch_groups.dart';
 import 'package:multitask/text_style.dart';
 //import '../dropdown/dropdown_menu.dart' as dp;
 import '../home_screen_components/dropdown_menu.dart' as dp;
 import '../home_screen_components/skip_button.dart';
 import '../home_screen_components/continue_button.dart';
-import 'package:multitask/internet/parsing.dart';
+import 'package:multitask/internet/fetch_data.dart';
 //import 'package:multitask/internet/database/lesson_write.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
     final double topPadding = screenHeight * 0.1;
     final double middleSpacing = screenHeight * 0.08;
     final double bottomSpacing = screenHeight * 0.03;
-    fetchData();
+    //fetchGroups();
     //LessonWrite.saveLesson(fetchData());
 
     return Scaffold(

@@ -6,6 +6,8 @@ import 'package:multitask/text_style.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+String? selectedGroup;
+
 class LessonsNav extends StatefulWidget {
   const LessonsNav({Key? key}) : super(key: key);
 
@@ -14,7 +16,6 @@ class LessonsNav extends StatefulWidget {
 }
 
 class _LessonsNavState extends State<LessonsNav> {
-  String? selectedGroup;
 
   @override
   void initState() {

@@ -37,6 +37,6 @@ class Lesson {
 
   @override
   String toString() {
-    return 'День недели: $dayTitle \n Код недели: $weekCode \n Время пары: $time \n Пара: $discipline \n Преподователь: $lecturer \n Кабинет: $classroom)';
+    return 'День недели: $dayTitle \n Код недели: $weekCode \n Время пары: $time \n Пара: $discipline \n Преподователь: $lecturer \n Кабинет: $classroom';
   }
 }

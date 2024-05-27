@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:multitask/home_screen_components/dropdown_menu.dart';
 import 'package:xml/xml.dart' as xml;
 import 'lesson.dart';
 
@@ -14,7 +14,7 @@ class LessonWrite {
 
     try {
       var group = document.findAllElements('Group')
-        .firstWhere((element) => element.getAttribute('Number') == "О721Б");
+        .firstWhere((element) => element.getAttribute('Number') == selectedItem);
 
       if (group == null) {
         print("Группа с номером О721Б не найдена.");
@@ -59,7 +59,7 @@ class LessonWrite {
       for (var lesson in lessons) {
         print(lesson);
       }
-      
+
       await box.addAll(lessons);
     } catch (e) {
       print("Ошибка при сохранении уроков: $e");

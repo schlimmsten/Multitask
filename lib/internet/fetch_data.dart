@@ -16,7 +16,6 @@ void fetchData() async {
       decodedBody = decodeUtf16Le(bodyBytes);
       try {
         var document = xml.XmlDocument.parse(decodedBody);
-        //saveLesson(document);
         var model = LessonWrite();
         model.saveLesson(document);
       } catch (e) {
