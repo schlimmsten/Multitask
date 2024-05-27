@@ -11,7 +11,7 @@ class Lesson {
   int weekCode;
 
   @HiveField(2)
-  TimeOfDay? time;
+  String time;
 
   @HiveField(3)
   String discipline;
@@ -22,6 +22,8 @@ class Lesson {
   @HiveField(5)
   String classroom;
 
+  @HiveField(6)
+  int? id;
 
   Lesson({
     required this.dayTitle,
@@ -30,6 +32,7 @@ class Lesson {
     required this.discipline,
     required this.lecturer,
     required this.classroom,
+    this.id, 
   });
 
   @override

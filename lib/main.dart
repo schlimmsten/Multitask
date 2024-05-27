@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multitask/Notifications/notif_saver.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
+import 'package:multitask/internet/database/lesson_read.dart';
 import 'package:multitask/local_notifications.dart';
 import 'multitask_app.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,9 @@ void main() async {
         ),
         ChangeNotifierProvider<NotiSaver>(
           create: (_) => NotiSaver(),
+        ),
+        ChangeNotifierProvider<LessonRead>(
+          create: (_) => LessonRead(),
         )
       ],
       child: const MultitaskApp(),

@@ -5,16 +5,16 @@ import 'lesson.dart';
 class LessonRead extends ChangeNotifier {
   final _lessons = <Lesson>[];
 
-  List<Lesson> get tasks => _lessons.toList();
+  List<Lesson> get lessons => _lessons.toList();
 
-  lessonRead() {
+  LessonRead() {
     setup();
   }
 
  void _readLessonsFromHive(Box<Lesson> box) {
-  _lessons.clear();
     for (var key in box.keys) {
       var lesson = box.get(key)!;
+      lesson.id = key;
       //возможно нужен будет id
       _lessons.add(lesson);
       }
@@ -25,7 +25,7 @@ class LessonRead extends ChangeNotifier {
     if (!Hive.isAdapterRegistered(3)) {
       Hive.registerAdapter(LessonAdapter());
     }
-    final box = await Hive.openBox<Lesson>('lessons_box');
+    final box = await Hive.openBox<Lesson>('lesson_box');
     _readLessonsFromHive(box);
     box.listenable().addListener(() => _readLessonsFromHive(box));
   }
@@ -33,13 +33,13 @@ class LessonRead extends ChangeNotifier {
 }
 
 //???
-// class LessonReadProvider extends InheritedNotifier {
-//   final LessonRead model;
-//   const LessonReadProvider(
-//       {super.key, required super.child, required this.model})
-//       : super(notifier: model);
+class LessonReadProvider extends InheritedNotifier {
+  final LessonRead model;
+  const LessonReadProvider(
+      {super.key, required super.child, required this.model})
+      : super(notifier: model);
 
-//   static LessonReadProvider? of(BuildContext context) {
-//     return context.dependOnInheritedWidgetOfExactType<LessonReadProvider>();
-//   }
-// }
+  static LessonReadProvider? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<LessonReadProvider>();
+  }
+}

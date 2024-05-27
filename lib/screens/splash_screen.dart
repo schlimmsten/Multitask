@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // Задержка перед переходом на следующий экран
     await Future.delayed(const Duration(seconds: 3));
-
+    
     if (isFirstLaunch) {
       // Сохранение состояния первого запуска
       await prefs.setBool('isFirstLaunch', false);

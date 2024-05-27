@@ -33,10 +33,6 @@ class LessonWrite {
             : '';
         List<String> timeParts = timeString.split(' ');
         String time = timeParts.isNotEmpty ? timeParts[0] : '00:00';
-        TimeOfDay parsedTime = TimeOfDay(
-          hour: int.parse(time.split(':')[0]),
-          minute: int.parse(time.split(':')[1]),
-        );
         String discipline = element.findElements('Discipline').isNotEmpty
             ? element.findElements('Discipline').single.text
             : '';
@@ -52,7 +48,7 @@ class LessonWrite {
         lessons.add(Lesson(
           dayTitle: dayTitle,
           weekCode: weekCode,
-          time: parsedTime,
+          time: time,
           discipline: discipline,
           lecturer: lecturer,
           classroom: classroom,
