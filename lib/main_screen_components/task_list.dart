@@ -3,9 +3,11 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
 import 'package:multitask/screens/change_screen.dart';
+import 'package:multitask/screens/see_all.dart';
+
 import 'package:multitask/settings_screen_components/line.dart';
 import 'package:multitask/text_style.dart';
-import 'package:provider/provider.dart'; // Импорт Provider
+import 'package:provider/provider.dart';// Импорт Provider
 
 class TaskListWidget extends StatelessWidget {
   const TaskListWidget({Key? key}) : super(key: key);
@@ -117,7 +119,7 @@ class TaskListWidget extends StatelessWidget {
           //   ),
           onTap: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => ChangeScreen(index: index)));
+                MaterialPageRoute(builder: (_) => SeeAllScreen(index: index)));
           },
         ),
       ),

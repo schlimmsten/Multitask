@@ -1,94 +1,131 @@
-import 'dart:js';
+import 'package:flutter/material.dart';  
+import 'package:multitask/add_screen_components/data_task/task_model.dart'; 
+import 'package:multitask/add_screen_components/decline_button.dart'; 
+import 'package:multitask/see_all_components/go_change.dart';  
+import 'package:multitask/see_all_components/header.dart'; 
+import 'package:multitask/text_style.dart';  
+import 'package:provider/provider.dart';  
 
-import 'package:flutter/material.dart';
-import 'package:multitask/add_screen_components/data_task/task_model.dart';
-import 'package:multitask/main_screen_components/task_list.dart';
-import 'header.dart';
-import '../add_screen_components/name_field.dart';
-import '../add_screen_components/description_field.dart';
-import '../add_screen_components/date_picker.dart';
-import '../add_screen_components/category_screen_components/category_picker_components/category_picker.dart';
-import '../add_screen_components/decline_button.dart';
-import 'go_change.dart';
-import '../text_style.dart';
-import '../add_screen_components/data_task/task_form_model.dart';
-
-class SeeAllBuilder extends StatefulWidget {
+class SeeAllBuilder extends StatelessWidget {   
+  SeeAllBuilder({super.key, required this.index});   
 
   final int index;
 
-  const SeeAllBuilder({super.key, required this.index});
-
-  @override
-  State<SeeAllBuilder> createState() => __AddScreenBuilderState();
-}
-
-class __AddScreenBuilderState extends State<SeeAllBuilder> {
-
-  final _model = TaskFormModel();
-  @override
-  Widget build(BuildContext context) {
-    return TaskFormModelProvider(model: _model, child: ChangeScreenBodyBuilder(index: widget.index)) ;
-  }
-}
-
-class ChangeScreenBodyBuilder extends StatefulWidget {
-
-  final int index;
-
-  const ChangeScreenBodyBuilder({super.key, required this.index});
-
-  @override
-  State<ChangeScreenBodyBuilder> createState() => _AddScreenBodyBuilderState();
-}
-
-class _AddScreenBodyBuilderState extends State<ChangeScreenBodyBuilder> {
-
-  void updateWidget(){
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Header(),
-        centerTitle: true,
-      ),
-      body: Container(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: SingleChildScrollView(
-            //padding: const EdgeInsets.all(32),
+  @override   
+  Widget build(BuildContext context) {   
+    return Consumer<TaskModel>(   
+      // Использование Consumer для доступа к TaskModel   
+      builder: (context, model, child) {   
+        final tasks = model.tasks;   
+        final task = tasks[index]; 
+        
+        return Scaffold(   
+          appBar: AppBar(   
+            title: const Header(),   
+            centerTitle: true,   
+            automaticallyImplyLeading: false,   
+          ),   
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start, // чтобы залупа вначале была
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Text(
-                  "Название:",
-                  textAlign: TextAlign.right,
-                  style: addtitlesTextStyle(context)
+                SizedBox(height: 20),
+                Center(
+                  child: Container(
+                    width: 300,
+                    height: 400,
+                    margin: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      color: task.color,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          task.name,
+                          textAlign: TextAlign.center,
+                          style: addtitlesTextStyle(context).copyWith(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: colorSelectedChange(context),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'Описание:',
+                          style: addtitlesTextStyle(context).copyWith(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: colorSelectedChange(context),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          task.description,
+                          textAlign: TextAlign.left,
+                          style: addtitlesTextStyle(context).copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: colorSelectedChange(context),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'Категория:',
+                          style: addtitlesTextStyle(context).copyWith(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: colorSelectedChange(context),
+                            ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          task.category,
+                          textAlign: TextAlign.left,
+                          style: addtitlesTextStyle(context).copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: colorSelectedChange(context),
+                                                 ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'Время:',
+                          style: addtitlesTextStyle(context).copyWith(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: colorSelectedChange(context),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          task.selectedTime,
+                          textAlign: TextAlign.left,
+                          style: addtitlesTextStyle(context).copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: colorSelectedChange(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.008),
-                const NameField(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                Text(
-                  "Описание:",
-                  textAlign: TextAlign.left,
-                  style: addtitlesTextStyle(context)
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                const DescriptionField(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                CategoryPicker(onPressed: () => updateWidget()),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                DatePicker(model: TaskFormModelProvider.of(context)!.model),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                //const Line(),
-                GoChangeButton(index: widget.index),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.14),
+                Spacer(),
+                GoChangeButton(index: index),
+                SizedBox(height: 20),
                 const DeclineButton(),
+                SizedBox(height: 20),
               ],
             ),
-          )),
-    );
-  }
+          ),
+        );   
+      },  
+    );   
+  }   
 }

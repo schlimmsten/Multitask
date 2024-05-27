@@ -126,3 +126,9 @@ Color? colorSelectedTasks(context){
           ? Colors.grey[600]
           : Colors.grey[300];
 }
+
+Color? colorSelectedChange(context){
+  return Provider.of<CustomTheme>(context).isDarkTheme
+          ? Colors.white
+          : const Color.fromARGB(255, 0, 0, 0);
+}
