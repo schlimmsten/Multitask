@@ -19,7 +19,7 @@ class LessonAdapter extends TypeAdapter<Lesson> {
     return Lesson(
       dayTitle: fields[0] as String,
       weekCode: fields[1] as int,
-      time: fields[2] as TimeOfDay?,
+      time: fields[2] as String,
       discipline: fields[3] as String,
       lecturer: fields[4] as String,
       classroom: fields[5] as String,

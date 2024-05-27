@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/home_screen_components/dropdown_menu.dart';
+import 'package:multitask/internet/fetch_data.dart';
 import 'package:multitask/screens/main_screen.dart';
 import '../text_style.dart';
 
@@ -16,6 +18,8 @@ class ContinueButton extends StatelessWidget {
       onPressed: (){
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => const MainScreen()));
+        fetchData();
+        //print(items);
       },
       child: Text(
         "Продолжить",

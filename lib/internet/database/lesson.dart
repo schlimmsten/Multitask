@@ -11,7 +11,7 @@ class Lesson {
   int weekCode;
 
   @HiveField(2)
-  TimeOfDay? time;
+  String time;
 
   @HiveField(3)
   String discipline;
@@ -34,6 +34,6 @@ class Lesson {
 
   @override
   String toString() {
-    return 'День недели: $dayTitle \n Код недели: $weekCode \n Время пары: $time \n Пара: $discipline \n Преподователь: $lecturer \n Кабинет: $classroom)';
+    return 'День недели: $dayTitle \n Код недели: $weekCode \n Время пары: $time \n Пара: $discipline \n Преподователь: $lecturer \n Кабинет: $classroom';
   }
 }

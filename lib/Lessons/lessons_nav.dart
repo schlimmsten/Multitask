@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+String? selectedGroup;
+
 class LessonsNav extends StatefulWidget {
   const LessonsNav({super.key});
 
@@ -9,7 +11,6 @@ class LessonsNav extends StatefulWidget {
 }
 
 class _LessonsNavState extends State<LessonsNav> {
-  String? selectedGroup;
 
   @override
   void initState() {
