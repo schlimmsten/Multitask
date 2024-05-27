@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/Lessons/lessons_nav.dart';
 import 'package:multitask/main_screen_components/main_screen_builder.dart';
 import 'package:multitask/text_style.dart';
 import '../screens/settings_screen.dart';
@@ -76,10 +77,7 @@ class NavigationState extends State<Navigation> {
 
   late final List<Widget> _screenOptions = <Widget>[
     _mainScreenBuilder,
-    const Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    const LessonsNav(),
     const SettingsScreen(),
   ];
 
