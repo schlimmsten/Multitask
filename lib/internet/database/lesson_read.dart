@@ -3,25 +3,73 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'lesson.dart';
 
 class LessonRead extends ChangeNotifier {
-  final _lessons = <Lesson>[];
+  final List<Lesson> _lessonsMon = [];
+  final List<Lesson> _lessonsTue = [];
+  final List<Lesson> _lessonsWed = [];
+  final List<Lesson> _lessonsThu = [];
+  final List<Lesson> _lessonsFri = [];
+  final List<Lesson> _lessonsSat = [];
+  final List<Lesson> _lessonsSun = [];
 
-  List<Lesson> get lessons => _lessons.toList();
+  List<Lesson> get lessonsMon => _lessonsMon.toList();
+  List<Lesson> get lessonsTue => _lessonsTue.toList();
+  List<Lesson> get lessonsWed => _lessonsWed.toList();
+  List<Lesson> get lessonsThu => _lessonsThu.toList();
+  List<Lesson> get lessonsFri => _lessonsFri.toList();
+  List<Lesson> get lessonsSat => _lessonsSat.toList();
+  List<Lesson> get lessonsSun => _lessonsSun.toList();
 
   LessonRead() {
     setup();
   }
 
- void _readLessonsFromHive(Box<Lesson> box) {
+  void _readLessonsFromHive(Box<Lesson> box) {
+    _clearLessons();
     for (var key in box.keys) {
       var lesson = box.get(key)!;
       lesson.id = key;
-      //возможно нужен будет id
-      _lessons.add(lesson);
-      }
-  notifyListeners();
-}
+      _addLesson(lesson);
+    }
+    notifyListeners();
+  }
 
-  void setup() async {
+  void _clearLessons() {
+    _lessonsMon.clear();
+    _lessonsTue.clear();
+    _lessonsWed.clear();
+    _lessonsThu.clear();
+    _lessonsFri.clear();
+    _lessonsSat.clear();
+    _lessonsSun.clear();
+  }
+
+  void _addLesson(Lesson lesson) {
+    switch (lesson.dayTitle) {
+      case "Понедельник":
+        _lessonsMon.add(lesson);
+        break;
+      case "Вторник":
+        _lessonsTue.add(lesson);
+        break;
+      case "Среда":
+        _lessonsWed.add(lesson);
+        break;
+      case "Четверг":
+        _lessonsThu.add(lesson);
+        break;
+      case "Пятница":
+        _lessonsFri.add(lesson);
+        break;
+      case "Суббота":
+        _lessonsSat.add(lesson);
+        break;
+      case "Воскресенье":
+        _lessonsSun.add(lesson);
+        break;
+    }
+  }
+
+  Future<void> setup() async {
     if (!Hive.isAdapterRegistered(3)) {
       Hive.registerAdapter(LessonAdapter());
     }
@@ -29,17 +77,20 @@ class LessonRead extends ChangeNotifier {
     _readLessonsFromHive(box);
     box.listenable().addListener(() => _readLessonsFromHive(box));
   }
-
-}
-
-//???
-class LessonReadProvider extends InheritedNotifier {
-  final LessonRead model;
-  const LessonReadProvider(
-      {super.key, required super.child, required this.model})
-      : super(notifier: model);
-
-  static LessonReadProvider? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<LessonReadProvider>();
+  void _deleteItemBox(Lesson task, final box) async {
+    if (!Hive.isAdapterRegistered(3)) {
+      Hive.registerAdapter(LessonAdapter());
+    }
+    await box.delete(task.id);
+  }
+  Future<void> fetchLessonsForGroup() async {
+    _clearLessons();
+    final box = await Hive.openBox<Lesson>('lesson_box');
+    for (var key in box.keys) {
+      var lesson = box.get(key)!;
+      lesson.id = key;
+      _deleteItemBox(lesson, box);
+    }
+    notifyListeners();
   }
 }

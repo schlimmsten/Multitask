@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/internet/database/lesson.dart';
 import 'package:multitask/internet/database/lesson_read.dart';
+import 'package:multitask/internet/fetch_data.dart';
 import 'package:multitask/settings_screen_components/line.dart';
 import 'package:multitask/text_style.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-String? selectedGroup;
+import '../home_screen_components/dropdown_menu.dart' as dp;
+import 'package:multitask/internet/fetch_data.dart';
 
 class LessonsNav extends StatefulWidget {
   const LessonsNav({Key? key}) : super(key: key);
@@ -16,14 +17,16 @@ class LessonsNav extends StatefulWidget {
 }
 
 class _LessonsNavState extends State<LessonsNav> {
+  late String? selectedGroup;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    _loadSelectedGroup();
+    _loadSelectedItem();
   }
 
-  Future<void> _loadSelectedGroup() async {
+  Future<void> _loadSelectedItem() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       selectedGroup = prefs.getString('selectedGroup');
@@ -33,36 +36,112 @@ class _LessonsNavState extends State<LessonsNav> {
   @override
   Widget build(BuildContext context) {
     return Consumer<LessonRead>(builder: (context, model, child) {
-      final lessons = model.lessons;
       return Scaffold(
-        body: Column(children: [
-          const Line(),
-          Expanded(
-            child: ListView.separated(
-              itemCount: lessons.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _buildLessonList(context, index, lessons);
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  color: Colors.transparent,
-                  height: 10,
-                );
-              },
+        body: Column(
+          children: [
+            const Line(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Row(
+              children: [
+                const dp.DropdownMenu(),
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        model.fetchLessonsForGroup();
+                        fetchData();
+                      });
+                    },
+                    child: Icon(Icons.refresh, color: Colors.black))
+              ],
             ),
-          )
-        ]),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Expanded(
+              child: ListView(
+                children: [
+                  if (model.lessonsMon.isNotEmpty)
+                    _buildDayLessons("Понедельник", model.lessonsMon, context),
+                  if (model.lessonsMon.isNotEmpty)
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  if (model.lessonsTue.isNotEmpty)
+                    _buildDayLessons("Вторник", model.lessonsTue, context),
+                  if (model.lessonsTue.isNotEmpty)
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  if (model.lessonsWed.isNotEmpty)
+                    _buildDayLessons("Среда", model.lessonsWed, context),
+                  if (model.lessonsWed.isNotEmpty)
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  if (model.lessonsThu.isNotEmpty)
+                    _buildDayLessons("Четверг", model.lessonsThu, context),
+                  if (model.lessonsThu.isNotEmpty)
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  if (model.lessonsFri.isNotEmpty)
+                    _buildDayLessons("Пятница", model.lessonsFri, context),
+                  if (model.lessonsFri.isNotEmpty)
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  if (model.lessonsSat.isNotEmpty)
+                    _buildDayLessons("Суббота", model.lessonsSat, context),
+                  if (model.lessonsSat.isNotEmpty)
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  if (model.lessonsSun.isNotEmpty)
+                    _buildDayLessons("Воскресенье", model.lessonsSun, context),
+                ],
+              ),
+            ),
+          ],
+        ),
       );
     });
   }
 
+  Widget _buildDayLessons(
+      String day, List<Lesson>? lessons, BuildContext context) {
+    if (lessons == null || lessons.isEmpty) {
+      return SizedBox(); // Вернуть пустой контейнер или другой виджет, если список уроков пустой или null
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Center(
+              child: Text(
+            day,
+            style: disciplineTextStyle(context).copyWith(fontSize: 24),
+          )),
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+        DayLessonsList(context, lessons),
+      ],
+    );
+  }
+
+  Widget DayLessonsList(BuildContext context, List<Lesson> lessons) {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: lessons.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _buildLessonList(context, index, lessons);
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          color: Colors.transparent,
+          height: 10,
+        );
+      },
+    );
+  }
+
   Widget _buildLessonList(BuildContext context, int index, List<Lesson> list) {
-    print(list[index].dayTitle);
     return Container(
-      height: 90,
+      height: 120,
       margin: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.all(10.0), // Add padding inside the container
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 78, 153, 240),
+        color: list[index].weekCode == 1
+            ? const Color.fromARGB(255, 78, 153, 240).withOpacity(0.5)
+            : const Color.fromARGB(255, 240, 78, 78).withOpacity(0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -70,17 +149,30 @@ class _LessonsNavState extends State<LessonsNav> {
           Expanded(
             child: ListTile(
               title: Text(
-                list[index].dayTitle,
-                
+                list[index].discipline,
+                style: disciplineTextStyle(context),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
               ),
               subtitle: Text(
-                list[index].discipline,
-                style: nameTaskTextStyle(context),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+                list[index].time,
+                style: disciplineTextStyle(context)
+                    .copyWith(fontSize: 26, fontWeight: FontWeight.w900),
               ),
             ),
           ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end, // Align to the start
+            mainAxisAlignment: MainAxisAlignment.center, // Center the content
+            children: [
+              Text(list[index].classroom,
+                  style: disciplineTextStyle(context)
+                      .copyWith(fontSize: 26, fontWeight: FontWeight.w900)),
+
+              SizedBox(height: 5.0), // Adjust spacing
+              Text(list[index].lecturer, style: disciplineTextStyle(context)),
+            ],
+          )
         ],
       ),
     );

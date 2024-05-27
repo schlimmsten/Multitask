@@ -167,3 +167,8 @@ Color? colorSelectedChange(context){
           ? Colors.white
           : const Color.fromARGB(255, 0, 0, 0);
 }
+
+TextStyle disciplineTextStyle(context) => blackwhiteTextStyle(context).copyWith(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+);
