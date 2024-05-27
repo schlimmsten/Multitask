@@ -37,7 +37,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(12.0),
                 side: BorderSide(color: (chosenCategory == null) ? Colors.white : chosenCategory!["color"],
                   width: 2.0,
                 )
@@ -48,7 +48,6 @@ class _CategoryPickerState extends State<CategoryPicker> {
           Text(
             (chosenCategory == null) ? "Выбрать категорию" : chosenCategory!["name"],
             style: smallalwaysblackTextStyle(context),
-            //ТУТ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           ),
           onPressed: () {
             showDialog(

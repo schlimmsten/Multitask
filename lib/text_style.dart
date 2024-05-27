@@ -17,7 +17,9 @@ TextStyle blackwhiteTextStyle(context) => commonTextStyle(context).copyWith(
 TextStyle alwaysblackTextStyle(context) => commonTextStyle(context).copyWith(
       color: Colors.black,
     );
-
+TextStyle taskSectionTextStyle(context) => blackwhiteTextStyle(context).copyWith(
+      fontSize: 21,
+    );
 TextStyle addbuttonTextStyle(context) => blackwhiteTextStyle(context).copyWith(
       fontSize: 20,
     );

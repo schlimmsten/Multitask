@@ -37,6 +37,11 @@ void setSelectedTime(TimeOfDay selectedTime) {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+          ),
       onPressed: () {
         showDatePicker(
           context: context,

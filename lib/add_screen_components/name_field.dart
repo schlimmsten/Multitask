@@ -175,12 +175,30 @@ class NameFieldState extends State<NameField> {
     final model = TaskFormModelProvider.of(context)?.model;
     return TextFormField(
       controller: _textEditingController,
+      style: TextStyle(
+        fontSize: 19,
+        fontWeight: FontWeight.bold,
+        fontFamily: "Montserrat",
+        color: Provider.of<CustomTheme>(context).isDarkTheme ? Colors.white : Colors.black,
+      ),
       decoration: InputDecoration(
         hintText: 'Введите название задачи',
         hintStyle: TextStyle(
           fontSize: 16,
+          fontWeight: FontWeight.normal,
           fontFamily: "Montserrat",
           color: Provider.of<CustomTheme>(context).isDarkTheme ? Colors.white : Colors.black,
+        ),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Provider.of<CustomTheme>(context).isDarkTheme ? Colors.white : Colors.black),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
         ),
       ),
       onChanged:(value) => model?.name = value,
