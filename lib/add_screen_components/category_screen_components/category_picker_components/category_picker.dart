@@ -98,7 +98,7 @@ class CategoryPickerState extends State<CategoryPicker> {
               style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(12.0),
                           side: BorderSide(
                             color: (chosenCategory == null)
                                 ? Colors.white
