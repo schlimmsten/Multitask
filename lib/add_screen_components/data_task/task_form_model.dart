@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
+import 'package:multitask/local_notifications.dart';
 
 class TaskFormModel {
   var name = '';
@@ -40,6 +41,7 @@ class TaskFormModel {
         color: color,
         time: day);
     await box.add(task);
+    Notifications.scheduleNotification(title: "чина", body: "(зес)", action: "create", id: 0);
     Navigator.of(context)
         .pop(context);
   }

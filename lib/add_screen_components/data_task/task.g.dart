@@ -69,6 +69,7 @@ class TaskAdapter extends TypeAdapter<Task> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
 class ColorAdapter extends TypeAdapter<Color?> {
   @override
   final int typeId = 2;
