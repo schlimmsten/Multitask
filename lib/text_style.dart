@@ -17,7 +17,9 @@ TextStyle blackwhiteTextStyle(context) => commonTextStyle(context).copyWith(
 TextStyle alwaysblackTextStyle(context) => commonTextStyle(context).copyWith(
       color: Colors.black,
     );
-
+TextStyle taskSectionTextStyle(context) => blackwhiteTextStyle(context).copyWith(
+      fontSize: 21,
+    );
 TextStyle addbuttonTextStyle(context) => blackwhiteTextStyle(context).copyWith(
       fontSize: 20,
     );
@@ -158,3 +160,10 @@ TextStyle redSmallTextStyle(context) => commonTextStyle(context).copyWith(
       fontSize: 18,
       color: Colors.red,
     );
+
+
+Color? colorSelectedChange(context){
+  return Provider.of<CustomTheme>(context).isDarkTheme
+          ? Colors.white
+          : const Color.fromARGB(255, 0, 0, 0);
+}

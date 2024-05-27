@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitask/Lessons/lessons_nav.dart';
 import 'package:multitask/main_screen_components/main_screen_builder.dart';
 import 'package:multitask/text_style.dart';
 import '../screens/settings_screen.dart';
@@ -55,6 +56,17 @@ class NavigationState extends State<Navigation> {
     onDateScrolled: _updateAppBarOptions, selectedDate: selectedDate);
   }
 
+  void _onDateSelected(DateTime newDate) {
+    setState(() {
+      selectedDate = newDate;
+    });
+    _mainScreenBuilder.onDateSelected(newDate); // Обновляем дату в MainScreenBuilder
+    _mainScreenBuilder.goToSelectedWeek(newDate); // Переход к выбранной дате в DateBuilder
+    
+    // Обновляем AppBar
+    _updateAppBarOptions(newDate);
+  }
+
   void _updateAppBarOptionsMethod(DateTime currentDate) {
     int month = currentDate.month;
     int year = currentDate.year;
@@ -63,22 +75,9 @@ class NavigationState extends State<Navigation> {
     });
   }
 
-  void _onDateSelected(DateTime newDate) {
-    setState(() {
-      selectedDate = newDate;
-    });
-    _mainScreenBuilder
-        .onDateSelected(newDate); // Обновляем дату в MainScreenBuilder
-    // Переход к выбранной дате в DateBuilder
-    _mainScreenBuilder.goToSelectedWeek(newDate);
-  }
-
   late final List<Widget> _screenOptions = <Widget>[
     _mainScreenBuilder,
-    const Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    const LessonsNav(),
     const SettingsScreen(),
   ];
 

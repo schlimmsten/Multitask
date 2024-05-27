@@ -5,6 +5,7 @@ import 'color_picker.dart';
 
 class SaveButton extends StatelessWidget {
 
+  // ignore: prefer_typing_uninitialized_variables
   final model;
 
   const SaveButton({super.key, required this.model});

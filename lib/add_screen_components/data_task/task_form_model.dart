@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:multitask/Notifications/notif_saver.dart';
+import 'package:multitask/Notifications/notifications_server.dart';
+import 'package:multitask/add_screen_components/category_screen_components/category_picker_components/category_picker.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
-import 'package:multitask/local_notifications.dart';
+import 'package:multitask/add_screen_components/date_picker.dart';
+import 'package:provider/provider.dart';
 
 class TaskFormModel {
   var name = '';
@@ -13,15 +17,26 @@ class TaskFormModel {
   var category = '';
   Color? color;
   DateTime? day;
-  void saveTask(BuildContext context) async {
-    // Вызов метода для сохранения задачи с выбранной датой и временем
-    // Можно объединить их в один DateTime или оставить отдельно, в зависимости от потребностей приложения
-    // print(name);
-    // print(description);
-    // print('Дата: $selectedDay.$selecyedMonth.$selectedYear, Время: $selectedTime');
-    // print(category);
-    //print(color);
-    if (name.isEmpty|| day == null) return;
+  DatePickerState? datePickerState;
+  CategoryPickerState? categoryPicker;
+
+  void saveTask(BuildContext context, GlobalKey<FormState> formKey) async {
+    String? dateTimeError = datePickerState!.validateDateTime();
+    String? categoryError = categoryPicker!.validateCategory();
+    if (dateTimeError != null) {
+      // Показать сообщение об ошибке или обработать ее как необходимо
+      datePickerState!.setErrorText(dateTimeError);
+      if (!formKey.currentState!.validate()) {
+        if (categoryError != null) {
+          categoryPicker!.setErrorText(categoryError);
+        }
+        return;
+      }
+      return;
+    }
+
+    formKey.currentState!.save();
+
     if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(TaskAdapter());
     }
@@ -31,29 +46,48 @@ class TaskFormModel {
 
     final box = await Hive.openBox<Task>('tasks_box');
     final task = Task(
-        name: name,
-        description: description,
-        selectedDay: selectedDay,
-        selectedMonth: selecyedMonth,
-        selectedTime: selectedTime,
-        selectedYear: selectedYear,
-        category: category,
-        color: color,
-        time: day);
+      name: name,
+      description: description,
+      selectedDay: selectedDay,
+      selectedMonth: selecyedMonth,
+      selectedTime: selectedTime,
+      selectedYear: selectedYear,
+      category: category,
+      color: color,
+      time: day,
+    );
     await box.add(task);
-    Notifications.scheduleNotification(title: "чина", body: "(зес)", action: "create", id: 0);
-    Navigator.of(context)
-        .pop(context);
+    // ignore: use_build_context_synchronously
+    final noti = Provider.of<NotiSaver>(context, listen: false);
+    if (noti.isNoti &&
+        task.time!.day == DateTime.now().day &&
+        task.time!.month == DateTime.now().month &&
+        task.time!.year == DateTime.now().year) {
+      Notifications.scheduleNotification(
+          title: task.name, id: task.id! * 1000, date: task.time!);
+    }
+
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pop(context);
   }
-  void changeTask(BuildContext context, int index) async {
-    // Вызов метода для сохранения задачи с выбранной датой и временем
-    // Можно объединить их в один DateTime или оставить отдельно, в зависимости от потребностей приложения
-    print(name);
-    print(index);
-    // print(description);
-    // print('Дата: $selectedDay.$selecyedMonth.$selectedYear, Время: $selectedTime');
-    // print(category);
-    //print(color);
+
+  void changeTask(BuildContext context, int index, GlobalKey<FormState> formKey) async {
+    String? dateTimeError = datePickerState!.validateDateTime();
+    String? categoryError = categoryPicker!.validateCategory();
+    if (dateTimeError != null) {
+      // Показать сообщение об ошибке или обработать ее как необходимо
+      datePickerState!.setErrorText(dateTimeError);
+      if (!formKey.currentState!.validate()) {
+        if (categoryError != null) {
+          categoryPicker!.setErrorText(categoryError);
+        }
+        return;
+      }
+      return;
+    }
+
+    formKey.currentState!.save();
+
     if (name.isEmpty || day == null) return;
     if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(TaskAdapter());
@@ -61,23 +95,31 @@ class TaskFormModel {
     if (!Hive.isAdapterRegistered(2)) {
       Hive.registerAdapter(ColorAdapter());
     }
-    
+
     final box = await Hive.openBox<Task>('tasks_box');
     final task = Task(
-        name: name,
-        description: description,
-        selectedDay: selectedDay,
-        selectedMonth: selecyedMonth,
-        selectedTime: selectedTime,
-        selectedYear: selectedYear,
-        category: category,
-        color: color,
-        time: day);
-      await box.putAt(index,task);
-      
-    //TaskModelProvider.of(context)?.model.put(index, task as Box<Task>);
-    Navigator.of(context)
-        .pop(context);
+      name: name,
+      description: description,
+      selectedDay: selectedDay,
+      selectedMonth: selecyedMonth,
+      selectedTime: selectedTime,
+      selectedYear: selectedYear,
+      category: category,
+      color: color,
+      time: day,
+    );
+    await box.putAt(index, task);
+    // ignore: use_build_context_synchronously
+    final noti = Provider.of<NotiSaver>(context, listen: false);
+    if (noti.isNoti &&
+        task.time!.day == DateTime.now().day &&
+        task.time!.month == DateTime.now().month &&
+        task.time!.year == DateTime.now().year) {
+      Notifications.scheduleNotification(
+          title: task.name, id: task.id! * 1000, date: task.time!);
+    }
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pop(context);
   }
 }
 

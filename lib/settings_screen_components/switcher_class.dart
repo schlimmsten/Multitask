@@ -5,19 +5,17 @@ import '../text_style.dart';
 class SettingsRow extends StatelessWidget {
   final String title;
   final bool initialValue;
-  final double width;
   final Function(bool) onChanged;
 
-  const SettingsRow({super.key, 
+  const SettingsRow({
+    super.key,
     required this.title,
     required this.initialValue,
     required this.onChanged,
-    required this.width,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return Row(
       children: [
         Container(
@@ -25,14 +23,18 @@ class SettingsRow extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20),
           child: Text(
             title,
-            style: settingsTextStyle(context), // Предполагается, что у вас есть этот стиль
+            style: settingsTextStyle(
+                context), // Предполагается, что у вас есть этот стиль
           ),
         ),
-        SizedBox(width: width),
-        Switcher(
-          initialValue: initialValue,
-          onChanged: onChanged,
-        ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: Switcher(
+            initialValue: initialValue,
+            onChanged: onChanged,
+          ),
+        )
       ],
     );
   }

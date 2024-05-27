@@ -25,6 +25,7 @@ class DeclineButton extends StatelessWidget {
                 
                 child: Icon(Icons.arrow_back_rounded, color: Theme.of(context).appBarTheme.backgroundColor, size: 50,),
               ),
+              
             ),
           );
   }

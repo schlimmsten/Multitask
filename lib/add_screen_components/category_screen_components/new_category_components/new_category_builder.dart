@@ -8,6 +8,7 @@ import 'save_button.dart';
 
 class NewCategoryBuilder extends StatefulWidget {
 
+  // ignore: prefer_typing_uninitialized_variables
   final model;
 
   const NewCategoryBuilder({super.key, required this.model});

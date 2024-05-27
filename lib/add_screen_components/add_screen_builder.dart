@@ -17,24 +17,28 @@ class AddScreenBuilder extends StatefulWidget {
 }
 
 class __AddScreenBuilderState extends State<AddScreenBuilder> {
-
   final _model = TaskFormModel();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return TaskFormModelProvider(model: _model, child: const AddScreenBodyBuilder()) ;
+    return TaskFormModelProvider(
+        model: _model,
+        child: AddScreenBodyBuilder(formKey: _formKey),
+    );
   }
 }
 
 class AddScreenBodyBuilder extends StatefulWidget {
-  const AddScreenBodyBuilder({super.key});
+  final GlobalKey<FormState> formKey;
+  const AddScreenBodyBuilder({super.key, required this.formKey});
 
   @override
   State<AddScreenBodyBuilder> createState() => _AddScreenBodyBuilderState();
 }
 
 class _AddScreenBodyBuilderState extends State<AddScreenBodyBuilder> {
-
-  void updateWidget(){
+  void updateWidget() {
     setState(() {});
   }
 
@@ -47,39 +51,37 @@ class _AddScreenBodyBuilderState extends State<AddScreenBodyBuilder> {
         automaticallyImplyLeading: false,
       ),
       body: Container(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: SingleChildScrollView(
-            //padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: SingleChildScrollView(
+          child: Form(
+            key: widget.formKey,
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Text(
-                  "Название:",
-                  textAlign: TextAlign.right,
-                  style: addtitlesTextStyle(context)
-                ),
+                Text("Название:",
+                    textAlign: TextAlign.right,
+                    style: addtitlesTextStyle(context)),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.008),
                 const NameField(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                Text(
-                  "Описание:",
-                  textAlign: TextAlign.left,
-                  style: addtitlesTextStyle(context)
-                ),
+                Text("Описание:",
+                    textAlign: TextAlign.left,
+                    style: addtitlesTextStyle(context)),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 const DescriptionField(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                CategoryPicker(onPressed: () => updateWidget()),
+                CategoryPicker(onPressed: () => updateWidget(), model: TaskFormModelProvider.of(context)!.model),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 DatePicker(model: TaskFormModelProvider.of(context)!.model),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                //const Line(),
-                const AddButton(),
+                AddButton(formKey: widget.formKey),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.14),
                 const DeclineButton(),
               ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
