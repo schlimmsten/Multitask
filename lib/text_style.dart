@@ -158,3 +158,10 @@ TextStyle redSmallTextStyle(context) => commonTextStyle(context).copyWith(
       fontSize: 18,
       color: Colors.red,
     );
+
+
+Color? colorSelectedChange(context){
+  return Provider.of<CustomTheme>(context).isDarkTheme
+          ? Colors.white
+          : const Color.fromARGB(255, 0, 0, 0);
+}
