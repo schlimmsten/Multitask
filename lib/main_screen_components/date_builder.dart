@@ -107,6 +107,7 @@ class DateBuilderState extends State<DateBuilder> {
 
     selectedDate = currentDate;
     taskModel.setSelectedDate(selectedDate);
+    widget.onDateScrolled(currentDate);
   }
 
   void loadSelectedDate() {

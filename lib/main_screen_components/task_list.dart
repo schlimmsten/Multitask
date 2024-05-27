@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:multitask/Notifications/notifications_server.dart';
 import 'package:multitask/add_screen_components/data_task/task.dart';
 import 'package:multitask/add_screen_components/data_task/task_model.dart';
-import 'package:multitask/screens/change_screen.dart';
+import 'package:multitask/screens/see_all.dart';
+
 import 'package:multitask/settings_screen_components/line.dart';
 import 'package:multitask/text_style.dart';
-import 'package:provider/provider.dart'; // Импорт Provider
+import 'package:provider/provider.dart';// Импорт Provider
 
 class TaskListWidget extends StatelessWidget {
   const TaskListWidget({super.key});
@@ -116,11 +118,10 @@ class TaskListWidget extends StatelessWidget {
                   maxLines: 1,
                 ),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (_) => ChangeScreen(index: index)),
-                  );
-                },
+                  
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => SeeAllScreen(index: index)));
+          },
               ),
             ),
             Align(
@@ -253,8 +254,10 @@ class TaskListWidget extends StatelessWidget {
     ]);
   }
 
-  void _performAction(
-      BuildContext context, int index, String action, List<Task> list) {
+  
+
+  Future<void> _performAction(
+      BuildContext context, int index, String action, List<Task> list) async {
     final model = Provider.of<TaskModel>(context, listen: false);
 
     final item = list[index];
@@ -264,10 +267,18 @@ class TaskListWidget extends StatelessWidget {
       list.removeAt(index);
       final snackBar = SnackBar(content: Text('${item.name} удален'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (await Notifications.isNotificationScheduled(item.id!*1000)) {
+        Notifications.deleteNotification(id: item.id!*1000);
+        Notifications.deleteNotification(id: item.id!*1000 + 1);
+      }
     } else if (action == 'Выполнить') {
       model.updateTaskStatus(item, true);
       final snackBar = SnackBar(content: Text('${item.name} выполнен'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (await Notifications.isNotificationScheduled(item.id!*1000)) {
+        Notifications.deleteNotification(id: item.id!*1000);
+        Notifications.deleteNotification(id: item.id!*1000 + 1);
+      }
     }
   }
 }

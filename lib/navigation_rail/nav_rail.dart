@@ -55,22 +55,23 @@ class NavigationState extends State<Navigation> {
     onDateScrolled: _updateAppBarOptions, selectedDate: selectedDate);
   }
 
+  void _onDateSelected(DateTime newDate) {
+    setState(() {
+      selectedDate = newDate;
+    });
+    _mainScreenBuilder.onDateSelected(newDate); // Обновляем дату в MainScreenBuilder
+    _mainScreenBuilder.goToSelectedWeek(newDate); // Переход к выбранной дате в DateBuilder
+    
+    // Обновляем AppBar
+    _updateAppBarOptions(newDate);
+  }
+
   void _updateAppBarOptionsMethod(DateTime currentDate) {
     int month = currentDate.month;
     int year = currentDate.year;
     setState(() {
       _appBarOptions[0] = '${months[month - 1]} $year';
     });
-  }
-
-  void _onDateSelected(DateTime newDate) {
-    setState(() {
-      selectedDate = newDate;
-    });
-    _mainScreenBuilder
-        .onDateSelected(newDate); // Обновляем дату в MainScreenBuilder
-    // Переход к выбранной дате в DateBuilder
-    _mainScreenBuilder.goToSelectedWeek(newDate);
   }
 
   late final List<Widget> _screenOptions = <Widget>[

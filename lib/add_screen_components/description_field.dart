@@ -38,12 +38,6 @@ class DescriptionField extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(12)),
         ),
       ),
-      validator: (String? value) {
-        if (value == null || value.isEmpty) {
-          return 'Пожалуйста введите описание задачи';
-        }
-          return null;
-      },
       onChanged: (value) => model?.description = value,
     );
   }

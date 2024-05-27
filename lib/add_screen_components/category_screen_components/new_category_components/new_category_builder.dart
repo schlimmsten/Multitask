@@ -7,7 +7,11 @@ import 'save_button.dart';
 //это кнопка добавить свою, сюда пока не лезь
 
 class NewCategoryBuilder extends StatefulWidget {
-  const NewCategoryBuilder({super.key});
+
+  // ignore: prefer_typing_uninitialized_variables
+  final model;
+
+  const NewCategoryBuilder({super.key, required this.model});
 
   @override
   State<NewCategoryBuilder> createState() => _NewCategoryState();
@@ -18,18 +22,18 @@ class _NewCategoryState extends State<NewCategoryBuilder> {
 
   @override
   Widget build(BuildContext context) {
-      return const Dialog(
+      return Dialog(
         child: Column(
           //размерность!!!
           mainAxisSize: MainAxisSize.min,
           children: [
             //вот под это можно будет переделать description_field
-            CategoryName(),
-            SizedBox(height: 20,),
+            const CategoryName(),
+            const SizedBox(height: 20,),
             //color_picker
-            ColorPicker(),
-            SizedBox(height: 20,),
-            SaveButton(),
+            const ColorPicker(),
+            const SizedBox(height: 20,),
+            SaveButton(model: widget.model,),
         ],),
     );
   }

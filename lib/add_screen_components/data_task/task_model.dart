@@ -29,7 +29,9 @@ class TaskModel extends ChangeNotifier {
         } else {
           _tasks.add(task);
         }
+       
       }
+
     }
   
   notifyListeners();
@@ -38,7 +40,6 @@ class TaskModel extends ChangeNotifier {
 
   void setSelectedDate(DateTime date) {
     _selectedDate = date;
-    print(_selectedDate);
     setup();
   }
 

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../themes/custom_theme.dart';
 
 //возможно придется поменять на stateful!!!
 
@@ -23,13 +21,14 @@ class _CategoryNameState extends State<CategoryName> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(
-      contentPadding: const EdgeInsets.only(left: 65),
+      style: const TextStyle(color: Colors.black),
+      decoration: const InputDecoration(
+      contentPadding: EdgeInsets.only(left: 65),
       hintText: 'Введите название...',
       hintStyle: TextStyle(
         fontSize: 20,
         fontFamily: "Montserrat",
-        color: Provider.of<CustomTheme>(context).isDarkTheme?Colors.white:Colors.black,
+        color: Colors.black,
         )
       ),
       controller: CategoryName.textController,

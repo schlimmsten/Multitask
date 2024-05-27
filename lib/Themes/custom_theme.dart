@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 class CustomTheme with ChangeNotifier {
   static const isDarkKey = 'key';
   bool _isDarkTheme = false;

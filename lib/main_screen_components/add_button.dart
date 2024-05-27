@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multitask/screens/add_screen.dart';
+import 'package:multitask/add_screen_components/category_screen_components/category_picker_components/category_picker.dart';
 
 class AddButton extends StatelessWidget {
   const AddButton({super.key});
@@ -10,6 +11,7 @@ class AddButton extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: FloatingActionButton(
           onPressed: () {
+            chosenCategory = null;
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) => const AddScreen(),
