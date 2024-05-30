@@ -7,10 +7,9 @@ import 'package:multitask/text_style.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../home_screen_components/dropdown_menu.dart' as dp;
-import 'package:multitask/internet/fetch_data.dart';
 
 class LessonsNav extends StatefulWidget {
-  const LessonsNav({Key? key}) : super(key: key);
+  const LessonsNav({super.key});
 
   @override
   State<LessonsNav> createState() => _LessonsNavState();
@@ -42,6 +41,7 @@ class _LessonsNavState extends State<LessonsNav> {
             const Line(),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const dp.DropdownMenu(),
                 ElevatedButton(
@@ -51,7 +51,7 @@ class _LessonsNavState extends State<LessonsNav> {
                         fetchData();
                       });
                     },
-                    child: Icon(Icons.refresh, color: Colors.black))
+                    child: const Icon(Icons.refresh, color: Colors.black))
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -96,7 +96,7 @@ class _LessonsNavState extends State<LessonsNav> {
   Widget _buildDayLessons(
       String day, List<Lesson>? lessons, BuildContext context) {
     if (lessons == null || lessons.isEmpty) {
-      return SizedBox(); // Вернуть пустой контейнер или другой виджет, если список уроков пустой или null
+      return const SizedBox(); // Вернуть пустой контейнер или другой виджет, если список уроков пустой или null
     }
 
     return Column(
@@ -135,7 +135,7 @@ class _LessonsNavState extends State<LessonsNav> {
 
   Widget _buildLessonList(BuildContext context, int index, List<Lesson> list) {
     return Container(
-      height: 120,
+      height: 150,
       margin: const EdgeInsets.symmetric(horizontal: 10.0),
       padding: const EdgeInsets.all(10.0), // Add padding inside the container
       decoration: BoxDecoration(
@@ -144,37 +144,100 @@ class _LessonsNavState extends State<LessonsNav> {
             : const Color.fromARGB(255, 240, 78, 78).withOpacity(0.5),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Row(
+          child: Container(
+              child: Column(
         children: [
-          Expanded(
-            child: ListTile(
-              title: Text(
-                list[index].discipline,
-                style: disciplineTextStyle(context),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-              subtitle: Text(
-                list[index].time,
-                style: disciplineTextStyle(context)
-                    .copyWith(fontSize: 26, fontWeight: FontWeight.w900),
-              ),
+          Text(
+            list[index].discipline,
+            style: disciplineTextStyle(context),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.95,
+              height: 2.9,
+              color:
+                  colorLine(context, Theme.of(context).scaffoldBackgroundColor),
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end, // Align to the start
-            mainAxisAlignment: MainAxisAlignment.center, // Center the content
+          Row(
             children: [
-              Text(list[index].classroom,
-                  style: disciplineTextStyle(context)
-                      .copyWith(fontSize: 26, fontWeight: FontWeight.w900)),
-
-              SizedBox(height: 5.0), // Adjust spacing
-              Text(list[index].lecturer, style: disciplineTextStyle(context)),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: SizedBox(
+                  width: 90,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.access_time,
+                        color: Colors.white,
+                        size: 36,
+                      ),
+                      const SizedBox(height: 5.0),
+                      Text(
+                        list[index].time,
+                        style: disciplineTextStyle(context).copyWith(
+                            fontSize: 22, fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: 2.9,
+                  height: 85.0,
+                  color: colorLine(
+                      context, Theme.of(context).scaffoldBackgroundColor),
+                  padding: const EdgeInsets.only(top: 0.0),
+                ),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (list[index].classroom != "")
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.pin_drop,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.02),
+                        Text(list[index].classroom,
+                            style: disciplineTextStyle(context).copyWith(
+                                fontSize: 26, fontWeight: FontWeight.w900)),
+                      ],
+                    ),
+                  const SizedBox(height: 5.0),
+                  if (list[index].lecturer != "")
+                    Row(
+                      children: [
+                        const Icon(
+                          weight: 800,
+                          Icons.face,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.02),
+                        Text(list[index].lecturer,
+                            style: disciplineTextStyle(context)),
+                      ],
+                    )
+                ],
+              ),
             ],
           )
         ],
-      ),
-    );
+      ),));
   }
 }
