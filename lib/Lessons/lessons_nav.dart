@@ -134,22 +134,23 @@ class _LessonsNavState extends State<LessonsNav> {
   }
 
   Widget _buildLessonList(BuildContext context, int index, List<Lesson> list) {
-    return Container(
-      height: 150,
-      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-      padding: const EdgeInsets.all(10.0), // Add padding inside the container
-      decoration: BoxDecoration(
-        color: list[index].weekCode == 1
-            ? const Color.fromARGB(255, 78, 153, 240).withOpacity(0.5)
-            : const Color.fromARGB(255, 240, 78, 78).withOpacity(0.5),
-        borderRadius: BorderRadius.circular(10),
-      ),
-          child: Container(
-              child: Column(
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+    padding: const EdgeInsets.all(10.0), // Add padding inside the container
+    decoration: BoxDecoration(
+      color: list[index].weekCode == 1
+          ? const Color.fromARGB(255, 78, 153, 240).withOpacity(0.5)
+          : const Color.fromARGB(255, 240, 78, 78).withOpacity(0.5),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: IntrinsicHeight(
+      child: Column(
         children: [
           Text(
             list[index].discipline,
             style: disciplineTextStyle(context),
+            overflow: TextOverflow.ellipsis, // Ensure text doesn't overflow
+            maxLines: 2, // Allow up to 2 lines for discipline
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Align(
@@ -157,8 +158,7 @@ class _LessonsNavState extends State<LessonsNav> {
             child: Container(
               width: MediaQuery.of(context).size.width * 0.95,
               height: 2.9,
-              color:
-                  colorLine(context, Theme.of(context).scaffoldBackgroundColor),
+              color: colorLine(context, Theme.of(context).scaffoldBackgroundColor),
               margin: const EdgeInsets.symmetric(horizontal: 8.0),
             ),
           ),
@@ -192,8 +192,7 @@ class _LessonsNavState extends State<LessonsNav> {
                 child: Container(
                   width: 2.9,
                   height: 85.0,
-                  color: colorLine(
-                      context, Theme.of(context).scaffoldBackgroundColor),
+                  color: colorLine(context, Theme.of(context).scaffoldBackgroundColor),
                   padding: const EdgeInsets.only(top: 0.0),
                 ),
               ),
@@ -236,8 +235,10 @@ class _LessonsNavState extends State<LessonsNav> {
                 ],
               ),
             ],
-          )
+          ),
         ],
-      ),));
-  }
+      ),
+    ),
+  );
+}
 }

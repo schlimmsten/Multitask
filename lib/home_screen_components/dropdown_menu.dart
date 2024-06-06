@@ -67,7 +67,7 @@ class DropdownMenuState extends State<DropdownMenu> {
               items: items
                   .map((item) => DropdownMenuItem<String?>(
                         value: item,
-                        child: Text(item!, style: smallTextStyle(context)),
+                        child: Text(item!, style: smallTextStyle(context).copyWith(color: Colors.black)), // Измените цвет элементов списка здесь
                       ))
                   .toList(),
               onChanged: (String? item) {
@@ -75,6 +75,14 @@ class DropdownMenuState extends State<DropdownMenu> {
                   selectedItem = item;
                   saveSelectedItem(item);
                 });
+              },
+              selectedItemBuilder: (BuildContext context) {
+                return items.map<Widget>((String? item) {
+                  return Text(
+                    item!,
+                    style: smallTextStyle(context).copyWith(fontWeight: FontWeight.bold), // Измените цвет выбранного элемента здесь
+                  );
+                }).toList();
               },
             ),
           );
